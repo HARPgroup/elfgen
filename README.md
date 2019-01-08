@@ -9,3 +9,5 @@ install_github('HARPgroup/elfgen')
 library(elfgen)
 # try it out
 elfgen_cleandata(data=data.frame())
+watershed.df <- elfgen_getdata('020700080403')
+elfgen_testplot(watershed.df)
