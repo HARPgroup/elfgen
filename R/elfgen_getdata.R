@@ -1,9 +1,3 @@
-#-------------------------------------------------------------------------------
-#library(sbtools) #USGS ScienceBase R Package, https://journal.r-project.org/archive/2016-1/winslow-chamberlain-appling-etal.pdf
-#library(RJSONIO) #required for processing nhdplus JSON data
-#library(ggplot2) #required for plotting
-#-------------------------------------------------------------------------------
-
 #' Retrieve and format data for ELF generation
 #' @description Given a HUC code, provides a dataframe of
 #' all contained nhdplus segments and their individual NT Total
@@ -13,6 +7,7 @@
 #' @return the watershed.df dataframe containing nhdplus MAF and NT Total values
 #' @import sbtools
 #' @import RJSONIO
+#' @import stringr
 #' @export elfgen_getdata
 elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
@@ -23,9 +18,12 @@ elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
   #file downloaded into local directory, as long as file exists it will not be re-downloaded
   if (file.exists(paste(ichthy.localpath, ichthy_filename, sep = '/')) == FALSE) {
+    print(paste("DOWNLOADING ICHTHY DATASET", sep = ''))
     ichthy_download = item_file_download(ichthy_item,
                                          dest_dir = ichthy.localpath,
                                          overwrite_file = FALSE)
+  } else {
+    print(paste("ICHTHY DATASET PREVIOUSLY DOWNLOADED", sep = ''))
   }
 
   #read csv from local directory
