@@ -87,6 +87,14 @@ elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
   }
 
+  #reformat dataframe to conform to elfgen format
+  watershed.df <- data.frame("MAF" = watershed.df$MAF,
+                             "NT.TOTAL.UNIQUE" = watershed.df$NT.TOTAL.UNIQUE,
+                             "watershed.code" = watershed.df$watershed.code,
+                             "COMID_NHDv2" = watershed.df$COMID_NHDv2
+
+  )
+
   return(watershed.df)
 } #close function
 

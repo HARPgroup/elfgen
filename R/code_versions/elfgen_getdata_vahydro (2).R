@@ -50,11 +50,7 @@ elfgen_getdata_vahydro <- function (inputs) {
                      geom = data$geom,
                      hydrocode = data$hydrocode,
                      drainage_area_sqmi = data$drainage_area_sqmi,
-                     qmean_annual = data$qmean_annual,
-                     watershed.code = target_hydrocode)
-  colnames(data)[1] <- x_var
-  colnames(data)[2] <- y_var
+                     qmean_annual = data$qmean_annual)
 
-  data <- data
 
 }

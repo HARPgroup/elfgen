@@ -12,8 +12,8 @@ method_pwit <- function(watershed.df,quantile,glo,ghi) {
   watershed.df.raw <- watershed.df
 
   #RENAME FLOW AND RICHNESS COLUMNS TO HAVE GENERIC NAMES
-  colnames(watershed.df)[3] <- "y_var"
-  colnames(watershed.df)[4] <- "x_var"
+  colnames(watershed.df)[1] <- "x_var"
+  colnames(watershed.df)[2] <- "y_var"
 
   # default glo if none provided
   if(missing(glo)) {

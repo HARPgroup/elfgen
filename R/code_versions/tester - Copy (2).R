@@ -30,7 +30,7 @@ breakpt <- 800
 # PIECEWISE ITERATIVE
 breakpt <- method_pwit("watershed.df" = watershed.df,
                 "quantile" = 0.97,
-                "glo" = 100,
+                "glo" = 10,
                 "ghi" = 1000)
 
 # YMAX

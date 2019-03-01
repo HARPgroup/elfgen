@@ -16,8 +16,8 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt) {
   watershed.df.raw <- watershed.df
 
   #RENAME FLOW AND RICHNESS COLUMNS TO HAVE GENERIC NAMES
-  colnames(watershed.df)[3] <- "y_var"
-  colnames(watershed.df)[4] <- "x_var"
+  colnames(watershed.df)[1] <- "x_var"
+  colnames(watershed.df)[2] <- "y_var"
 
   full_dataset <- watershed.df
 
@@ -41,12 +41,12 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt) {
   rup <- round(ru$coefficients[2,4], digits = 6)                           #p-value of upper quantile
   rucount <- length(upper.quant$y_var)
 
-  subset_n <- length(data$y_value)
+  subset_n <- length(data$y_var)
   ######################################################################################
   ######################################################################################
 
-  flow_title <- colnames(watershed.df.raw[4])
-  biometric_title <- colnames(watershed.df.raw[3])
+  flow_title <- colnames(watershed.df.raw[1])
+  biometric_title <- colnames(watershed.df.raw[2])
 
   yaxis_thresh <- max(full_dataset$y_var)
 
@@ -56,7 +56,7 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt) {
                       #enddate,"\n\nQuantile Regression: (breakpoint at ",ghi_var," = ", ghi,")",
                       #"\nBreakpoint at ",breakpt,
                       sep="");
-  xaxis_title <- paste(flow_title,"\n","\n","m: ",ruslope,"    b: ",ruint,"    r^2: ",rurs,"    adj r^2: ",rursadj,"    p: ",rup,"\n","    Upper ",((1 - quantile)*100),"% n: ",rucount,"    Data Subset n: ",subset_n,"    Full Dataset n: ",length(full_dataset$y_value),sep="");
+  xaxis_title <- paste(flow_title,"\n","\n","m: ",ruslope,"    b: ",ruint,"    r^2: ",rurs,"    adj r^2: ",rursadj,"    p: ",rup,"\n","    Upper ",((1 - quantile)*100),"% n: ",rucount,"    Data Subset n: ",subset_n,"    Full Dataset n: ",length(full_dataset$y_var),sep="");
   yaxis_title <- paste(biometric_title);
   EDAS_upper_legend <- paste("Data Subset (Upper ",((1 - quantile)*100),"%)",sep="");
   Reg_upper_legend <- paste("Regression (Upper ",((1 - quantile)*100),"%)",sep="");
@@ -110,5 +110,5 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt) {
   filename <- paste(watershed.df$watershed.code[1],"elf.pdf", sep="_")
   ggsave(file=filename, path = "C:/Users/nrf46657/Desktop/VAHydro Development/GitHub/elfgen/R/plots", width=8, height=6)
 
-  return(result)
+  #return(result)
 }
