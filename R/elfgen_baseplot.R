@@ -3,10 +3,11 @@
 #' @param watershed.df
 #' @param quantile
 #' @param breakpt
+#' @param yaxis_thresh
 #' @return the pdf image of ELF
 #' @import ggplot2
 #' @export elfgen_baseplot
-elfgen_baseplot <- function(watershed.df,quantile,breakpt) {
+elfgen_baseplot <- function(watershed.df,quantile,breakpt,yaxis_thresh) {
 
   # default method if none provided
   if(missing(breakpt)) {
@@ -34,11 +35,11 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt) {
 
   ru <- summary(regupper)
 
-  ruint <- round(ru$coefficients[1,1], digits = 6)                         #intercept
-  ruslope <- round(ru$coefficients[2,1], digits = 6)                       #slope of regression
-  rurs <- round(ru$r.squared, digits = 6)                                  #r squared of upper quantile
-  rursadj <- round(ru$adj.r.squared, digits = 6)                           #adjusted r squared of upper quantile
-  rup <- round(ru$coefficients[2,4], digits = 6)                           #p-value of upper quantile
+  ruint <- round(ru$coefficients[1,1], digits = 3)                         #intercept
+  ruslope <- round(ru$coefficients[2,1], digits = 3)                       #slope of regression
+  rurs <- round(ru$r.squared, digits = 3)                                  #r squared of upper quantile
+  rursadj <- round(ru$adj.r.squared, digits = 3)                           #adjusted r squared of upper quantile
+  rup <- round(ru$coefficients[2,4], digits = 3)                           #p-value of upper quantile
   rucount <- length(upper.quant$y_var)
 
   subset_n <- length(data$y_var)
@@ -48,7 +49,11 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt) {
   flow_title <- colnames(watershed.df.raw[1])
   biometric_title <- colnames(watershed.df.raw[2])
 
-  yaxis_thresh <- max(full_dataset$y_var)
+  # default ymax if none provided
+  if(missing(yaxis_thresh)) {
+    yaxis_thresh <- max(full_dataset$y_var)
+  }
+
 
   #Plot titles
   plot_title <- paste("Watershed: ",watershed.df$watershed.code[1],"\n",
