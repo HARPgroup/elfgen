@@ -22,13 +22,13 @@ watershed.df <- elfgen_getdata_vahydro(inputs)
 watershed.df <- elfgen_cleandata_vahydro(watershed.df)
 
 #write.table(watershed.df, file = paste("C:/Users/nrf46657/Desktop/VAHydro Development/GitHub/elfgen/R/sample_data/",inputs$target_hydrocode,"_vahydro.csv",sep=""),row.names=FALSE, na="",col.names=TRUE, sep=",")
-watershed.df <- read.csv(file = "C:/Users/nrf46657/Desktop/VAHydro Development/GitHub/elfgen/R/sample_data/nhd_huc8_02070008_vahydro.csv")
+#watershed.df <- read.csv(file = "C:/Users/nrf46657/Desktop/VAHydro Development/GitHub/elfgen/R/sample_data/nhd_huc8_02070008_vahydro.csv")
 
 #########################################################
 # BREAKPOINT IDENTIFICATION (CHOOSE 1 of 3 OPTIONS)
 #########################################################
 # USER DEFINED
-breakpt <- 800
+breakpt <- 307
 
 # PIECEWISE ITERATIVE
 breakpt <- method_pwit("watershed.df" = watershed.df,
@@ -44,8 +44,16 @@ breakpt <- method_ymax("watershed.df" = watershed.df)
 elfgen_baseplot("watershed.df" = watershed.df,
                 "quantile" = 0.80,
                 "breakpt" = breakpt,
-                "yaxis_thresh" = 55)
+                "yaxis_thresh" = 53)
+
+# have option to send custom axis labels?
+elfgen_baseplot("watershed.df" = watershed.df,
+                "quantile" = 0.80,
+                "breakpt" = breakpt,
+                "yaxis_thresh" = 53,
+                "xlabel" = "Mean Annual Flow (ft3/s)",
+                "ylabel" = "Fish Species Richness")
 
 elfgen_baseplot("watershed.df" = watershed.df,
-                "quantile" = 0.97)
+                "quantile" = 0.8)
 

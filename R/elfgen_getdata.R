@@ -61,7 +61,6 @@ elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     #  next
     #}
 
-
     COMID.Taxa.All <- COMID.rows$Name_Taxa
     NT.TOTAL.ALL <- length(COMID.Taxa.All)
     NT.TOTAL.UNIQUE <- length(unique(COMID.Taxa.All))

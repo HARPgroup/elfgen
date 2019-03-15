@@ -7,7 +7,7 @@
 #' @return the pdf image of ELF
 #' @import ggplot2
 #' @export elfgen_baseplot
-elfgen_baseplot <- function(watershed.df,quantile,breakpt,yaxis_thresh) {
+elfgen_baseplot <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
 
   # default method if none provided
   if(missing(breakpt)) {
@@ -61,6 +61,17 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt,yaxis_thresh) {
                       #enddate,"\n\nQuantile Regression: (breakpoint at ",ghi_var," = ", ghi,")",
                       #"\nBreakpoint at ",breakpt,
                       sep="");
+
+  #is.na(xaxis_title)
+
+ #if (exists("xaxis_title") == FALSE){xaxis_title <- paste(flow_title,"\n","\n","m: ",ruslope,"    b: ",ruint,"    r^2: ",rurs,"    adj r^2: ",rursadj,"    p: ",rup,"\n","    Upper ",((1 - quantile)*100),"% n: ",rucount,"    Data Subset n: ",subset_n,"    Full Dataset n: ",length(full_dataset$y_var),sep="")}
+ #if (exists("yaxis_title") == FALSE){yaxis_title <- paste(biometric_title)}
+
+
+  #xlabel <- "Something Custom"
+  if (xlabel != FALSE) {flow_title <- xlabel}
+  if (ylabel != FALSE) {biometric_title <- ylabel}
+
   xaxis_title <- paste(flow_title,"\n","\n","m: ",ruslope,"    b: ",ruint,"    r^2: ",rurs,"    adj r^2: ",rursadj,"    p: ",rup,"\n","    Upper ",((1 - quantile)*100),"% n: ",rucount,"    Data Subset n: ",subset_n,"    Full Dataset n: ",length(full_dataset$y_var),sep="");
   yaxis_title <- paste(biometric_title);
   EDAS_upper_legend <- paste("Data Subset (Upper ",((1 - quantile)*100),"%)",sep="");
@@ -78,7 +89,8 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt,yaxis_thresh) {
      geom_quantile(data = data, quantiles= quantile,show.legend = TRUE,aes(color="red")) +
      geom_smooth(data = data, method="lm",formula=y ~ x,show.legend = TRUE, aes(colour="yellow"),se=FALSE) +
      geom_smooth(data = upper.quant, formula = y ~ x, method = "lm", show.legend = TRUE, aes(x=x_var,y=y_var,color = "green"),se=FALSE) +
-    #
+      geom_vline(xintercept = breakpt, linetype="longdash",
+               color = "coral4", size=0.7)+
 
     ggtitle(plot_title) +
     theme(
@@ -86,8 +98,9 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt,yaxis_thresh) {
       axis.text = element_text(colour = "blue"),
       panel.grid.minor.x = element_blank()
     ) +
-    labs(x=xaxis_title,y=yaxis_title, subtitle = paste("Breakpoint at ",breakpt,sep="")) +
-    #labs(x=xaxis_title,y=yaxis_title) +
+    #labs(x=xaxis_title,y=yaxis_title, subtitle = paste("Breakpoint at ",breakpt,sep="")) +
+    labs(x=xaxis_title,y=yaxis_title) +
+    #labs(x=xlab,y=ylab) +
     scale_x_log10(
       limits = c(0.001,15000),
       breaks = c(0.001,0.01,0.1,1.0,10,100,1000,10000),
