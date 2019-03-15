@@ -61,7 +61,6 @@ elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     #  next
     #}
 
-
     COMID.Taxa.All <- COMID.rows$Name_Taxa
     NT.TOTAL.ALL <- length(COMID.Taxa.All)
     NT.TOTAL.UNIQUE <- length(unique(COMID.Taxa.All))
@@ -86,6 +85,14 @@ elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     print(paste("PROCESSING ",j," OF ",length(watershed.df$COMID_NHDv2)," (COMID ",COMID,"), MAF = ",COMID.MAF,sep = ''))
 
   }
+
+  #reformat dataframe to conform to elfgen format
+  watershed.df <- data.frame("MAF" = watershed.df$MAF,
+                             "NT.TOTAL.UNIQUE" = watershed.df$NT.TOTAL.UNIQUE,
+                             "watershed.code" = watershed.df$watershed.code,
+                             "COMID_NHDv2" = watershed.df$COMID_NHDv2
+
+  )
 
   return(watershed.df)
 } #close function
