@@ -89,8 +89,8 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = 
      geom_quantile(data = data, quantiles= quantile,show.legend = TRUE,aes(color="red")) +
      geom_smooth(data = data, method="lm",formula=y ~ x,show.legend = TRUE, aes(colour="yellow"),se=FALSE) +
      geom_smooth(data = upper.quant, formula = y ~ x, method = "lm", show.legend = TRUE, aes(x=x_var,y=y_var,color = "green"),se=FALSE) +
-      geom_vline(xintercept = breakpt, linetype="longdash",
-               color = "coral4", size=0.7)+
+      #geom_vline(xintercept = breakpt, linetype="longdash",
+      #         color = "coral4", size=0.7)+
 
     ggtitle(plot_title) +
     theme(

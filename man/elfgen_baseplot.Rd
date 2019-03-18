@@ -4,10 +4,8 @@
 \alias{elfgen_baseplot}
 \title{Generic ELF generation}
 \usage{
-elfgen_baseplot(watershed.df, quantile, ghi)
-}
-\arguments{
-\item{watershed.df}{a}
+elfgen_baseplot(watershed.df, quantile, breakpt, yaxis_thresh,
+  xlabel = FALSE, ylabel = FALSE)
 }
 \value{
 the pdf image of ELF
