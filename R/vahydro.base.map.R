@@ -304,7 +304,7 @@ print(paste("PROCESSING GIS DATA...", sep = ''))
   print(paste("OUTPUTTING PDF FILE...", sep = ''))
 
   filename <- paste(target_hydrocode,"map.pdf", sep="_")
-  ggsave(file=filename, path = paste(elfgen.location,"plots",sep=""), width=8, height=6)
+  ggsave(file=filename, path = paste(elfgen.location,"plots",sep=""), width=9, height=6)
 
 
   #result <- map

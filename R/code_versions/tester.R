@@ -13,8 +13,8 @@ inputs$vahydro_site = 'http://deq2.bse.vt.edu/d.dh';
 inputs$x_var = 'erom_q0001e_mean';
 inputs$y_var = 'aqbio_nt_total';
 inputs$sampres = 'species';
-inputs$target_ftype = 'nhd_huc8'; #nhd_huc6, nhd_huc10
-inputs$target_hydrocode = 'nhd_huc8_02080201';# 030102, 060102, 020700
+inputs$target_ftype = 'nhd_huc6'; #nhd_huc6, nhd_huc10
+inputs$target_hydrocode = '020700';# 030102, 060102, 020700, nhd_huc8_02080201
 
 
 
