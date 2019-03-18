@@ -8,7 +8,7 @@
 #' @import sp
 #' @import ggsn
 #' @export vahydro.base.map
-vahydro.base.map <- function(inputs, watershed.df, elfgen.location) {
+vahydro.base.map <- function(inputs, watershed.df, quantile, breakpt, elfgen.location) {
 
 #  library(rgeos)
 #  library(sp)
@@ -44,6 +44,34 @@ geom <- watershed.vahydro.export$geom
 #library(sp);
 #library(ggsn);
 
+#-----------------------------------------------------------
+print(paste("PROCESSING QUANTILE DATA...", sep = ''))
+
+
+# default method if none provided
+if(missing(breakpt)) {
+  breakpt <- 500
+}
+
+#watershed.df.raw <- watershed.df
+
+#RENAME FLOW AND RICHNESS COLUMNS TO HAVE GENERIC NAMES
+colnames(watershed.df)[1] <- "x_var"
+colnames(watershed.df)[2] <- "y_var"
+
+#full_dataset <- watershed.df
+
+data <- watershed.df[!(watershed.df$x_var > breakpt),]
+
+#------------------------------
+# UPPER QUANTILE SUBSET
+upper.quant.data <- rq(y_var ~ log(x_var),data = data, tau = quantile)
+newy <- c(log(data$x_var)*coef(upper.quant.data)[2]+coef(upper.quant.data)[1])
+upper.quant <- subset(data, data$y_var > newy)
+#-----------------------------------------------------------
+
+
+
 
 print(paste("PROCESSING GIS DATA...", sep = ''))
 
@@ -69,18 +97,18 @@ print(paste("PROCESSING GIS DATA...", sep = ''))
   split_2 <- read.table(text = split_1$V2, sep = ")", colClasses = "character")
   split_3 <- read.table(text = split_2$V1, sep = " ", colClasses = "character")
   STATIONSDF <- data.frame(x=as.numeric(split_3$V1),y=as.numeric(split_3$V2),X.id.="id",id="1")
-#
-#   BLUSTATIONS_data <- data
-#   BLUsplit_1 <- read.table(text = as.character(BLUSTATIONS_data$geom), sep = "(", colClasses = "character")
-#   BLUsplit_2 <- read.table(text = BLUsplit_1$V2, sep = ")", colClasses = "character")
-#   BLUsplit_3 <- read.table(text = BLUsplit_2$V1, sep = " ", colClasses = "character")
-#   BLUSTATIONSDF <- data.frame(x=as.numeric(BLUsplit_3$V1),y=as.numeric(BLUsplit_3$V2),X.id.="id",id="1")
 
-  # GRNSTATIONS_data <- upper.quant
-  # GRNsplit_1 <- read.table(text = as.character(GRNSTATIONS_data$geom), sep = "(", colClasses = "character")
-  # GRNsplit_2 <- read.table(text = GRNsplit_1$V2, sep = ")", colClasses = "character")
-  # GRNsplit_3 <- read.table(text = GRNsplit_2$V1, sep = " ", colClasses = "character")
-  # GRNSTATIONSDF <- data.frame(x=as.numeric(GRNsplit_3$V1),y=as.numeric(GRNsplit_3$V2),X.id.="id",id="1")
+   BLUSTATIONS_data <- data
+   BLUsplit_1 <- read.table(text = as.character(BLUSTATIONS_data$geom), sep = "(", colClasses = "character")
+   BLUsplit_2 <- read.table(text = BLUsplit_1$V2, sep = ")", colClasses = "character")
+   BLUsplit_3 <- read.table(text = BLUsplit_2$V1, sep = " ", colClasses = "character")
+   BLUSTATIONSDF <- data.frame(x=as.numeric(BLUsplit_3$V1),y=as.numeric(BLUsplit_3$V2),X.id.="id",id="1")
+
+   GRNSTATIONS_data <- upper.quant
+   GRNsplit_1 <- read.table(text = as.character(GRNSTATIONS_data$geom), sep = "(", colClasses = "character")
+   GRNsplit_2 <- read.table(text = GRNsplit_1$V2, sep = ")", colClasses = "character")
+   GRNsplit_3 <- read.table(text = GRNsplit_2$V1, sep = " ", colClasses = "character")
+   GRNSTATIONSDF <- data.frame(x=as.numeric(GRNsplit_3$V1),y=as.numeric(GRNsplit_3$V2),X.id.="id",id="1")
   # #--------------------------------------------------------------------------------------------
 
   # CLIP WATERSHED GEOMETRY TO BOUNDING BOX
@@ -244,8 +272,8 @@ print(paste("PROCESSING GIS DATA...", sep = ''))
 
                     #larger points attempt
                     geom_point(aes(x = x, y = y, group = id), data = STATIONSDF, color="gray66", size = 0.3)+
-                #      geom_point(aes(x = x, y = y, group = id), data = BLUSTATIONSDF, color="blue", size = 0.3)+
-                #      geom_point(aes(x = x, y = y, group = id), data = GRNSTATIONSDF, color="forestgreen", size = 0.3)+
+                      geom_point(aes(x = x, y = y, group = id), data = BLUSTATIONSDF, color="blue", size = 0.3)+
+                      geom_point(aes(x = x, y = y, group = id), data = GRNSTATIONSDF, color="forestgreen", size = 0.3)+
 
                       #bold outter border
                       geom_polygon(data = bbDF, color="black", fill = "NA",lwd=0.5)+

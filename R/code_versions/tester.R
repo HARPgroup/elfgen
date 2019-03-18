@@ -70,6 +70,8 @@ elfgen.location <- "C:/Users/nrf46657/Desktop/VAHydro Development/GitHub/elfgen/
 
 vahydro.base.map(inputs = inputs,
                  "watershed.df" = watershed.df,
+                 "quantile" = 0.80,
+                 "breakpt" = breakpt,
                  elfgen.location = elfgen.location)
 
 
