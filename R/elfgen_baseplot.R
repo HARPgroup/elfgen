@@ -89,8 +89,16 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = 
      geom_quantile(data = data, quantiles= quantile,show.legend = TRUE,aes(color="red")) +
      geom_smooth(data = data, method="lm",formula=y ~ x,show.legend = TRUE, aes(colour="yellow"),se=FALSE) +
      geom_smooth(data = upper.quant, formula = y ~ x, method = "lm", show.legend = TRUE, aes(x=x_var,y=y_var,color = "green"),se=FALSE) +
-      #geom_vline(xintercept = breakpt, linetype="longdash",
-      #         color = "coral4", size=0.7)+
+     # geom_vline(xintercept = breakpt, linetype="longdash",
+     #          color = "coral4", size=0.7)+
+  #  geom_vline(xintercept = breakpt, linetype="dashed",
+  #             color = "black", size=0.7)+
+  #  geom_vline(xintercept = breakpt, linetype="dashed",
+  #             color = "blue", size=0.7)+
+                                                                        #35
+ #   geom_segment(aes(x = breakpt+100, y = 0, xend = breakpt+100, yend = 45), linetype="dashed",
+ #                color = "blue", size=0.7)+
+
 
     ggtitle(plot_title) +
     theme(
@@ -111,7 +119,8 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = 
     #Add legend
      scale_color_manual(
        "Legend",
-       values=c("gray66","forestgreen","blue","orange","black","red"),
+       #values=c("gray66","forestgreen","blue","orange","black","red"),
+       values=c("gray66","gray66","gray66","gray66","gray66","gray66"),
        #labels=c("Full Dataset",EDAS_upper_legend,EDAS_lower_legend,Reg_upper_legend,Quantile_Legend,"Regression (Data Subset)")
        labels=c("Full Dataset",EDAS_upper_legend,EDAS_lower_legend,Reg_upper_legend,Quantile_Legend,"Regression (Data Subset)")
         ) +
