@@ -17,10 +17,8 @@ An introductory example of how elfgen works is supplied below. You start
 by either supplying a dataset with flow and richness data, or by supplying 
 a HUC code of interest. When supplying a HUC code: elfgen_getdata() will 
 retieve IchthyMaps data from USGS ScienceBase and automatically derive fish 
-species richness at the NHDPlusV2 segment scale. Mean annual flow data is
+species richness at the NHDPlusV2 segment scale. Mean annual flow data is then
 automatically retrieved for each NHDPlusV2 segment using an EPA JSON webservice.
-
-from the EPA .json web service 
 
 ``` r
 library(elfgen)
