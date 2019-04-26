@@ -4,7 +4,7 @@
 \alias{vahydro.base.map}
 \title{BASE MAP}
 \usage{
-vahydro.base.map(inputs, watershed.df, elfgen.location)
+vahydro.base.map(inputs, watershed.df, quantile, breakpt, elfgen.location)
 }
 \description{
 BASE MAP

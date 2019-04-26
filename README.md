@@ -3,6 +3,8 @@ Generator for Ecological Limit Function plots and equations.
 Examples and test datasets for generating Flow and Species Richness ELFs
 for flow alteration analysis.
 
+# ggplot2 <img src="man/figures/logo.png" align="right" width="120" />
+
 INSTALL
 ```
 library("devtools")
