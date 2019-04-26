@@ -119,8 +119,8 @@ elfgen_baseplot <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = 
     #Add legend
      scale_color_manual(
        "Legend",
-       #values=c("gray66","forestgreen","blue","orange","black","red"),
-       values=c("gray66","gray66","gray66","gray66","gray66","gray66"),
+       values=c("gray66","forestgreen","blue","orange","black","red"),
+       #values=c("gray66","gray66","gray66","gray66","gray66","gray66"),
        #labels=c("Full Dataset",EDAS_upper_legend,EDAS_lower_legend,Reg_upper_legend,Quantile_Legend,"Regression (Data Subset)")
        labels=c("Full Dataset",EDAS_upper_legend,EDAS_lower_legend,Reg_upper_legend,Quantile_Legend,"Regression (Data Subset)")
         ) +
