@@ -2,7 +2,7 @@
 
 ## Overview
 
-elfgen is a framwework for generating Ecological Limit Functions (ELFs).
+elfgen is a framwework for generating Ecological Limit Function (ELF) models.
 
 ## Installation
 
