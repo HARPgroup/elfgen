@@ -28,4 +28,4 @@ elfgen_baseplot("watershed.df" = watershed.df,
                 "ylabel" = "Fish Species Richness")
 ```
 
-![](man/figures/README-example-1.pdf)<!-- -->
+![](man/figures/README-example-1.png)<!-- -->

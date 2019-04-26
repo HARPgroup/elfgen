@@ -59,7 +59,7 @@ elfgen_baseplot("watershed.df" = watershed.df,
 
 # have option to send custom axis labels?
 elfgen_baseplot("watershed.df" = watershed.df,
-                "quantile" = 0.8,
+                "quantile" = 0.95,
                 "breakpt" = breakpt,
                 "yaxis_thresh" = 53,
                 "xlabel" = "Mean Annual Flow (ft3/s)",
