@@ -11,8 +11,9 @@ library("devtools")
 install_github('HARPgroup/elfgen')
 library(elfgen)
 ```
+
 ## Usage
-```
+``` r
 library(elfgen)
 
 # Retrieve dataset of interest
