@@ -15,7 +15,8 @@ Imports:
 	rgeos,
 	sbtools,
 	sp,
-	stringr
+	stringr,
+	udunits2
 License: What license is it under?
 LazyData: true
 RoxygenNote: 6.1.1
