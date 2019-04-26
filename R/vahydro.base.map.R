@@ -1,17 +1,24 @@
 #' BASE MAP
 #' @description
-#' @param geom
+#' @param inputs
 #' @param watershed.df
+#' @param elfgen.location
 #' @return
 #' @import rgeos
 #' @import sp
 #' @import ggsn
 #' @export vahydro.base.map
-vahydro.base.map <- function(inputs, geom, watershed.df) {
+vahydro.base.map <- function(inputs, watershed.df, quantile, breakpt, elfgen.location) {
 
-  watershed.code <- inputs$target_hydrocode
+#  library(rgeos)
+#  library(sp)
+#  library(ggsn)
+
+  geom <- watershed.df$geom
+  target_hydrocode <- inputs$target_hydrocode
   vahydro_site <- inputs$vahydro_site
-  target_ftype <- iinputs$target_ftype
+  target_ftype <- inputs$target_ftype
+
   #Automatic bundle specification (WILL BE ELIMINATED ONCE WE UPDATE VAHYDRO STORAGE SCHEME)
   if(target_ftype == "hwi_region"){
     bundle <- "ecoregion"
@@ -29,12 +36,44 @@ vahydro.base.map <- function(inputs, geom, watershed.df) {
 
 
 watershed.vahydro.url <- paste(vahydro_site,"?q=elfgen_regions_export",bundle, target_ftype, target_hydrocode, sep = "/");
+print(paste("Using ", watershed.vahydro.url, sep=''))
 watershed.vahydro.export  <- read.table(watershed.vahydro.url ,header = TRUE, sep = ",")
 geom <- watershed.vahydro.export$geom
 
 #library(rgeos);
 #library(sp);
 #library(ggsn);
+
+#-----------------------------------------------------------
+print(paste("PROCESSING QUANTILE DATA...", sep = ''))
+
+
+# default method if none provided
+if(missing(breakpt)) {
+  breakpt <- 500
+}
+
+#watershed.df.raw <- watershed.df
+
+#RENAME FLOW AND RICHNESS COLUMNS TO HAVE GENERIC NAMES
+colnames(watershed.df)[1] <- "x_var"
+colnames(watershed.df)[2] <- "y_var"
+
+#full_dataset <- watershed.df
+
+data <- watershed.df[!(watershed.df$x_var > breakpt),]
+
+#------------------------------
+# UPPER QUANTILE SUBSET
+upper.quant.data <- rq(y_var ~ log(x_var),data = data, tau = quantile)
+newy <- c(log(data$x_var)*coef(upper.quant.data)[2]+coef(upper.quant.data)[1])
+upper.quant <- subset(data, data$y_var > newy)
+#-----------------------------------------------------------
+
+
+
+
+print(paste("PROCESSING GIS DATA...", sep = ''))
 
   # SPECIFY BOUNDING BOX:
   #extent <- data.frame(x = c(-84, -75),
@@ -59,18 +98,18 @@ geom <- watershed.vahydro.export$geom
   split_3 <- read.table(text = split_2$V1, sep = " ", colClasses = "character")
   STATIONSDF <- data.frame(x=as.numeric(split_3$V1),y=as.numeric(split_3$V2),X.id.="id",id="1")
 
-  BLUSTATIONS_data <- data
-  BLUsplit_1 <- read.table(text = as.character(BLUSTATIONS_data$geom), sep = "(", colClasses = "character")
-  BLUsplit_2 <- read.table(text = BLUsplit_1$V2, sep = ")", colClasses = "character")
-  BLUsplit_3 <- read.table(text = BLUsplit_2$V1, sep = " ", colClasses = "character")
-  BLUSTATIONSDF <- data.frame(x=as.numeric(BLUsplit_3$V1),y=as.numeric(BLUsplit_3$V2),X.id.="id",id="1")
+   BLUSTATIONS_data <- data
+   BLUsplit_1 <- read.table(text = as.character(BLUSTATIONS_data$geom), sep = "(", colClasses = "character")
+   BLUsplit_2 <- read.table(text = BLUsplit_1$V2, sep = ")", colClasses = "character")
+   BLUsplit_3 <- read.table(text = BLUsplit_2$V1, sep = " ", colClasses = "character")
+   BLUSTATIONSDF <- data.frame(x=as.numeric(BLUsplit_3$V1),y=as.numeric(BLUsplit_3$V2),X.id.="id",id="1")
 
-  GRNSTATIONS_data <- upper.quant
-  GRNsplit_1 <- read.table(text = as.character(GRNSTATIONS_data$geom), sep = "(", colClasses = "character")
-  GRNsplit_2 <- read.table(text = GRNsplit_1$V2, sep = ")", colClasses = "character")
-  GRNsplit_3 <- read.table(text = GRNsplit_2$V1, sep = " ", colClasses = "character")
-  GRNSTATIONSDF <- data.frame(x=as.numeric(GRNsplit_3$V1),y=as.numeric(GRNsplit_3$V2),X.id.="id",id="1")
-  #--------------------------------------------------------------------------------------------
+   GRNSTATIONS_data <- upper.quant
+   GRNsplit_1 <- read.table(text = as.character(GRNSTATIONS_data$geom), sep = "(", colClasses = "character")
+   GRNsplit_2 <- read.table(text = GRNsplit_1$V2, sep = ")", colClasses = "character")
+   GRNsplit_3 <- read.table(text = GRNsplit_2$V1, sep = " ", colClasses = "character")
+   GRNSTATIONSDF <- data.frame(x=as.numeric(GRNsplit_3$V1),y=as.numeric(GRNsplit_3$V2),X.id.="id",id="1")
+  # #--------------------------------------------------------------------------------------------
 
   # CLIP WATERSHED GEOMETRY TO BOUNDING BOX
   watershed_geom <- readWKT(geom)
@@ -85,9 +124,9 @@ geom <- watershed.vahydro.export$geom
   watershedDF <- merge(watershedPoints, wsdataProjected@data, by = "id")
 
   #LOAD STATE AND River GEOMETRY
-  STATES <- read.table(file=paste(hydro_tools,"GIS_LAYERS","STATES.tsv",sep="\\"), header=TRUE, sep="\t") #Load state geometries
-  RIVDF <- read.table(file=paste(hydro_tools,"GIS_LAYERS","RIVDF.csv",sep="/"), header=TRUE, sep=",") #Load river geometries
-  WBDF <- read.table(file=paste(hydro_tools,"GIS_LAYERS","WBDF.csv",sep="/"), header=TRUE, sep=",") #Load waterbody geometries
+  STATES <- read.table(file=paste(elfgen.location,"GIS_LAYERS","STATES.tsv",sep="\\"), header=TRUE, sep="\t") #Load state geometries
+#  RIVDF <- read.table(file=paste(elfgen.location,"GIS_LAYERS","RIVDF.csv",sep="/"), header=TRUE, sep=",") #Load river geometries
+#  WBDF <- read.table(file=paste(elfgen.location,"GIS_LAYERS","WBDF.csv",sep="/"), header=TRUE, sep=",") #Load waterbody geometries
 
   VA <- STATES[which(STATES$state == "VA"),]
   VA_geom <- readWKT(VA$geom)
@@ -196,6 +235,8 @@ geom <- watershed.vahydro.export$geom
   #########################################################
   #########################################################
 
+  print(paste("PLOTTING GIS DATA...", sep = ''))
+
   map <- ggplotGrob(ggplot(data = VADF, aes(x=long, y=lat, group = group))+
                       geom_polygon(data = bbDF, color="black", fill = "powderblue",lwd=0.5)+
                       geom_polygon(data = VADF, color="gray46", fill = "gray")+
@@ -219,10 +260,10 @@ geom <- watershed.vahydro.export$geom
 
 
                       # ADD RIVERS ####################################################################
-                    geom_point(data = RIVDF, aes(x = long, y = lat), color="steelblue1", size=0.09)+
+               #     geom_point(data = RIVDF, aes(x = long, y = lat), color="steelblue1", size=0.09)+
                       #################################################################################
                     # ADD WATERBODIES ###############################################################
-                    geom_point(data = WBDF, aes(x = long, y = lat), color="steelblue1", size=0.09)+
+               #     geom_point(data = WBDF, aes(x = long, y = lat), color="steelblue1", size=0.09)+
                       #################################################################################
 
                     #geom_point(aes(x = x, y = y, group = id), data = STATIONSDF, color="gray66", size = 0.025)+
@@ -260,6 +301,12 @@ geom <- watershed.vahydro.export$geom
                             panel.border = element_blank())
   )
 
-  result <- map
-  return(result)
+  print(paste("OUTPUTTING PDF FILE...", sep = ''))
+
+  filename <- paste(target_hydrocode,"map.pdf", sep="_")
+  ggsave(file=filename, path = paste(elfgen.location,"plots",sep=""), width=9, height=6)
+
+
+  #result <- map
+  #return(result)
 }
