@@ -1,5 +1,7 @@
 # elfgen <img src="man/figures/logo.png" align="right" width="120" />
 
+[![Travis Build Status](https://travis-ci.org/HARPgroup/elfgen.svg?branch=master)](https://travis-ci.org/HARPgroup/elfgen)
+
 ## Overview
 
 elfgen is a framework for generating Ecological Limit Function (ELF) models.
