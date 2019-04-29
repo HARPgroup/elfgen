@@ -2,14 +2,13 @@ Package: elfgen
 Version: 0.1.0
 Title: What the Package Does (one line, title case)
 Description: 
-	Ecological Limit Function (ELF) Generation
+	Ecological Limit Function (ELF) Generation.
 Authors@R: 
 	person("Joseph", "Kleiner", email = "joseph.kleiner@deq.virginia.gov", role = c("aut", "cre"))
 Depends: 
-	R (>= 3.4.4)
+	R (>= 3.1)
 Imports: 
-	ggplot2
-License: GPL-2 | file LICENSE
+License: GPL-2
 LazyData: true
 RoxygenNote: 6.1.1
 Encoding: UTF-8
