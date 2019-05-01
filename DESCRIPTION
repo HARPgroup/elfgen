@@ -8,6 +8,10 @@ Authors@R:
 Depends: 
 	R (>= 3.1)
 Imports: 
+	utils,
+	RJSONIO,
+	sbtools,
+	stringr
 License: GPL-2
 LazyData: true
 RoxygenNote: 6.1.1
