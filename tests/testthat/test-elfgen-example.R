@@ -1,3 +1,5 @@
+context("elfgen-example")
+
 test_that(
 	"Checking input of 10",
 	{
