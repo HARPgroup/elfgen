@@ -12,10 +12,10 @@
 #' @export elfgen_getdata
 elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
-  if (nchar(watershed.code) > 12) {
-    stop("Invalid Length of watershed.code")
+  HUCRES.df <- data.frame(HUCRES = c(12, 10, 8, 6))
+  if (length(which(HUCRES.df$HUCRES == nchar(watershed.code))) < 1) {
+    stop("Invalid Length of Hydrologic Unit Code")
   }
-
 
   print(ichthy.localpath)
 
