@@ -1,4 +1,5 @@
 context("elfgen-getdata")
+library(elfgen)
 
 test_that("Checking length of input watershed.code",
           {
