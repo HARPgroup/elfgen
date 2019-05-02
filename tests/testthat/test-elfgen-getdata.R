@@ -7,7 +7,7 @@ test_that("Checking length of input watershed.code",
           })
 
 
-test_that("Function returns a dataframe", {
-  expect_equal(is.data.frame(elfgen_getdata("020700080403")), TRUE)
-})
+# test_that("Function returns a dataframe", {
+#   expect_equal(is.data.frame(elfgen_getdata("020700080403")), TRUE)
+# })
 
