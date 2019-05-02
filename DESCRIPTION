@@ -11,7 +11,9 @@ Imports:
 	utils,
 	RJSONIO,
 	sbtools,
-	stringr
+	stringr,
+	quantreg,
+	stats
 License: GPL-2
 LazyData: true
 RoxygenNote: 6.1.1
