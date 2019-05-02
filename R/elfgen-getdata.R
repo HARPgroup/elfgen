@@ -12,6 +12,11 @@
 #' @export elfgen_getdata
 elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
+  HUCRES.df <- data.frame(HUCRES = c(12, 10, 8, 6))
+  if (length(which(HUCRES.df$HUCRES == nchar(watershed.code))) < 1) {
+    stop("Invalid Length of Hydrologic Unit Code")
+  }
+
   print(ichthy.localpath)
 
   ichthy_item = item_get("5446a5a1e4b0f888a81b816d") #Get item using its ScienceBase unique identifier
