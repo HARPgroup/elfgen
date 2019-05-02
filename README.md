@@ -4,7 +4,7 @@
 [![Coverage Status](https://codecov.io/gh/HARPgroup/elfgen/branch/master/graph/badge.svg)](https://codecov.io/gh/HARPgroup/elfgen)
 
 ## Overview
-
+ 
 elfgen is a framework for generating Ecological Limit Function (ELF) models.
 
 ## Installation
