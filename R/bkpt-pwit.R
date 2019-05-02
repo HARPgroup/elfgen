@@ -6,7 +6,7 @@
 #' @param ghi
 #' @return breakpt
 #' @import quantreg
-#' @export method_pwit
+#' @export bkpt_pwit
 bkpt_pwit <- function(watershed.df,quantile,glo,ghi) {
 
   watershed.df.raw <- watershed.df
