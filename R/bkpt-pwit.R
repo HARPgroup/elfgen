@@ -16,6 +16,11 @@ bkpt_pwit <- function(watershed.df,quantile,glo,ghi) {
   colnames(watershed.df)[1] <- "x_var"
   colnames(watershed.df)[2] <- "y_var"
 
+  # stop if no quantile parameter supplied
+  if(missing(quantile)) {
+    stop("Missing quantile parameter")
+  }
+
   # default glo if none provided
   if(missing(glo)) {
     glo <- 0
