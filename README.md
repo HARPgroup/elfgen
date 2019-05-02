@@ -24,7 +24,7 @@ species richness at the NHDPlusV2 segment scale. Mean annual flow data is then
 automatically retrieved for each NHDPlusV2 segment using an EPA JSON webservice.
 
 A breakpoint in the flow-ecology relation is determined using a fixed user-defined
-value, or identified using the functions `method_pwit()` or `method_ymax()`. The ELF
+value, or identified using the functions `bkpt_pwit()` or `bkpt_ymax()`. The ELF
 model is then generated and plotted using `elfgen_baseplot()` with ELF model statistics
 returned.
 
