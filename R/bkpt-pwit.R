@@ -1,11 +1,12 @@
 #' Generic ELF generation
 #' @description PIECEWISE ITERATIVE method function
-#' @param watershed.df
-#' @param quantile
-#' @param glo
-#' @param ghi
+#' @param watershed.df a dataframe of sites with ecological and hydrologic data
+#' @param quantile a specified value for the quantile of interest - 0.95 equals the 95th percentile
+#' @param glo a "guess low" value, or the lower bound of the piecewise range
+#' @param ghi a "guess high" value, or the upper bound of the piecewise range
 #' @return breakpt
 #' @import quantreg
+#' @import stats
 #' @export bkpt_pwit
 bkpt_pwit <- function(watershed.df,quantile,glo,ghi) {
 
