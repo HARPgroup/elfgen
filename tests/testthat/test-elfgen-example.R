@@ -1,6 +1,6 @@
 context("elfgen-example")
 
-#This is an example test
+# This is an example test
 test_that(
 	"Checking input of 10",
 	{
