@@ -13,7 +13,8 @@ Imports:
 	sbtools,
 	stringr,
 	quantreg,
-	stats
+	stats,
+	ggplot2
 License: GPL-2
 LazyData: true
 RoxygenNote: 6.1.1
