@@ -2,8 +2,10 @@
 
 export(bkpt_pwit)
 export(bkpt_ymax)
+export(elfgen)
 export(elfgen_getdata)
 import(RJSONIO)
+import(ggplot2)
 import(quantreg)
 import(sbtools)
 import(stats)
