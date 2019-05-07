@@ -63,25 +63,19 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
 #   #print(length(upper.quant[,1]))
 
    #Prevents: Error in ru$coefficients[2, 1] : subscript out of bound
-   if(length(upper.quant[,1]) <= 1) {
-     stop("Upper quantile subset contains fewer than 2 datapoints")
+   if(length(upper.quant[,1]) <= 2) {
+     stop("Upper quantile subset contains fewer than 3 datapoints")
    }
-#
+
    regupper <- lm(y_var ~ log(x_var),data = upper.quant)
-#  return(regupper)
    ru <- summary(regupper)
 
-#   #print(ru)
-#
    ruint <- round(ru$coefficients[1,1], digits = 3)                         #intercept
    ruslope <- round(ru$coefficients[2,1], digits = 3)                       #slope of regression
    rurs <- round(ru$r.squared, digits = 3)                                  #r squared of upper quantile
    rursadj <- round(ru$adj.r.squared, digits = 3)                           #adjusted r squared of upper quantile
    rup <- round(ru$coefficients[2,4], digits = 3)                           #p-value of upper quantile
    rucount <- length(upper.quant$y_var)
-#
-
-   #return(rucount)
 
    subset_n <- length(data$y_var)
 
