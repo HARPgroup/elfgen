@@ -13,12 +13,17 @@ library(elfgen)
    watershed.code = "testcode"
  )
 
- test_that("Testing breakpt default when none is provided", {
-   expect_equal(elfgen("watershed.df" = test.watershed.df,
-                        "quantile" = 0.60,
-                        "yaxis_thresh"= 53), 8)
- })
+ # test_that("Testing breakpt default when none is provided", {
+ #   expect_equal(elfgen("watershed.df" = test.watershed.df,
+ #                        "quantile" = 0.60,
+ #                        "yaxis_thresh"= 53), "Data Subset (Lower 60%)")
+ # })
 
+ test_that("Testing breakpt default when none is provided", {
+    expect_equal(class(elfgen("watershed.df" = test.watershed.df,
+                        "quantile" = 0.60,
+                        "yaxis_thresh"= 53)), c("gg", "ggplot"))
+ })
 
 # test_that("Function returns a plot figure", {
 #   # expect_equal(bkpt_pwit(test.watershed.df, 0.80, 50, 1000), 526)
@@ -51,8 +56,21 @@ library(elfgen)
 #                  "yaxis_thresh" = 53)
 
 
- test_that("Function returns a newy", {
-   expect_equal(elfgen(test.watershed.df, 0.60, 526, 53), 10)
+ # test_that("Function returns a newy", {
+ #   expect_equal(elfgen(test.watershed.df, 0.60, 526, 53), "Data Subset (Lower 60%)")
+ #
+ # })
+
+ test_that("Function returns a ggplot object", {
+    expect_equal(class(elfgen(test.watershed.df, 0.60, 526, 53)), c("gg", "ggplot"))
 
  })
+
+#  watershed.df <- read.csv(file = "C:/Users/nrf46657/Desktop/elfgen_pre_4.29.19/R/sample_data/nhd_huc8_02070008_vahydro.csv")
+# plt <- elfgen(watershed.df, 0.8, 526, 53)
+#
+#
+#  elfgen(test.watershed.df, 0.7, 526, 53) #Warning message:
+                                           #In qt((1 - level)/2, df) : NaNs produced
+
 
