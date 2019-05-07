@@ -14,7 +14,8 @@ Imports:
 	stringr,
 	quantreg,
 	stats,
-	ggplot2
+	ggplot2,
+	testit
 License: GPL-2
 LazyData: true
 RoxygenNote: 6.1.1
