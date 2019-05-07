@@ -29,8 +29,6 @@ model is then generated and plotted using `elfgen_baseplot()` with ELF model sta
 returned.
 
 ``` r
-library(elfgen)
-
 # Retrieve dataset of interest
 watershed.df <- elfgen_getdata('02080201')
 
