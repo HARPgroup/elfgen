@@ -12,6 +12,8 @@
 #' @export elfgen_getdata
 elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
+  #watershed.code <- '999999999999'
+
   HUCRES.df <- data.frame(HUCRES = c(12, 10, 8, 6))
   if (length(which(HUCRES.df$HUCRES == nchar(watershed.code))) < 1) {
     stop("Invalid Length of Hydrologic Unit Code")
@@ -47,6 +49,10 @@ elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
   if (nchar(watershed.code) == 10) {watershed.rows <- ichthy.dataframe[which(ichthy.dataframe$HUC10 == watershed.code),] }
   if (nchar(watershed.code) == 8) {watershed.rows <- ichthy.dataframe[which(ichthy.dataframe$HUC8 == watershed.code),] }
   if (nchar(watershed.code) == 6) {watershed.rows <- ichthy.dataframe[which(ichthy.dataframe$HUC6 == watershed.code),] }
+
+   if (length(watershed.rows[,1]) == 0) {
+     stop("No IchthyMap Data for Hydrologic Unit Code")
+   }
 
   #initialize watershed.df dataframe
   watershed.df <- data.frame(WATERSHED=character(),
