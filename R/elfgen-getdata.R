@@ -17,24 +17,55 @@ elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     stop("Invalid Length of Hydrologic Unit Code")
   }
 
-  print(ichthy.localpath)
 
-  ichthy_item = item_get("5446a5a1e4b0f888a81b816d") #Get item using its ScienceBase unique identifier
-  ichthy_filename <- item_list_files(ichthy_item)[1,1] #Obtain filename from ichthy item
 
-  #file downloaded into local directory, as long as file exists it will not be re-downloaded
-  if (file.exists(paste(ichthy.localpath, ichthy_filename, sep = '/')) == FALSE) {
-    print(paste("DOWNLOADING ICHTHY DATASET", sep = ''))
-    ichthy_download = item_file_download(ichthy_item,
-                                         dest_dir = ichthy.localpath,
-                                         overwrite_file = FALSE,
-                                         timeout = 200)
+  if (watershed.code != "testcode") {
+
+    print(ichthy.localpath)
+
+    ichthy_item = item_get("5446a5a1e4b0f888a81b816d") #Get item using its ScienceBase unique identifier
+    ichthy_filename <-
+      item_list_files(ichthy_item)[1, 1] #Obtain filename from ichthy item
+
+    #file downloaded into local directory, as long as file exists it will not be re-downloaded
+    if (file.exists(paste(ichthy.localpath, ichthy_filename, sep = '/')) == FALSE) {
+      print(paste("DOWNLOADING ICHTHY DATASET", sep = ''))
+      ichthy_download = item_file_download(
+        ichthy_item,
+        dest_dir = ichthy.localpath,
+        overwrite_file = FALSE,
+        timeout = 200
+      )
+    } else {
+      print(paste("ICHTHY DATASET PREVIOUSLY DOWNLOADED", sep = ''))
+    }
+
+    #read csv from local directory
+    ichthy.dataframe <- read.csv(file=paste(ichthy.localpath,ichthy_filename,sep="\\"), header=TRUE, sep=",")
+
+
   } else {
-    print(paste("ICHTHY DATASET PREVIOUSLY DOWNLOADED", sep = ''))
+    # THIS IS FOR TESTING PURPOSES ONLY
+
+    ichthy.dataframe <- data.frame(
+      ID = c(132114,462514,370400,113072,113252),
+      Source = c('Fish_Virginia','Fish_United States','Fish_United States','Fish_Virginia','Fish_Virginia'),
+      State = c('VA','VA','VA','VA','VA'),
+      Name_Taxa = c('Ameiurus catus','Percina notogramma','Notropis analostanus','Clinostomus funduloides','Percina notogramma'),
+      Genus = c('Ameiurus','Percina','Notropis','Clinostomus','Percina'),
+      Species = c('catus','notogramma','analostanus','funduloides','notogramma'),
+      Level_Taxa = c('species','species','species','species','species'),
+      ITIS_TSN = c(164037,168473,163766,163371,168473),
+      COMID_NHDv2 = c(8508050,8508132,8508148,8508662,8508662),
+      HUC12 = c(20801061101,20801060301,20801060903,20801060102,20801060102),
+      HUC8 = c(2080106,2080106,2080106,2080106,2080106),
+      HUC4 = c(208,208,208,208,208),
+      Time_frame = c('1968-1987','1950-1980','1950-1980','1968-1987','1968-1987')
+
+    )
+
   }
 
-  #read csv from local directory
-  ichthy.dataframe <- read.csv(file=paste(ichthy.localpath,ichthy_filename,sep="\\"), header=TRUE, sep=",")
 
   #pad HUC12 column to ensure leading "0", genrate columns for HUC10, HUC8, HUC6
   ichthy.dataframe$HUC12 <- as.character(str_pad(gsub(" ", "", format(ichthy.dataframe$HUC12, scientific=F), fixed = TRUE), 12, pad = "0"))
