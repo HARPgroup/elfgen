@@ -44,6 +44,10 @@ elfgen("watershed.df" = watershed.df,
        "ylabel" = "Fish Species Richness")
 ```
 
+``` r
+$plot
+```
+
 ![](man/figures/README-example-1.png)<!-- -->
 
 ``` r
