@@ -54,6 +54,17 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
    rucount <- length(upper.quant$y_var)
    subset_n <- length(data$y_var)
 
+   stats.df <- data.frame(
+      m = ruslope,
+      b = ruint,
+      rsquared = rurs,
+      rsquared_adj = rursadj,
+      p = rup,
+      n_total = length(full_dataset$y_var),
+      n_subset = subset_n,
+      n_subset_upper = rucount
+   )
+
    # default ymax if none provided
    if (missing(yaxis_thresh)) {
       yaxis_thresh <- max(full_dataset$y_var)
@@ -120,5 +131,8 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
          label.position = "right"
       ))
 
-   return(result)
+
+   objects <- list("plot" = result, "stats" = stats.df)
+   return(objects)
+
 }
