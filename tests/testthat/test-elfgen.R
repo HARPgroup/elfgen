@@ -36,7 +36,7 @@ library(elfgen)
                              "ylabel" = "Fish Species Richness")), "list")
  })
 
- test_that("Function returns a ggplot object", {
+ test_that("Function returns a list of objects", {
     expect_equal(class(elfgen(test.watershed.df, 0.60, 526, 53)), "list")
 
  })

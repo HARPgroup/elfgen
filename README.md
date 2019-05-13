@@ -45,3 +45,9 @@ elfgen("watershed.df" = watershed.df,
 ```
 
 ![](man/figures/README-example-1.png)<!-- -->
+
+``` r
+$stats
+       m        b rsquared rsquared_adj     p n_total n_subset n_subset_upper
+1 24.301 -105.054    0.977        0.969 0.001      20       10              5
+```
