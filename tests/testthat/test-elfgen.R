@@ -12,13 +12,13 @@ library(elfgen)
  test_that("Testing breakpt default when none is provided", {
     expect_equal(class(elfgen("watershed.df" = test.watershed.df,
                         "quantile" = 0.60,
-                        "yaxis_thresh"= 53)), c("gg", "ggplot"))
+                        "yaxis_thresh"= 53)), "list")
  })
 
  test_that("Testing yaxis_thresh default when none is provided", {
    expect_equal(class(elfgen("watershed.df" = test.watershed.df,
                              "quantile" = 0.60,
-                             "breakpt" = 526)), c("gg", "ggplot"))
+                             "breakpt" = 526)), "list")
  })
 
  test_that("Checking for successful upper.quant subset", {
@@ -33,11 +33,11 @@ library(elfgen)
                              "breakpt" = 526,
                              "yaxis_thresh"= 53,
                              "xlabel" = "Mean Annual Flow (ft3/s)",
-                             "ylabel" = "Fish Species Richness")), c("gg", "ggplot"))
+                             "ylabel" = "Fish Species Richness")), "list")
  })
 
  test_that("Function returns a ggplot object", {
-    expect_equal(class(elfgen(test.watershed.df, 0.60, 526, 53)), c("gg", "ggplot"))
+    expect_equal(class(elfgen(test.watershed.df, 0.60, 526, 53)), "list")
 
  })
 
