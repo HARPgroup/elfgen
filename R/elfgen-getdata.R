@@ -37,8 +37,7 @@ elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
       ichthy_download = item_file_download(
         ichthy_item,
         dest_dir = ichthy.localpath,
-        overwrite_file = FALSE,
-        timeout = 200
+        overwrite_file = FALSE
       )
     } else {
       print(paste("ICHTHY DATASET PREVIOUSLY DOWNLOADED", sep = ''))

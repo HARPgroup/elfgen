@@ -25,7 +25,7 @@ automatically retrieved for each NHDPlusV2 segment using an EPA JSON webservice.
 
 A breakpoint in the flow-ecology relation is determined using a fixed user-defined
 value, or identified using the functions `bkpt_pwit()` or `bkpt_ymax()`. The ELF
-model is then generated and plotted using `elfgen_baseplot()` with ELF model statistics
+model is then generated and plotted using `elfgen()` with ELF model statistics
 returned.
 
 ``` r
@@ -53,5 +53,5 @@ $plot
 ``` r
 $stats
        m        b rsquared rsquared_adj     p n_total n_subset n_subset_upper
-1 24.301 -105.054    0.977        0.969 0.001      20       10              5
+1 2.34 9.19    0.806          0.8 0     861      705             35
 ```
