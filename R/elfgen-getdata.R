@@ -12,29 +12,43 @@
 #' @export elfgen_getdata
 elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
+  if (class(watershed.code) == 'data.frame') {
+    print('This is for testing purposes only')
+    ichthy.dataframe <- watershed.code
+    watershed.code <- '02080106'
+  } else {
+
   HUCRES.df <- data.frame(HUCRES = c(12, 10, 8, 6))
   if (length(which(HUCRES.df$HUCRES == nchar(watershed.code))) < 1) {
     stop("Invalid Length of Hydrologic Unit Code")
   }
 
-  print(ichthy.localpath)
 
-  ichthy_item = item_get("5446a5a1e4b0f888a81b816d") #Get item using its ScienceBase unique identifier
-  ichthy_filename <- item_list_files(ichthy_item)[1,1] #Obtain filename from ichthy item
 
-  #file downloaded into local directory, as long as file exists it will not be re-downloaded
-  if (file.exists(paste(ichthy.localpath, ichthy_filename, sep = '/')) == FALSE) {
-    print(paste("DOWNLOADING ICHTHY DATASET", sep = ''))
-    ichthy_download = item_file_download(ichthy_item,
-                                         dest_dir = ichthy.localpath,
-                                         overwrite_file = FALSE,
-                                         timeout = 200)
-  } else {
-    print(paste("ICHTHY DATASET PREVIOUSLY DOWNLOADED", sep = ''))
+    print(ichthy.localpath)
+
+    ichthy_item = item_get("5446a5a1e4b0f888a81b816d") #Get item using its ScienceBase unique identifier
+    ichthy_filename <-
+      item_list_files(ichthy_item)[1, 1] #Obtain filename from ichthy item
+
+    #file downloaded into local directory, as long as file exists it will not be re-downloaded
+    if (file.exists(paste(ichthy.localpath, ichthy_filename, sep = '/')) == FALSE) {
+      print(paste("DOWNLOADING ICHTHY DATASET", sep = ''))
+      ichthy_download = item_file_download(
+        ichthy_item,
+        dest_dir = ichthy.localpath,
+        overwrite_file = FALSE,
+        timeout = 200
+      )
+    } else {
+      print(paste("ICHTHY DATASET PREVIOUSLY DOWNLOADED", sep = ''))
+    }
+
+    #read csv from local directory
+    ichthy.dataframe <- read.csv(file=paste(ichthy.localpath,ichthy_filename,sep="\\"), header=TRUE, sep=",")
+
   }
 
-  #read csv from local directory
-  ichthy.dataframe <- read.csv(file=paste(ichthy.localpath,ichthy_filename,sep="\\"), header=TRUE, sep=",")
 
   #pad HUC12 column to ensure leading "0", genrate columns for HUC10, HUC8, HUC6
   ichthy.dataframe$HUC12 <- as.character(str_pad(gsub(" ", "", format(ichthy.dataframe$HUC12, scientific=F), fixed = TRUE), 12, pad = "0"))
@@ -47,6 +61,10 @@ elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
   if (nchar(watershed.code) == 10) {watershed.rows <- ichthy.dataframe[which(ichthy.dataframe$HUC10 == watershed.code),] }
   if (nchar(watershed.code) == 8) {watershed.rows <- ichthy.dataframe[which(ichthy.dataframe$HUC8 == watershed.code),] }
   if (nchar(watershed.code) == 6) {watershed.rows <- ichthy.dataframe[which(ichthy.dataframe$HUC6 == watershed.code),] }
+
+   if (length(watershed.rows[,1]) == 0) {
+     stop("No IchthyMap Data for Hydrologic Unit Code")
+   }
 
   #initialize watershed.df dataframe
   watershed.df <- data.frame(WATERSHED=character(),
