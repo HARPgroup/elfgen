@@ -12,14 +12,18 @@
 #' @export elfgen_getdata
 elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
+  if (class(watershed.code) == 'data.frame') {
+    print('This is for testing purposes only')
+    ichthy.dataframe <- watershed.code
+    watershed.code <- '02080106'
+  } else {
+
   HUCRES.df <- data.frame(HUCRES = c(12, 10, 8, 6))
   if (length(which(HUCRES.df$HUCRES == nchar(watershed.code))) < 1) {
     stop("Invalid Length of Hydrologic Unit Code")
   }
 
 
-
-  if (watershed.code != "testcode") {
 
     print(ichthy.localpath)
 
@@ -42,27 +46,6 @@ elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
     #read csv from local directory
     ichthy.dataframe <- read.csv(file=paste(ichthy.localpath,ichthy_filename,sep="\\"), header=TRUE, sep=",")
-
-
-  } else {
-    # THIS IS FOR TESTING PURPOSES ONLY
-
-    ichthy.dataframe <- data.frame(
-      ID = c(132114,462514,370400,113072,113252),
-      Source = c('Fish_Virginia','Fish_United States','Fish_United States','Fish_Virginia','Fish_Virginia'),
-      State = c('VA','VA','VA','VA','VA'),
-      Name_Taxa = c('Ameiurus catus','Percina notogramma','Notropis analostanus','Clinostomus funduloides','Percina notogramma'),
-      Genus = c('Ameiurus','Percina','Notropis','Clinostomus','Percina'),
-      Species = c('catus','notogramma','analostanus','funduloides','notogramma'),
-      Level_Taxa = c('species','species','species','species','species'),
-      ITIS_TSN = c(164037,168473,163766,163371,168473),
-      COMID_NHDv2 = c(8508050,8508132,8508148,8508662,8508662),
-      HUC12 = c(20801061101,20801060301,20801060903,20801060102,20801060102),
-      HUC8 = c(2080106,2080106,2080106,2080106,2080106),
-      HUC4 = c(208,208,208,208,208),
-      Time_frame = c('1968-1987','1950-1980','1950-1980','1968-1987','1968-1987')
-
-    )
 
   }
 
