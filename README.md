@@ -52,8 +52,8 @@ $plot
 
 ``` r
 $stats
-			 m    b rsquared rsquared_adj p n_total n_subset n_subset_upper
-#> [1]	1 2.34 9.19    0.806          0.8 0     861      705             35
+#>		 m    b rsquared rsquared_adj p n_total n_subset n_subset_upper
+#>	1 2.34 9.19    0.806          0.8 0     861      705             35
 ```
 
 ## Richness Change
