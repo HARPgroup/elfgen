@@ -36,22 +36,22 @@ watershed.df <- elfgen_getdata('02080201')
 breakpt <- bkpt_pwit("watershed.df" = watershed.df, "quantile" = 0.95, "glo" = 50, "ghi" = 1000)  
 					   
 # Plot the flow-ecology relation and generate ELF model					   
-elfgen("watershed.df" = watershed.df,
-       "quantile" = 0.95,
-       "breakpt" = breakpt,
-       "yaxis_thresh" = 53,
-       "xlabel" = "Mean Annual Flow (ft3/s)",
-       "ylabel" = "Fish Species Richness")
+elf <- elfgen("watershed.df" = watershed.df,
+			  "quantile" = 0.95,
+			  "breakpt" = breakpt,
+			  "yaxis_thresh" = 53,
+			  "xlabel" = "Mean Annual Flow (ft3/s)",
+			  "ylabel" = "Fish Species Richness")
 ```
 
 ``` r
-$plot
+elf$plot
 ```
 
 ![](man/figures/README-example-1.png)<!-- -->
 
 ``` r
-$stats
+elf$stats
 #>	   m    b rsquared rsquared_adj p n_total n_subset n_subset_upper
 #> 1	2.34 9.19    0.806          0.8 0     861      705             35
 ```
