@@ -37,10 +37,10 @@ breakpt <- bkpt_pwit("watershed.df" = watershed.df, "quantile" = 0.95, "glo" = 5
 					   
 # Plot the flow-ecology relation and generate ELF model					   
 elf <- elfgen("watershed.df" = watershed.df,
-   "quantile" = 0.95,
-	 "breakpt" = breakpt,
-	  "yaxis_thresh" = 53,
-	   "xlabel" = "Mean Annual Flow (ft3/s)",
+		"quantile" = 0.95,
+			"breakpt" = breakpt,
+			"yaxis_thresh" = 53,
+			"xlabel" = "Mean Annual Flow (ft3/s)",
 		"ylabel" = "Fish Species Richness")
 ```
 
