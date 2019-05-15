@@ -59,5 +59,7 @@ elf$stats
 ## Richness Change
 
 ``` r
-elf_change(elf$stats, 10)
+richness.change <- richness_change(elf$stats, 10)
+
+richness.change.percent <- richness_change(elf$stats, 10, 500)
 ```

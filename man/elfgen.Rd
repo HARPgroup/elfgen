@@ -21,7 +21,7 @@ elfgen(watershed.df, quantile, breakpt, yaxis_thresh, xlabel = FALSE,
 \item{ylabel}{used to overwrite default y-axis label}
 }
 \value{
-the pdf image of ELF
+object containing plot image and dataframe of ELF statistics
 }
 \description{
 Generic plotting function
