@@ -32,7 +32,7 @@ elfchg <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
     yaxis_thresh <- 100
   }
 
-  print(yaxis_thresh)
+  #print(yaxis_thresh)
 
  ####################################################
   #library(scales)

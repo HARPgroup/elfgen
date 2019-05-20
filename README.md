@@ -3,19 +3,19 @@
 [![Travis Build Status](https://travis-ci.org/HARPgroup/elfgen.svg?branch=master)](https://travis-ci.org/HARPgroup/elfgen)
 [![Coverage Status](https://codecov.io/gh/HARPgroup/elfgen/branch/master/graph/badge.svg)](https://codecov.io/gh/HARPgroup/elfgen)
 
-## Overview
+# Overview
  
 elfgen is a framework for generating Ecological Limit Function (ELF) models.
 
-## Installation
+# Installation
 
 ``` r
-library("devtools")
-install_github('HARPgroup/elfgen')
-library(elfgen)
+# Install development version from Github:
+# install.packages("devtools")
+devtools::install_github("HARPgroup/elfgen")
 ```
 
-## Usage
+# Usage
 An introductory example of how elfgen works is supplied below. You start 
 by either supplying a dataset with flow and richness data, or by supplying 
 a HUC code of interest. When supplying a HUC code: `elfgen_getdata()` will 
@@ -29,6 +29,8 @@ model is then generated and plotted using `elfgen()` with ELF model statistics
 returned.
 
 ``` r
+library(elfgen)
+
 # Retrieve dataset of interest
 watershed.df <- elfgen_getdata('02080201')
 
@@ -56,12 +58,21 @@ elf$stats
 #> 1	2.34 9.19    0.806          0.8 0     861      705             35
 ```
 
-## Richness Change
+# Richness Change
 
 ``` r
-richness.change <- richness_change(elf$stats, 10)
+# Calculate absolute richness change
+richness_change(elf$stats, "pctchg" = 10)
+#> [1] 0.2465436
 
-richness.change.percent <- richness_change(elf$stats, 10, 500)
+# Calculate percent richness change at a specific stream size
+richness_change(elf$stats, "pctchg" = 10, "xval" = 500)
+#> [1] 1.038858
 ```
 
-![](man/figures/README-example-2.pdf)<!-- -->
+``` r
+# Generate plot of percent richness change for various percent flow reductions
+elfchg(elf$stats, "yaxis_thresh" = 25)
+```
+
+![](man/figures/README-example-2.png)<!-- -->
