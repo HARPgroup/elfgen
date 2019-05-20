@@ -6,7 +6,7 @@
 #' @param yaxis_thresh y-axis threshold used for plotting maximum y-axis limit
 #' @param xlabel used to overwrite default x-axis label
 #' @param ylabel used to overwrite default y-axis label
-#' @return the pdf image of ELF
+#' @return object containing plot image and dataframe of ELF statistics
 #' @import ggplot2
 #' @import quantreg
 #' @import testit
@@ -55,6 +55,7 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
    subset_n <- length(data$y_var)
 
    stats.df <- data.frame(
+      watershed = watershed.df$watershed.code[1],
       m = ruslope,
       b = ruint,
       rsquared = rurs,
