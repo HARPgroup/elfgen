@@ -64,5 +64,5 @@ richness.change <- richness_change(elf$stats, 10)
 richness.change.percent <- richness_change(elf$stats, 10, 500)
 ```
 
-![](man/figures/README-example-2.pdf)<!-- -->
+![](man/figures/README-example-2.pdf)
 ![](man/figures/README-example-2.png)<!-- -->
