@@ -6,8 +6,8 @@
 #' @param ylabel used to overwrite default y-axis label
 #' @return richness.change
 #' @import scales
-#' @export elfchg
-elfchg <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
+#' @export elfchange
+elfchange <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
   its <- seq(1, 500, 0.01)
   #its <- c(100, 200, 300, 400, 500)
   pct_list <- c(5, 10, 20, 30, 40, 50)
@@ -32,16 +32,6 @@ elfchg <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
     yaxis_thresh <- 100
   }
 
-  #print(yaxis_thresh)
-
- ####################################################
-  #library(scales)
-
-
- # ptitle <- paste("Watershed: ",stats$watershed,"\n",sep="");
- # ptitle <- paste("Change in ",ylabel,sep="")
-
-
   xaxis_title <- paste("Mean Annual Flow (ft3/s)",sep="")
   yaxis_title <- paste("Fish Species Richness",sep="")
   if (xlabel != FALSE) {xaxis_title <- xlabel}
@@ -51,8 +41,6 @@ elfchg <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
 
   xaxis_title <- paste("\n",xaxis_title,sep="")
   yaxis_title <- paste("Percent Decrease in","\n",yaxis_title,"\n",sep="")
-
-
 
   print("Generating Plot Image...")
 
@@ -82,16 +70,10 @@ elfchg <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
     ylim(0,yaxis_thresh) +
 
     scale_x_log10(
-      #limits = c(0.1,500),
       limits = c(1,500),
       breaks = trans_breaks("log", function(x) {10^x})
-      #breaks = trans_breaks("log10", function(x) {10^x})#,
-      #labels = trans_format("log10", math_format(10^.x))
-      #labels = round(x,digits = 0)
     ) +
     annotation_logticks(sides = "b")+
-
-    #scale_y_continuous(limits = c(0, yaxis_thresh))+
 
     ggtitle(ptitle)+
     labs(x=xaxis_title,y=yaxis_title)+

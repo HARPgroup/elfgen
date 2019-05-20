@@ -2,9 +2,9 @@
 
 export(bkpt_pwit)
 export(bkpt_ymax)
-export(elfchg)
+export(elfchange)
+export(elfdata)
 export(elfgen)
-export(elfgen_getdata)
 export(richness_change)
 import(RJSONIO)
 import(ggplot2)
