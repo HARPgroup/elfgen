@@ -10,9 +10,9 @@ elfgen is a framework for generating Ecological Limit Function (ELF) models.
 # Installation
 
 ``` r
-library("devtools")
-install_github('HARPgroup/elfgen')
-library(elfgen)
+# Install development version from Github:
+# install.packages("devtools")
+devtools::install_github("HARPgroup/elfgen")
 ```
 
 # Usage
@@ -29,6 +29,8 @@ model is then generated and plotted using `elfgen()` with ELF model statistics
 returned.
 
 ``` r
+library(elfgen)
+
 # Retrieve dataset of interest
 watershed.df <- elfgen_getdata('02080201')
 
