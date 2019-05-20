@@ -61,7 +61,7 @@ test.watershed.df <- data.frame(
 
  })
 
- test_that("Function returns a ggplot object, uses default yaxis_thresh value", {
+ test_that("Function returns a ggplot object, uses default yaxis_thresh, xlabel, ylabel", {
    expect_equal(class(elfchange(test.watershed.df)),c("gg", "ggplot"))
 
  })
