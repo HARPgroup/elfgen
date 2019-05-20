@@ -61,11 +61,11 @@ elf$stats
 ``` r
 # Calculate absolute richness change
 richness.change <- richness_change(elf$stats, 10)
-#>	"Richness change = 0.247"
+#> [1] "Richness Change = 0.247"
 
 # Calculate richness change at a specific stream size
 richness.change.percent <- richness_change(elf$stats, 10, 500)
-#>	"Percent Richness change = 1.039"
+#> [1] "Percent Richness Change = 1.039"
 ```
 
 ``` r
