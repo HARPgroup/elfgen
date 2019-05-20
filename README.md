@@ -59,10 +59,16 @@ elf$stats
 ## Richness Change
 
 ``` r
+# Calculate absolute richness change
 richness.change <- richness_change(elf$stats, 10)
 
+# Calculate richness change at a specific stream size
 richness.change.percent <- richness_change(elf$stats, 10, 500)
 ```
 
-![](man/figures/README-example-2.pdf)
+``` r
+# Generate plot of change in richness at various percent flow reductions
+elf.change <- elfchg(elf$stats, 25)
+```
+
 ![](man/figures/README-example-2.png)<!-- -->
