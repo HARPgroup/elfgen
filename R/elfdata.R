@@ -9,8 +9,8 @@
 #' @import sbtools
 #' @import RJSONIO
 #' @import stringr
-#' @export elfgen_getdata
-elfgen_getdata <- function (watershed.code,ichthy.localpath = tempdir()) {
+#' @export elfdata
+elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
   if (class(watershed.code) == 'data.frame') {
     print('This is for testing purposes only')

@@ -1,18 +1,18 @@
-context("elfgen-getdata")
+context("elfdata")
 library(elfgen)
 
 test_that("Checking length of input watershed.code",
           {
-            expect_error(elfgen_getdata("02080"), "Invalid Length of Hydrologic Unit Code")
+            expect_error(elfdata("02080"), "Invalid Length of Hydrologic Unit Code")
           })
 
 ##test_that("Checking for valid watershed.code",
 ##          {
-##            expect_error(elfgen_getdata("999999999999"), "No IchthyMap Data for Hydrologic Unit Code")
+##            expect_error(elfdata("999999999999"), "No IchthyMap Data for Hydrologic Unit Code")
 ##          })
 
   # test_that("Function returns a dataframe", {
-  #   expect_equal(is.data.frame(elfgen_getdata("020700080403")), TRUE)
+  #   expect_equal(is.data.frame(elfdata("020700080403")), TRUE)
   # })
 
 
@@ -34,5 +34,5 @@ test.ichthy.dataframe <- data.frame(
 
 test_that("Function returns a dataframe",
           {
-            expect_equal(is.data.frame(elfgen_getdata(test.ichthy.dataframe)), TRUE)
+            expect_equal(is.data.frame(elfdata(test.ichthy.dataframe)), TRUE)
           })
