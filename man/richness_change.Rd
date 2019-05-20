@@ -4,12 +4,12 @@
 \alias{richness_change}
 \title{Calculate Net change in Richness From A Percent Reduction In Flow}
 \usage{
-richness_change(stats, z, xval = FALSE)
+richness_change(stats, pctchg, xval = FALSE)
 }
 \arguments{
 \item{stats}{a dataframe of ELF model statistics}
 
-\item{z}{decrease in flow as a percent}
+\item{pctchg}{decrease in flow as a percent}
 
 \item{xval}{x-value for assessing percent change in richness}
 }
