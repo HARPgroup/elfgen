@@ -17,10 +17,11 @@ richness_change <- function(stats, z, xval = FALSE) {
     richness.change.percent <- richness.loss / ((m * log(xval)) + b)
     richness.change.percent <- richness.change.percent * 100
     richness.change <- richness.change.percent
+    print(paste("Percent Richness change = ",round(richness.change, digits = 3),sep=""))
   } else {
     richness.change <- richness.loss
+    print(paste("Richness change = ",round(richness.change, digits = 3),sep=""))
   }
-
 
   return(richness.change)
 }
