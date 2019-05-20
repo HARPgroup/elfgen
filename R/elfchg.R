@@ -98,10 +98,5 @@ elfchg <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
     theme(axis.text.x = element_text(colour="grey20",size=15,hjust=.5,vjust=.5,face="plain"),
           axis.text.y = element_text(colour="grey20",size=15,hjust=.5,vjust=.5,face="plain"))
 
-  ####################################################
-
-
-
- # return(elfchg.percent)
   return(result)
 }
