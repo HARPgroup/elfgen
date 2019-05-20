@@ -3,11 +3,11 @@
 [![Travis Build Status](https://travis-ci.org/HARPgroup/elfgen.svg?branch=master)](https://travis-ci.org/HARPgroup/elfgen)
 [![Coverage Status](https://codecov.io/gh/HARPgroup/elfgen/branch/master/graph/badge.svg)](https://codecov.io/gh/HARPgroup/elfgen)
 
-## Overview
+# Overview
  
 elfgen is a framework for generating Ecological Limit Function (ELF) models.
 
-## Installation
+# Installation
 
 ``` r
 library("devtools")
@@ -15,7 +15,7 @@ install_github('HARPgroup/elfgen')
 library(elfgen)
 ```
 
-## Usage
+# Usage
 An introductory example of how elfgen works is supplied below. You start 
 by either supplying a dataset with flow and richness data, or by supplying 
 a HUC code of interest. When supplying a HUC code: `elfgen_getdata()` will 
@@ -56,16 +56,16 @@ elf$stats
 #> 1	2.34 9.19    0.806          0.8 0     861      705             35
 ```
 
-## Richness Change
+# Richness Change
 
 ``` r
 # Calculate absolute richness change
-richness_change(elf$stats, 10)
-#> [1] "Richness Change = 0.247"
+richness_change(elf$stats, "pctchg" = 10)
+#> [1] 0.2465436
 
 # Calculate richness change at a specific stream size
-richness_change(elf$stats, 10, 500)
-#> [1] "Percent Richness Change = 1.039"
+richness_change(elf$stats, "pctchg" = 10, "xval" = 500)
+#> [1] 1.038858
 ```
 
 ``` r
