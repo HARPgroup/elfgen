@@ -63,13 +63,13 @@ elf$stats
 richness_change(elf$stats, "pctchg" = 10)
 #> [1] 0.2465436
 
-# Calculate richness change at a specific stream size
+# Calculate percent richness change at a specific stream size
 richness_change(elf$stats, "pctchg" = 10, "xval" = 500)
 #> [1] 1.038858
 ```
 
 ``` r
-# Generate plot of change in richness at various percent flow reductions
+# Generate plot of percent richness change for various percent flow reductions
 elfchg(elf$stats, "yaxis_thresh" = 25)
 ```
 
