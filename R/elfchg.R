@@ -1,11 +1,13 @@
 #' Calculate Net change in Richness From A Percent Reduction In Flow
 #' @description function for calculating change in richness from streamflow reduction
 #' @param stats a dataframe of ELF model statistics
-#' @param z decrease in flow as a percent
-#' @param xval x-value for assessing percent change in richness
+#' @param yaxis_thresh y-axis threshold used for plotting maximum y-axis limit
+#' @param xlabel used to overwrite default x-axis label
+#' @param ylabel used to overwrite default y-axis label
 #' @return richness.change
+#' @import scales
 #' @export elfchg
-elfchg <- function(stats) {
+elfchg <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
   its <- seq(1, 500, 0.01)
   #its <- c(100, 200, 300, 400, 500)
   pct_list <- c(5, 10, 20, 30, 40, 50)
@@ -25,17 +27,44 @@ elfchg <- function(stats) {
   }
 
 
+  # default ymax if none provided
+  if (missing(yaxis_thresh)) {
+    yaxis_thresh <- 100
+  }
+
+  print(yaxis_thresh)
+
  ####################################################
-  library(scales)
+  #library(scales)
 
-  #ptitle <- paste("Change in ",biometric_title," at Various % Flow Reductions","\n", Feature.Name," (",startdate," to ",enddate,")\n",title_projname," grouping",sep="")
-  #xaxis_title <- paste("\n",flow_title,sep="");
-  #yaxis_title <- paste("% Decrease in ", biometric_title,"\n", sep="");
-  ptitle <- "TEST"
-  xaxis_title <- "TEST"
-  yaxis_title <- "TEST"
 
-  plt2 <- ggplot(table , aes(x=xvalues, y=pct_chgs_20)) +
+ # ptitle <- paste("Watershed: ",stats$watershed,"\n",sep="");
+ # ptitle <- paste("Change in ",ylabel,sep="")
+
+
+  xaxis_title <- paste("Mean Annual Flow (ft3/s)",sep="")
+  yaxis_title <- paste("Fish Species Richness",sep="")
+  if (xlabel != FALSE) {xaxis_title <- xlabel}
+  if (ylabel != FALSE) {yaxis_title <- ylabel}
+
+  ptitle <- paste("Change in ",yaxis_title," at Various Percent Flow Reductions","\n","Watershed: ",stats$watershed,"\n",sep="")
+
+  xaxis_title <- paste("\n",xaxis_title,sep="")
+  yaxis_title <- paste("Percent Decrease in","\n",yaxis_title,"\n",sep="")
+
+
+
+  print("Generating Plot Image...")
+
+  xvalues <- NULL # Fixes NOTE: no visible binding for global variable
+  pct_chg_50 <- NULL # Fixes NOTE: no visible binding for global variable
+  pct_chg_40 <- NULL # Fixes NOTE: no visible binding for global variable
+  pct_chg_30 <- NULL # Fixes NOTE: no visible binding for global variable
+  pct_chg_20 <- NULL # Fixes NOTE: no visible binding for global variable
+  pct_chg_10 <- NULL # Fixes NOTE: no visible binding for global variable
+  pct_chg_5 <- NULL # Fixes NOTE: no visible binding for global variable
+
+  result <- ggplot(table , aes(x=xvalues, y=pct_chg_50)) +
 
     geom_line(data = table , aes(x=xvalues,y=pct_chg_50,color = "black")) +
     geom_line(data = table , aes(x=xvalues,y=pct_chg_40,color = "blue")) +
@@ -50,6 +79,8 @@ elfchg <- function(stats) {
       labels=c("50%","40%","30%","20%","10%","5%")
     ) +
 
+    ylim(0,yaxis_thresh) +
+
     scale_x_log10(
       #limits = c(0.1,500),
       limits = c(1,500),
@@ -60,7 +91,7 @@ elfchg <- function(stats) {
     ) +
     annotation_logticks(sides = "b")+
 
-    scale_y_continuous(limits = c(0, 100))+
+    #scale_y_continuous(limits = c(0, yaxis_thresh))+
 
     ggtitle(ptitle)+
     labs(x=xaxis_title,y=yaxis_title)+
@@ -71,5 +102,6 @@ elfchg <- function(stats) {
 
 
 
-  return(elfchg.percent)
+ # return(elfchg.percent)
+  return(result)
 }
