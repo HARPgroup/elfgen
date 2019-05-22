@@ -28,6 +28,10 @@ value, or identified using the functions `bkpt_pwit()` or `bkpt_ymax()`. The ELF
 model is then generated and plotted using `elfgen()` with ELF model statistics
 returned.
 
+
+# Example
+Load package and data
+
 ``` r
 library(elfgen)
 
