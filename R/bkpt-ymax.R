@@ -18,5 +18,7 @@ bkpt_ymax <- function(watershed.df) {
   x.ymax <- subset(watershed.df, watershed.df$y_var == ymax)
   breakpt <- min(x.ymax$x_var)
 
+  print(paste("Breakpoint identified at",breakpt,sep=" "))
+
   return(breakpt)
 }

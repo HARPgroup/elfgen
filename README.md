@@ -28,17 +28,33 @@ value, or identified using the functions `bkpt_pwit()` or `bkpt_ymax()`. The ELF
 model is then generated and plotted using `elfgen()` with ELF model statistics
 returned.
 
+
+## Example
+Load package and data.
+
 ``` r
 library(elfgen)
 
 # Retrieve dataset of interest
 watershed.df <- elfdata('02080201')
+```
 
-# Determine breakpoint in flow-ecology relation
-breakpt <- bkpt_pwit("watershed.df" = watershed.df, "quantile" = 0.95, "glo" = 50, "ghi" = 1000)  
+Identify breakpoint in flow-ecology relation using one of 3 methods.
+``` r
+# Fixed Method
+breakpt <- 500
+
+# Piecewise Iterative Method
+breakpt <- bkpt_pwit("watershed.df" = watershed.df, "quantile" = 0.95, "glo" = 200, "ghi" = 500)  
+#> [1] "Breakpoint identified at 310.815"
+		
+# Ymax Method		
+breakpt <- bkpt_ymax("watershed.df" = watershed.df)			   
 #> [1] "Breakpoint identified at 142.989"
-			   
-# Plot the flow-ecology relation and generate ELF model					   
+```
+
+Plot flow-ecology relation and generate ELF model.	
+``` r				   
 elf <- elfgen("watershed.df" = watershed.df,
 	      "quantile" = 0.95,
 	      "breakpt" = breakpt,
@@ -55,11 +71,11 @@ elf$plot
 
 ``` r
 elf$stats
-#>	   m    b rsquared rsquared_adj p n_total n_subset n_subset_upper
-#> 1	2.34 9.19    0.806          0.8 0     861      705             35
+#>     watershed breakpt quantile    m    b rsquared rsquared_adj p n_total n_subset n_subset_upper
+#> 1	02080201 142.989     0.95 2.34 9.19    0.806          0.8 0     861      705             35
 ```
 
-# Richness Change
+## Richness Change
 
 ``` r
 # Calculate absolute richness change
