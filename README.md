@@ -35,9 +35,17 @@ library(elfgen)
 watershed.df <- elfdata('02080201')
 
 # Determine breakpoint in flow-ecology relation
-breakpt <- bkpt_pwit("watershed.df" = watershed.df, "quantile" = 0.95, "glo" = 50, "ghi" = 1000)  
+# Fixed Method
+breakpt <- 500
+
+# Piecewise Iterative Method
+breakpt <- bkpt_pwit("watershed.df" = watershed.df, "quantile" = 0.95, "glo" = 200, "ghi" = 500)  
+#> [1] "Breakpoint identified at 310.815"
+		
+# Ymax Method		
+breakpt <- bkpt_ymax("watershed.df" = watershed.df)			   
 #> [1] "Breakpoint identified at 142.989"
-			   
+	
 # Plot the flow-ecology relation and generate ELF model					   
 elf <- elfgen("watershed.df" = watershed.df,
 	      "quantile" = 0.95,
