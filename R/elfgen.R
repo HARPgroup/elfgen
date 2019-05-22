@@ -56,6 +56,8 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
 
    stats.df <- data.frame(
       watershed = watershed.df$watershed.code[1],
+      breakpt = breakpt,
+      quantile = quantile,
       m = ruslope,
       b = ruint,
       rsquared = rurs,

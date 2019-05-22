@@ -55,8 +55,8 @@ elf$plot
 
 ``` r
 elf$stats
-#>     watershed    m    b rsquared rsquared_adj p n_total n_subset n_subset_upper
-#> 1	02080201 2.34 9.19    0.806          0.8 0     861      705             35
+#>     watershed breakpt quantile    m    b rsquared rsquared_adj p n_total n_subset n_subset_upper
+#> 1	02080201 142.989     0.95 2.34 9.19    0.806          0.8 0     861      705             35
 ```
 
 # Richness Change
