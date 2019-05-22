@@ -29,8 +29,8 @@ model is then generated and plotted using `elfgen()` with ELF model statistics
 returned.
 
 
-# Example
-Load package and data
+## Example
+Load package and data.
 
 ``` r
 library(elfgen)
@@ -39,7 +39,7 @@ library(elfgen)
 watershed.df <- elfdata('02080201')
 ```
 
-Determine breakpoint in flow-ecology relation
+Identify breakpoint in flow-ecology relation.
 ``` r
 # Fixed Method
 breakpt <- 500
@@ -53,8 +53,8 @@ breakpt <- bkpt_ymax("watershed.df" = watershed.df)
 #> [1] "Breakpoint identified at 142.989"
 ```
 
-``` r
-# Plot the flow-ecology relation and generate ELF model					   
+Plot the flow-ecology relation and generate ELF model	
+``` r				   
 elf <- elfgen("watershed.df" = watershed.df,
 	      "quantile" = 0.95,
 	      "breakpt" = breakpt,
