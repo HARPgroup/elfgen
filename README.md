@@ -53,7 +53,7 @@ breakpt <- bkpt_ymax("watershed.df" = watershed.df)
 #> [1] "Breakpoint identified at 142.989"
 ```
 
-Plot the flow-ecology relation and generate ELF model	
+Plot flow-ecology relation and generate ELF model.	
 ``` r				   
 elf <- elfgen("watershed.df" = watershed.df,
 	      "quantile" = 0.95,
@@ -75,7 +75,7 @@ elf$stats
 #> 1	02080201 142.989     0.95 2.34 9.19    0.806          0.8 0     861      705             35
 ```
 
-# Richness Change
+## Richness Change
 
 ``` r
 # Calculate absolute richness change
