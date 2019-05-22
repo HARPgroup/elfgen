@@ -94,7 +94,7 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
       stat_smooth(method = "lm",fullrange=FALSE,level = .95, data = upper.quant, aes(x=x_var,y=y_var,color = "red")) +
       geom_point(data = upper.quant, aes(x=x_var,y=y_var,color = "black")) +
       geom_quantile(data = data, quantiles= quantile,show.legend = TRUE,aes(x=x_var,y=y_var, color="red")) +
-      geom_smooth(data = data, method="lm",formula=y ~ x,show.legend = TRUE, aes(x=x_var,y=y_var, color="yellow"),se=FALSE) +
+     # geom_smooth(data = data, method="lm",formula=y ~ x,show.legend = TRUE, aes(x=x_var,y=y_var, color="yellow"),se=FALSE) +
       geom_smooth(data = upper.quant, formula = y ~ x, method = "lm", show.legend = TRUE, aes(x=x_var,y=y_var,color = "green"),se=FALSE) +
 
       ylim(0,yaxis_thresh) +
@@ -119,15 +119,20 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
 
       scale_color_manual(
          "Legend",
-         values=c("gray66","forestgreen","blue","orange","black","red"),
-         labels=c("Full Dataset",EDAS_upper_legend,EDAS_lower_legend,Reg_upper_legend,Quantile_Legend,"Regression (Data Subset)")
-      ) +
+         #values=c("gray66","forestgreen","blue","orange","black","red"),
+         #labels=c("Full Dataset",EDAS_upper_legend,EDAS_lower_legend,Reg_upper_legend,Quantile_Legend,"Regression (Data Subset)")
+         values=c("gray66","forestgreen","blue","orange","black"),
+         labels=c("Full Dataset",EDAS_upper_legend,EDAS_lower_legend,Reg_upper_legend,Quantile_Legend)
+         ) +
 
       guides(colour = guide_legend(
          override.aes = list(
-            size = c(1, 1, 1, 1, 1, 1),
-            linetype = c(0, 0, 0, 1, 1, 1),
-            shape = c(16, 16, 16, NA, NA, NA)
+            # size = c(1, 1, 1, 1, 1, 1),
+            # linetype = c(0, 0, 0, 1, 1, 1),
+            # shape = c(16, 16, 16, NA, NA, NA)
+            size = c(1, 1, 1, 1, 1),
+            linetype = c(0, 0, 0, 1, 1),
+            shape = c(16, 16, 16, NA, NA)
          ),
          label.position = "right"
       ))
