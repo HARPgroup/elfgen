@@ -39,7 +39,7 @@ library(elfgen)
 watershed.df <- elfdata('02080201')
 ```
 
-Identify breakpoint in flow-ecology relation.
+Identify breakpoint in flow-ecology relation using one of 3 methods.
 ``` r
 # Fixed Method
 breakpt <- 500
