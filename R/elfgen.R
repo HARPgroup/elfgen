@@ -54,6 +54,11 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
    rucount <- length(upper.quant$y_var)
    subset_n <- length(data$y_var)
 
+   #Prevents error when no watershed.code column is supplied in watershed.df:
+   if(is.null(watershed.df$watershed.code[1]) == TRUE) {
+      watershed.df$watershed.code <- " "
+   }
+
    stats.df <- data.frame(
       watershed = watershed.df$watershed.code[1],
       breakpt = breakpt,

@@ -20,4 +20,3 @@ test_that("Checking for quantile input parameter", {
                          "glo" = 50,
                          "ghi"= 1000), "Missing quantile parameter")
 })
-

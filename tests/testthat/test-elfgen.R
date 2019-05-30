@@ -40,4 +40,3 @@ library(elfgen)
     expect_equal(class(elfgen(test.watershed.df, 0.60, 526, 53)), "list")
 
  })
-
