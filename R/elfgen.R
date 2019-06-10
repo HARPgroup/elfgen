@@ -56,7 +56,7 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
 
    #Prevents error when no watershed.code column is supplied in watershed.df:
    if(is.null(watershed.df$watershed.code[1]) == TRUE) {
-      watershed.df$watershed.code <- " "
+      watershed.df$watershed.code <- "NA"
    }
 
    stats.df <- data.frame(
