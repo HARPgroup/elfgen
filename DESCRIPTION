@@ -8,7 +8,7 @@ Authors@R:
 Imports: 
 	utils,
 	RJSONIO,
-	sbtools,
+	sbtools (>= 1.1.6),
 	stringr,
 	quantreg,
 	stats,
