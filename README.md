@@ -41,10 +41,10 @@ watershed.df <- elfdata('02080201')
 
 ``` r
 # Alternatively, utilize a user-supplied dataset in the following format:
-df <- data.frame(flow=c(28.257, 20.254, 22.825, ...), 
-                 richness=c(2, 10, 12, ...),
-                 watershed.code=02080201,
-                 stringsAsFactors=FALSE) 
+watershed.df <- data.frame(flow=c(28.257, 20.254, 22.825, ...), 
+						   richness=c(2, 10, 12, ...),
+						   watershed.code=02080201,
+						   stringsAsFactors=FALSE) 
 ```
 
 
