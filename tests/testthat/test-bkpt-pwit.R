@@ -11,13 +11,13 @@ test.watershed.df <- data.frame(
 test_that("Function returns a dataframe", {
   expect_equal(bkpt_pwit(test.watershed.df, 0.80, 50, 1000), 526)
   expect_equal(bkpt_pwit(test.watershed.df, 0.60, 50, 1000), 400)
-  expect_equal(bkpt_pwit(test.watershed.df, 0.80, "ghi"= 1000), 526)
+  expect_equal(bkpt_pwit(test.watershed.df, 0.80, "bhi"= 1000), 526)
   expect_equal(bkpt_pwit(test.watershed.df, 0.80, 600, 1000), "NONE IDENTIFIED")
 })
 
 test_that("Checking for quantile input parameter", {
   expect_error(bkpt_pwit("watershed.df" = test.watershed.df,
-                         "glo" = 50,
-                         "ghi"= 1000), "Missing quantile parameter")
+                         "blo" = 50,
+                         "bhi"= 1000), "Missing quantile parameter")
 })
 

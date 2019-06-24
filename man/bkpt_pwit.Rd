@@ -4,16 +4,16 @@
 \alias{bkpt_pwit}
 \title{Generic ELF generation}
 \usage{
-bkpt_pwit(watershed.df, quantile, glo, ghi)
+bkpt_pwit(watershed.df, quantile, blo, bhi)
 }
 \arguments{
 \item{watershed.df}{a dataframe of sites with ecological and hydrologic data}
 
 \item{quantile}{a specified value for the quantile of interest - 0.95 equals the 95th percentile}
 
-\item{glo}{a "guess low" value, or the lower bound of the piecewise range}
+\item{blo}{a "bound low" value, or the lower bound of the piecewise range}
 
-\item{ghi}{a "guess high" value, or the upper bound of the piecewise range}
+\item{bhi}{a "bound high" value, or the upper bound of the piecewise range}
 }
 \value{
 breakpt
