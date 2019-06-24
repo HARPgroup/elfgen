@@ -5,8 +5,6 @@ Description:
 	Ecological Limit Function (ELF) Generation.
 Authors@R: 
 	person("Joseph", "Kleiner", email = "joseph.kleiner@deq.virginia.gov", role = c("aut", "cre"))
-Depends: 
-	R (>= 3.1)
 Imports: 
 	utils,
 	RJSONIO,
