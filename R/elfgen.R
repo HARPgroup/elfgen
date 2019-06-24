@@ -20,9 +20,10 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
 
    watershed.df.raw <- watershed.df
 
-   #RENAME FLOW AND RICHNESS COLUMNS TO HAVE GENERIC NAMES
+   #RENAME COLUMNS TO HAVE GENERIC NAMES
    colnames(watershed.df)[1] <- "x_var"
    colnames(watershed.df)[2] <- "y_var"
+   colnames(watershed.df)[3] <- "watershed"
 
    full_dataset <- watershed.df
    data <- watershed.df[!(watershed.df$x_var > breakpt),]
@@ -55,7 +56,7 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
    subset_n <- length(data$y_var)
 
    stats.df <- data.frame(
-      watershed = watershed.df$watershed.code[1],
+      watershed = watershed.df$watershed[1],
       breakpt = breakpt,
       quantile = quantile,
       m = ruslope,
@@ -74,7 +75,7 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
    }
 
    #Plot titles
-   plot_title <- paste("Watershed: ",watershed.df$watershed.code[1],"\n",sep="");
+   plot_title <- paste("Watershed: ",watershed.df$watershede[1],"\n",sep="");
    flow_title <- colnames(watershed.df.raw[1])
    biometric_title <- colnames(watershed.df.raw[2])
    if (xlabel != FALSE) {flow_title <- xlabel}
