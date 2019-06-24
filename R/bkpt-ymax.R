@@ -7,9 +7,10 @@ bkpt_ymax <- function(watershed.df) {
 
   watershed.df.raw <- watershed.df
 
-  #RENAME FLOW AND RICHNESS COLUMNS TO HAVE GENERIC NAMES
+  #RENAME COLUMNS TO HAVE GENERIC NAMES
   colnames(watershed.df)[1] <- "x_var"
   colnames(watershed.df)[2] <- "y_var"
+  colnames(watershed.df)[3] <- "watershed"
 
   x <- watershed.df$x_var
   y <- watershed.df$y_var

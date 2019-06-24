@@ -12,9 +12,10 @@ bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
 
   watershed.df.raw <- watershed.df
 
-  #RENAME FLOW AND RICHNESS COLUMNS TO HAVE GENERIC NAMES
+  #RENAME COLUMNS TO HAVE GENERIC NAMES
   colnames(watershed.df)[1] <- "x_var"
   colnames(watershed.df)[2] <- "y_var"
+  colnames(watershed.df)[3] <- "watershed"
 
   # stop if no quantile parameter supplied
   if(missing(quantile)) {
@@ -62,7 +63,7 @@ bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
     print(paste("Breakpoint identified at",breakpt,sep=" "))
 
   } else {
-    print(paste("... Skipping (No breakpoint identified using this set of inputs for ", watershed.df$watershed.code[1],")", sep=''))
+    print(paste("... Skipping (No breakpoint identified using this set of inputs for ", watershed.df$watershed[1],")", sep=''))
     breakpt <- "NONE IDENTIFIED"
   }
   return(breakpt)
