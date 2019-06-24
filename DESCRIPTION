@@ -6,11 +6,11 @@ Description:
 Authors@R: 
 	person("Joseph", "Kleiner", email = "joseph.kleiner@deq.virginia.gov", role = c("aut", "cre"))
 Depends: 
-	R (>= 3.1)
+	R (>= 3.5.0)
 Imports: 
 	utils,
 	RJSONIO,
-	sbtools,
+	sbtools (>= 1.1.6),
 	stringr,
 	quantreg,
 	stats,
