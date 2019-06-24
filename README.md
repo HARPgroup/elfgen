@@ -39,13 +39,23 @@ library(elfgen)
 watershed.df <- elfdata('02080201')
 ```
 
+``` r
+# Alternatively utilize a user-supplied dataset in the following format:
+
+df <- data.frame(flow=character(), 
+                 richness=character(),
+				 watershed.code=character(),
+                 stringsAsFactors=FALSE) 
+```
+
+
 Identify breakpoint in flow-ecology relation using one of 3 methods.
 ``` r
 # Fixed Method
 breakpt <- 500
 
 # Piecewise Iterative Method
-breakpt <- bkpt_pwit("watershed.df" = watershed.df, "quantile" = 0.95, "glo" = 200, "ghi" = 500)  
+breakpt <- bkpt_pwit("watershed.df" = watershed.df, "quantile" = 0.95, "blo" = 200, "bhi" = 500)  
 #> [1] "Breakpoint identified at 310.815"
 		
 # Ymax Method		
