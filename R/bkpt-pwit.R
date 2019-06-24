@@ -2,13 +2,13 @@
 #' @description PIECEWISE ITERATIVE method function
 #' @param watershed.df a dataframe of sites with ecological and hydrologic data
 #' @param quantile a specified value for the quantile of interest - 0.95 equals the 95th percentile
-#' @param glo a "guess low" value, or the lower bound of the piecewise range
-#' @param ghi a "guess high" value, or the upper bound of the piecewise range
+#' @param blo a "bound low" value, or the lower bound of the piecewise range
+#' @param bhi a "bound high" value, or the upper bound of the piecewise range
 #' @return breakpt
 #' @import quantreg
 #' @import stats
 #' @export bkpt_pwit
-bkpt_pwit <- function(watershed.df,quantile,glo,ghi) {
+bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
 
   watershed.df.raw <- watershed.df
 
@@ -21,9 +21,9 @@ bkpt_pwit <- function(watershed.df,quantile,glo,ghi) {
     stop("Missing quantile parameter")
   }
 
-  # default glo if none provided
-  if(missing(glo)) {
-    glo <- 0
+  # default blo if none provided
+  if(missing(blo)) {
+    blo <- 0
   }
 
   upper.quant.data <- rq(y_var ~ log(x_var),data = watershed.df, tau = quantile)
@@ -34,7 +34,7 @@ bkpt_pwit <- function(watershed.df,quantile,glo,ghi) {
   y <- upper.quant$y_var
 
   #set initial guess range
-  breaks <- x[which(x >= glo & x <= ghi)]
+  breaks <- x[which(x >= blo & x <= bhi)]
   as.numeric(breaks)
   #print(breaks)
 
