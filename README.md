@@ -45,6 +45,9 @@ watershed.df <- data.frame(flow=c(28.257, 20.254, 22.825, ...),
 			   richness=c(2, 10, 12, ...),
 			   watershed='02080201',
 			   stringsAsFactors=FALSE) 
+			   
+# You can aggregate to the maximum richness value at each flow value with the following:
+watershed.df <- aggmax(watershed.df)			   
 ```
 
 
