@@ -28,6 +28,8 @@ value, or identified using the functions `bkpt_pwit()` or `bkpt_ymax()`. The ELF
 model is then generated and plotted using `elfgen()` with ELF model statistics
 returned.
 
+Subsequent richness change analyses may be performed using the functions `richness_change()` and `elfchange()` (See below)
+
 
 ## Example
 Load package and data.
