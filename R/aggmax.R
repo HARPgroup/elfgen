@@ -1,5 +1,5 @@
 #' Aggregate to the maximum richness value at each flow value
-#' @description Generic Aggregate to the maximum richness value at each flow value
+#' @description Aggregate to the maximum richness value at each flow value
 #' @param watershed.df a dataframe of sites with ecological and hydrologic data
 #' @return watershed.df
 #' @export aggmax
