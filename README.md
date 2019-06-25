@@ -5,7 +5,7 @@
 
 # Overview
  
-elfgen is a framework for generating Ecological Limit Function (ELF) models.
+The elfgen package is an instream flow framework for rapid generation and optimization of flow-ecology relations. The framework centers on the development of ecological limit function models (ELFs) describing the relation between maximum species richness and stream size (streamflow or drainage area).
 
 # Installation
 
