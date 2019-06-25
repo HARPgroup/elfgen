@@ -5,12 +5,9 @@ Authors@R:
 	person("Joseph", "Kleiner", email = "joseph.kleiner@deq.virginia.gov", role = c("aut", "cre"))
 Description: 
 	elfgen is a framework for generating Ecological Limit Function (ELF) models.
-Depends: 
-	R (< 3.6.0)
 Imports: 
 	utils,
 	RJSONIO,
-	sbtools (>= 1.1.6),
 	stringr,
 	quantreg,
 	stats,
