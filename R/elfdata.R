@@ -6,7 +6,6 @@
 #' @param ichthy.localpath local path for storing downloaded ichthy data. Default to temp directory
 #' @return the watershed.df dataframe containing nhdplus MAF and NT Total values
 #' @import utils
-#' @import sbtools
 #' @import RJSONIO
 #' @import stringr
 #' @export elfdata
@@ -23,22 +22,30 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     stop("Invalid Length of Hydrologic Unit Code")
   }
 
-
-
     print(ichthy.localpath)
 
-    ichthy_item = item_get("5446a5a1e4b0f888a81b816d") #Get item using its ScienceBase unique identifier
-    ichthy_filename <-
-      item_list_files(ichthy_item)[1, 1] #Obtain filename from ichthy item
+    #using deprecated sbtools package
+    #ichthy_item = item_get("5446a5a1e4b0f888a81b816d") #Get item using its ScienceBase unique identifier
+    #ichthy_filename <- item_list_files(ichthy_item)[1, 1] #Obtain filename from ichthy item
+
+    #using direct sciencebase file link
+    ichthy_item <- "https://www.sciencebase.gov/catalog/file/get/5446a5a1e4b0f888a81b816d?f=__disk__25%2Fed%2F4a%2F25ed4a840a109d160d081bf144a66f615cb765cd"
+    ichthy_filename <- "IchthyMaps_v1_20150520.csv"
 
     #file downloaded into local directory, as long as file exists it will not be re-downloaded
     if (file.exists(paste(ichthy.localpath, ichthy_filename, sep = '/')) == FALSE) {
       print(paste("DOWNLOADING ICHTHY DATASET", sep = ''))
-      ichthy_download = item_file_download(
-        ichthy_item,
-        dest_dir = ichthy.localpath,
-        overwrite_file = FALSE
-      )
+      #using deprecated sbtools package
+      # ichthy_download = item_file_download(
+      #   ichthy_item,
+      #   dest_dir = ichthy.localpath,
+      #   overwrite_file = FALSE
+      # )
+
+      #using direct sciencebase file link
+      destfile <- paste(ichthy.localpath,ichthy_filename,sep="\\")
+      download.file(ichthy_item, destfile = destfile, method = "libcurl")
+
     } else {
       print(paste("ICHTHY DATASET PREVIOUSLY DOWNLOADED", sep = ''))
     }

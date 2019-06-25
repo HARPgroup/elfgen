@@ -13,5 +13,5 @@ aggmax(watershed.df)
 watershed.df
 }
 \description{
-Generic Aggregate to the maximum richness value at each flow value
+Aggregate to the maximum richness value at each flow value
 }
