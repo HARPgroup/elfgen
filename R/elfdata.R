@@ -97,6 +97,7 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
   watershed.df <- unique(watershed.df[, 1:3]) #remove duplicates (so each comid appears once)
 
+  #j <- 1
   #Loop through each COMID retrieving MAF value
   for (j in 1:length(watershed.df$COMID_NHDv2)) {
     COMID <- watershed.df[j,]$COMID_NHDv2
@@ -104,8 +105,11 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     json_file <- fromJSON(COMID.URL)
 
     COMID.MAF <- json_file$`output`$header$attributes[[4]]$value #MAF in cfs
-    watershed.df[j,"MAF"] <- COMID.MAF
 
+    #Skip COMID if MAF is NULL
+    if(is.null(COMID.MAF)==TRUE){next}
+
+    watershed.df[j,"MAF"] <- COMID.MAF
     print(paste("PROCESSING ",j," OF ",length(watershed.df$COMID_NHDv2)," (COMID ",COMID,"), MAF = ",COMID.MAF,sep = ''))
 
   }
