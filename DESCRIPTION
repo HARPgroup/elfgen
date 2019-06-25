@@ -1,6 +1,6 @@
 Package: elfgen
 Title: R Package for Ecological Limit Function Generation and Analysis
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: 
 	person("Joseph", "Kleiner", email = "joseph.kleiner@deq.virginia.gov", role = c("aut", "cre"))
 Description: 
