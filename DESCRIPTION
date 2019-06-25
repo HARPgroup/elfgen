@@ -1,8 +1,8 @@
 Package: elfgen
 Version: 0.1.0
-Title: What the Package Does (one line, title case)
+Title: R Package for Ecological Limit Function Generation and Analysis
 Description: 
-	Ecological Limit Function (ELF) Generation.
+	elfgen is a framework for generating Ecological Limit Function (ELF) models.
 Authors@R: 
 	person("Joseph", "Kleiner", email = "joseph.kleiner@deq.virginia.gov", role = c("aut", "cre"))
 Depends: 
