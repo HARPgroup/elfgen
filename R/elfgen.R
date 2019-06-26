@@ -75,7 +75,7 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
    }
 
    #Plot titles
-   plot_title <- paste("Watershed: ",watershed.df$watershede[1],"\n",sep="");
+   plot_title <- paste("Watershed: ",watershed.df$watershed[1],"\n",sep="");
    flow_title <- colnames(watershed.df.raw[1])
    biometric_title <- colnames(watershed.df.raw[2])
    if (xlabel != FALSE) {flow_title <- xlabel}
