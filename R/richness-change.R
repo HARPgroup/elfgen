@@ -18,9 +18,11 @@ richness_change <- function(stats, pctchg, xval = FALSE) {
     richness.change.percent <- richness.change.percent * 100
     richness.change <- richness.change.percent
     #print(paste("Percent Richness Change = ",round(richness.change, digits = 3),sep=""))
+    print(paste("Percent Richness Change at x = ",xval,":", sep=""))
   } else {
     richness.change <- richness.loss
     #print(paste("Richness Change = ",round(richness.change, digits = 3),sep=""))
+    print(paste("Absolute Richness Change:", sep=""))
   }
 
   return(richness.change)
