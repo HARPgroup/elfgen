@@ -50,7 +50,8 @@ watershed.df <- data.frame(flow=c(28.257, 20.254, 22.825, ...),
 ```
 
 ``` r
-# If multiple richness values are present for a single flow value, you may aggregate to the maximum richness value with the following:
+# If multiple richness values are present for a single flow value, 
+# you can aggregate to the maximum richness value with the following:
 watershed.df <- aggmax(watershed.df)			   
 ```
 
