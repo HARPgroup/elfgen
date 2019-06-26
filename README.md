@@ -97,10 +97,12 @@ elf$stats
 ``` r
 # Calculate absolute richness change
 richness_change(elf$stats, "pctchg" = 10)
+#> [1] "Absolute Richness Change:"
 #> [1] 0.2465436
 
 # Calculate percent richness change at a specific stream size
 richness_change(elf$stats, "pctchg" = 10, "xval" = 500)
+#> [1] "Percent Richness Change at x = 500:"
 #> [1] 1.038858
 ```
 
