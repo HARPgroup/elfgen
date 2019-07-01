@@ -38,6 +38,7 @@ Load package and data.
 library(elfgen)
 
 # Retrieve dataset of interest
+# You may enter either a 6, 8, 10, or 12-digit HUC code
 watershed.df <- elfdata('02080201')
 ```
 
