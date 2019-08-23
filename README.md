@@ -85,7 +85,7 @@ breakpt <- bkpt_ymax("watershed.df" = watershed.df)
 
 ### Plot flow-ecology relation and generate ELF model.	
 * A user specifies a `"quantile"` for isolating the upper subset of the data. The breakpoint `"breakpt"` determined using one of the 
-	above methods is passed in. `"yaxis_thresh"` is used to customize the maximum y-axis limit. x-axis and y-axis plot labels can 
+	above methods is passed in. `"yaxis_thresh"` is used to customize the maximum y-axis limit. Custom x-axis and y-axis plot labels can 
 	be specified using `"xlabel"` and `"ylabel"` respectively.
 
 	
@@ -126,6 +126,10 @@ richness_change(elf$stats, "pctchg" = 10, "xval" = 500)
 #> [1] "Percent Richness Change at x = 500:"
 #> [1] 1.038858
 ```
+
+* **Plot percent richness change for various percent flow reductions**: Supply the elf stats, `"yaxis_thresh"` is 
+used to customize the maximum y-axis limit. Custom x-axis and y-axis plot labels can 
+be specified using `"xlabel"` and `"ylabel"` respectively.
 
 ``` r
 # Generate plot of percent richness change for various percent flow reductions
