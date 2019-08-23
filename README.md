@@ -58,15 +58,13 @@ watershed.df <- aggmax(watershed.df)
 
 
 ### Identify breakpoint in flow-ecology relation using one of 3 methods.
-* Fixed Method: This approach utilizes a user specified breakpoint value. This "fixed breakpoint" is typically 
+* **Fixed Method**: This approach utilizes a user specified breakpoint value. This "fixed breakpoint" is typically 
 	determined through visual inspection of the flow-ecology relation by the user.
-
-* Piecewise Iterative Method: This approach uses an iterative algorithm to identify shifts in the relation between maximum richness 
+* **Piecewise Iterative Method**: This approach uses an iterative algorithm to identify shifts in the relation between maximum richness 
 	and stream size. A user specifies a quantile for isolating an upper subset of the data. A user also 
 	identifies a bounding range between two x-values (“bound low” = blo, “bound high” = bhi) in which the 
 	upper subest of data is believed to contain a breakpoint.
-
-* Ymax Method: This approach treats the maximum observed species richness value as the breakpoint. This function begins 
+* **Ymax Method**: This approach treats the maximum observed species richness value as the breakpoint. This function begins 
 	by locating the point with the highest y-value in the full dataset, then utilizing the associated x-value 
 	as the breakpoint.
 
