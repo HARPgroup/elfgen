@@ -111,8 +111,8 @@ elf$stats
 ```
 
 ## Richness Change
-* Supply the elf stats derived above, and input the percent reduction in flow "pctchg" (10 = 10% reduction in flow)
-* When an "xval" parameter is supplied, the function will calculate the percent change in richness that may occur 
+* **Calculate absolute richness change (resulting from flow reduction)**: Supply the elf stats derived above, and input the percent reduction in flow "pctchg" (10 = 10% reduction in flow)
+* **Calculate percent richness change at a specific stream size**: When an "xval" parameter is supplied, the function will calculate the percent change in richness that may occur 
 at a specific stream size for a specified reduction in flow (For this example 500 = a 
 stream size with mean annual flow of 500 cfs) 
 
