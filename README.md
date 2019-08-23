@@ -127,7 +127,7 @@ richness_change(elf$stats, "pctchg" = 10, "xval" = 500)
 #> [1] 1.038858
 ```
 
-* **Plot percent richness change for various percent flow reductions**: Supply the elf stats, `"yaxis_thresh"` is 
+* **Plot percent richness change for various percent flow reductions**: Supply the elf stats to the function `elfchange()`. `"yaxis_thresh"` is 
 used to customize the maximum y-axis limit. Custom x-axis and y-axis plot labels can 
 be specified using `"xlabel"` and `"ylabel"` respectively.
 
