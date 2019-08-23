@@ -82,9 +82,9 @@ breakpt <- bkpt_ymax("watershed.df" = watershed.df)
 ```
 
 ### Plot flow-ecology relation and generate ELF model.	
-* A user specifies a `quantile` for isolating the upper subset of the data. The breakpoint `breakpt` determined using one of the  
-	above methods is passed in. `yaxis_thresh` is used to customize the maximum y-axis limit. x-axis and y-axis plot labels can 
-	be specified using `xlabel` and `ylabel` respectively.
+* A user specifies a `"quantile"` for isolating the upper subset of the data. The breakpoint `"breakpt"` determined using one of the 
+	above methods is passed in. `"yaxis_thresh"` is used to customize the maximum y-axis limit. x-axis and y-axis plot labels can 
+	be specified using `"xlabel"` and `"ylabel"` respectively.
 
 	
 ``` r				   
