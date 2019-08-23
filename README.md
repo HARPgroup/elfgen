@@ -67,7 +67,6 @@ breakpt <- 500
 # and stream size. A user specifies a quantile for isolating an upper subset of the data. A user also 
 # identifies a bounding range between two x-values (“bound low” = blo, “bound high” = bhi) in which the 
 # upper subest of data is believed to contain a breakpoint.
-
 breakpt <- bkpt_pwit("watershed.df" = watershed.df, "quantile" = 0.95, "blo" = 200, "bhi" = 500)  
 #> [1] "Breakpoint identified at 310.815"
 		
