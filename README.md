@@ -63,6 +63,7 @@ Identify breakpoint in flow-ecology relation using one of 3 methods.
 breakpt <- 500
 
 # Piecewise Iterative Method
+# This approach uses an iterative algorithm to identify shifts in the relation between maximum richness and stream size.
 breakpt <- bkpt_pwit("watershed.df" = watershed.df, "quantile" = 0.95, "blo" = 200, "bhi" = 500)  
 #> [1] "Breakpoint identified at 310.815"
 		
