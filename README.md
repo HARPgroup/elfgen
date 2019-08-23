@@ -111,19 +111,18 @@ elf$stats
 ```
 
 ## Richness Change
+* Supply the elf stats derived above, and input the percent reduction in flow "pctchg" (10 = 10% reduction in flow)
+* When an "xval" parameter is supplied, the function will calculate the percent change in richness that may occur 
+at a specific stream size for a specified reduction in flow (For this example 500 = a 
+stream size with mean annual flow of 500 cfs) 
 
 ``` r
 # Calculate absolute richness change (resulting from flow reduction)
-# Supply the elf stats derived above, and input the percent reduction in flow "pctchg" (10 = 10% reduction 
-# in flow)
 richness_change(elf$stats, "pctchg" = 10)
 #> [1] "Absolute Richness Change:"
 #> [1] 0.2465436
 
 # Calculate percent richness change at a specific stream size
-# When an "xval" parameter is supplied, the function will calculate the percent change in richness 
-# that may occur at a specific stream size for a specified reduction in flow (For this example 500 = a 
-# stream size with mean annual flow of 500 cfs) 
 richness_change(elf$stats, "pctchg" = 10, "xval" = 500)
 #> [1] "Percent Richness Change at x = 500:"
 #> [1] 1.038858
