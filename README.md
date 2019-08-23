@@ -32,7 +32,7 @@ Additional richness change analyses may be performed using the functions `richne
 
 
 ## Example
-Load package and data.
+### Load package and data.
 
 ``` r
 library(elfgen)
@@ -57,23 +57,20 @@ watershed.df <- aggmax(watershed.df)
 ```
 
 
-Identify breakpoint in flow-ecology relation using one of 3 methods.
+### Identify breakpoint in flow-ecology relation using one of 3 methods.
 * Fixed Method
+* Piecewise Iterative Method
   * This approach uses an iterative algorithm to identify shifts in the relation between maximum richness 
  and stream size. A user specifies a quantile for isolating an upper subset of the data. A user also 
  identifies a bounding range between two x-values (“bound low” = blo, “bound high” = bhi) in which the 
  upper subest of data is believed to contain a breakpoint.
-* Piecewise Iterative Method
 * Ymax Method
+  * 
 ``` r
 # Fixed Method
 breakpt <- 500
 
 # Piecewise Iterative Method
-# This approach uses an iterative algorithm to identify shifts in the relation between maximum richness 
-# and stream size. A user specifies a quantile for isolating an upper subset of the data. A user also 
-# identifies a bounding range between two x-values (“bound low” = blo, “bound high” = bhi) in which the 
-# upper subest of data is believed to contain a breakpoint.
 breakpt <- bkpt_pwit("watershed.df" = watershed.df, "quantile" = 0.95, "blo" = 200, "bhi" = 500)  
 #> [1] "Breakpoint identified at 310.815"
 		
