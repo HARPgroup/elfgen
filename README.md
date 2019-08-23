@@ -61,6 +61,10 @@ watershed.df <- aggmax(watershed.df)
 * Fixed Method
   * This approach utilizes a user specified breakpoint value. This "fixed breakpoint" is typically 
 	determined through visual inspection of the flow-ecology relation by the user.
+``` r
+# Fixed Method
+breakpt <- 500	
+```	
 * Piecewise Iterative Method
   * This approach uses an iterative algorithm to identify shifts in the relation between maximum richness 
 	and stream size. A user specifies a quantile for isolating an upper subset of the data. A user also 
