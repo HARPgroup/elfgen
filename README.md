@@ -68,8 +68,8 @@ watershed.df <- aggmax(watershed.df)
 	upper subest of data is believed to contain a breakpoint.
 * Ymax Method
   * This approach treats the maximum observed species richness value as the breakpoint. This function begins 
-	by locating the point with the highest y-value in the full dataset, then utilizing the associated x-value 
-	as the breakpoint (Figure 3c). The theory behind this method centers on the RIver Continuum Concept (RCC), 
+	by locating the point with the highest y-value in the full dataset, thus utilizing the associated x-value 
+	as the breakpoint. The theory behind this method centers on the RIver Continuum Concept (RCC), 
 	which assumes a peak in richness occurring in intermediate streams. Identifying the point with the single 
 	greatest richness value provides a general approximation of the RCC breakpoint.
 	
