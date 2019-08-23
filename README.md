@@ -32,13 +32,15 @@ Additional richness change analyses may be performed using the functions `richne
 
 
 ## Example
-Load package and data.
+### Load package and data.
 
 ``` r
 library(elfgen)
 
 # Retrieve dataset of interest
 # You may enter either a 6, 8, 10, or 12-digit HUC code
+# *Note: By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by 
+# supplying a local path of interest using the input parameter "ichthy.localpath" 
 watershed.df <- elfdata('02080201')
 ```
 
@@ -57,7 +59,17 @@ watershed.df <- aggmax(watershed.df)
 ```
 
 
-Identify breakpoint in flow-ecology relation using one of 3 methods.
+### Identify breakpoint in flow-ecology relation using one of 3 methods.
+* **Fixed Method**: This approach utilizes a user specified breakpoint value. This "fixed breakpoint" is typically 
+	determined through visual inspection of the flow-ecology relation by the user.
+* **Piecewise Iterative Method**: This approach uses an iterative algorithm to identify shifts in the relation between maximum richness 
+	and stream size. A user specifies a `"quantile"` for isolating an upper subset of the data. A user also 
+	identifies a bounding range between two x-values (`"blo"` = “bound low”, `"bhi"` = “bound high”) in which the 
+	upper subest of data is believed to contain a breakpoint.
+* **Ymax Method**: This approach treats the maximum observed species richness value as the breakpoint. This function begins 
+	by locating the point with the highest y-value in the full dataset, then utilizing the associated x-value 
+	as the breakpoint.
+
 ``` r
 # Fixed Method
 breakpt <- 500
@@ -71,12 +83,17 @@ breakpt <- bkpt_ymax("watershed.df" = watershed.df)
 #> [1] "Breakpoint identified at 142.989"
 ```
 
-Plot flow-ecology relation and generate ELF model.	
+### Plot flow-ecology relation and generate ELF model.	
+* A user specifies a `"quantile"` for isolating the upper subset of the data. The breakpoint `"breakpt"` determined using one of the 
+	above methods is passed in. `"yaxis_thresh"` is used to customize the maximum y-axis limit. Custom x-axis and y-axis plot labels can 
+	be specified using `"xlabel"` and `"ylabel"` respectively.
+
+	
 ``` r				   
 elf <- elfgen("watershed.df" = watershed.df,
 	      "quantile" = 0.95,
 	      "breakpt" = breakpt,
-	      "yaxis_thresh" = 53,
+	      "yaxis_thresh" = 53, 
 	      "xlabel" = "Mean Annual Flow (ft3/s)",
 	      "ylabel" = "Fish Species Richness")
 ```
@@ -94,9 +111,12 @@ elf$stats
 ```
 
 ## Richness Change
+* **Calculate absolute richness change** (resulting from flow reduction): Supply the elf stats derived above to the function `richness_change()` and input the percent reduction in flow `"pctchg"` (10 = 10% reduction in flow)
+* **Calculate percent richness change** at a specific stream size (resulting from flow reduction): When an `"xval"` parameter is supplied, the function will calculate the percent change in richness 
+at a specific stream size (For this example 500 = a stream size with mean annual flow of 500 cfs) 
 
 ``` r
-# Calculate absolute richness change
+# Calculate absolute richness change (resulting from flow reduction)
 richness_change(elf$stats, "pctchg" = 10)
 #> [1] "Absolute Richness Change:"
 #> [1] 0.2465436
@@ -106,6 +126,10 @@ richness_change(elf$stats, "pctchg" = 10, "xval" = 500)
 #> [1] "Percent Richness Change at x = 500:"
 #> [1] 1.038858
 ```
+
+* **Plot percent richness change for various percent flow reductions**: Supply the elf stats to the function `elfchange()`. `"yaxis_thresh"` is 
+used to customize the maximum y-axis limit. Custom x-axis and y-axis plot labels can 
+be specified using `"xlabel"` and `"ylabel"` respectively.
 
 ``` r
 # Generate plot of percent richness change for various percent flow reductions
