@@ -41,7 +41,7 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
 
    #Prevents: Error in ru$coefficients[2, 1] : subscript out of bound (and others)
    if(length(upper.quant[,1]) <= 2) {
-      stop("Upper subset contains fewer than 3 datapoints")
+      stop("Upper subset contains fewer than 3 datapoints, insufficient data to complete analysis \n  ... Try using a smaller quantile")
    }
 
    regupper <- lm(y_var ~ log(x_var),data = upper.quant)
