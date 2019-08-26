@@ -65,7 +65,7 @@ watershed.df <- aggmax(watershed.df)
 * **Piecewise Iterative Method**: This approach uses an iterative algorithm to identify shifts in the relation between maximum richness 
 	and stream size. A user specifies a `"quantile"` for isolating an upper subset of the data. A user also 
 	identifies a bounding range between two x-values (`"blo"` = “bound low”, `"bhi"` = “bound high”) in which the 
-	upper subest of data is believed to contain a breakpoint.
+	upper subest of data is believed to contain a breakpoint. (Note: Small datasets may not contain a breakpoint)
 * **Ymax Method**: This approach treats the maximum observed species richness value as the breakpoint. This function begins 
 	by locating the point with the highest y-value in the full dataset, then utilizing the associated x-value 
 	as the breakpoint.
