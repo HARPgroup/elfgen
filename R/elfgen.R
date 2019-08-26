@@ -28,6 +28,12 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
    full_dataset <- watershed.df
    data <- watershed.df[!(watershed.df$x_var > breakpt),]
 
+
+   #Prevents: Error in rq.fit.br(x, y, tau = tau, ...) : Singular design matrix (and others)
+   if(length(data[,1]) <= 2) {
+      stop("Dataset contains fewer than 3 datapoints, insufficient data to complete analysis \n  ... Try using a larger breakpt \n  ... If still unsuccessful, a larger dataset may be required")
+   }
+
    # UPPER SUBSET
    if (has_warning(rq(y_var ~ log(x_var),data = data, tau = quantile)) == TRUE) {
       stop("Unable to characterize upper subset using quantile regression")
@@ -41,7 +47,7 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
 
    #Prevents: Error in ru$coefficients[2, 1] : subscript out of bound (and others)
    if(length(upper.quant[,1]) <= 2) {
-      stop("Upper subset contains fewer than 3 datapoints, insufficient data to complete analysis \n  ... Try using a smaller quantile")
+      stop("Upper subset contains fewer than 3 datapoints, insufficient data to complete analysis \n  ... Try using a smaller quantile \n  ... If still unsuccessful, a larger dataset may be required")
    }
 
    regupper <- lm(y_var ~ log(x_var),data = upper.quant)
