@@ -52,11 +52,6 @@ watershed.df <- data.frame(flow=c(28.257, 20.254, 22.825, ...),
 			   stringsAsFactors=FALSE) 
 ```
 
-``` r
-# If multiple richness values are present for a single flow value, 
-# you can aggregate to the maximum richness value with the following:
-watershed.df <- aggmax(watershed.df)			   
-```
 
 
 ### Identify breakpoint in flow-ecology relation using 1 of 3 methods.
