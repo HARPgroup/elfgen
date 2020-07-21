@@ -4,8 +4,14 @@
 \alias{elfgen}
 \title{Generic ELF generation}
 \usage{
-elfgen(watershed.df, quantile, breakpt, yaxis_thresh, xlabel = FALSE,
-  ylabel = FALSE)
+elfgen(
+  watershed.df,
+  quantile,
+  breakpt,
+  yaxis_thresh,
+  xlabel = FALSE,
+  ylabel = FALSE
+)
 }
 \arguments{
 \item{watershed.df}{a dataframe of sites with ecological and hydrologic data}
