@@ -5,24 +5,27 @@
 #' @param watershed.df a dataframe of DEQ VAHydro EDAS sites with ecological and hydrologic data
 #' @param station_agg option to aggregate to the maximum richness value at each flow value
 #' @return the watershed.df dataframe
+#' @import sqldf
 #' @export clean_vahydro
 clean_vahydro <- function (watershed.df,station_agg = "max") {
   print(paste("LENGTH OF INPUT DATASET:  ",length(watershed.df[,1]), sep = ''))
 
-
   #ADD COLUMN OF RATIO OF DRAINAGE AREA TO MEAN FLOW
   watershed.df["ratio"] <- (watershed.df$DA_SQMI)/(watershed.df$MAF)
   #REMOVE ALL STATIONS WHERE THE RATIO OF DA:Q IS GREATER THAN 1000
-  watershed.df<-watershed.df[!(watershed.df$ratio > 1000),]
+  watershed.df <-watershed.df[!(watershed.df$ratio > 1000),]
 
   #USE ONLY MAX NT VALUE FOR EACH STATION
-  if(station_agg == "max"){
-    aa <- watershed.df[order(watershed.df$hydrocode, watershed.df$NT.TOTAL.UNIQUE, decreasing=TRUE),]
-    aa <- aa[!duplicated(aa$hydrocode),]
-    aa <- aa[order(aa$hydrocode, aa$NT.TOTAL.UNIQUE),]
-    watershed.df <- aa
-  }
-
+  watershed.df.query <- paste('SELECT MAF,
+                                      MAX("NT.TOTAL.UNIQUE") as "NT.TOTAL.UNIQUE",
+                                      "watershed.code",
+                                      hydrocode,
+                                      DA_SQMI,
+                                      "x.metric"
+                                 FROM "watershed.df" a
+                                 GROUP BY "x.metric"'
+                              ,sep='')
+  watershed.df <- sqldf(watershed.df.query)
   print(paste("LENGTH OF OUTPUT DATASET: ",length(watershed.df[,1]), sep = ''))
 
   return(watershed.df)
