@@ -16,12 +16,12 @@ clean_vahydro <- function (watershed.df,station_agg = "max") {
   watershed.df <-watershed.df[!(watershed.df$ratio > 1000),]
 
   #USE ONLY MAX NT VALUE FOR EACH STATION
-  watershed.df.query <- paste('SELECT MAF,
+  watershed.df.query <- paste('SELECT "x.metric",
                                       MAX("NT.TOTAL.UNIQUE") as "NT.TOTAL.UNIQUE",
                                       "watershed.code",
                                       hydrocode,
                                       DA_SQMI,
-                                      "x.metric"
+                                      MAF
                                  FROM "watershed.df" a
                                  GROUP BY "x.metric"'
                               ,sep='')

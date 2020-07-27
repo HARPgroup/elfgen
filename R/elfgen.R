@@ -21,7 +21,7 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
    watershed.df.raw <- watershed.df
 
    #RENAME COLUMNS TO HAVE GENERIC NAMES
-   colnames(watershed.df)[6] <- "x_var"
+   colnames(watershed.df)[1] <- "x_var"
    colnames(watershed.df)[2] <- "y_var"
    colnames(watershed.df)[3] <- "watershed"
 
