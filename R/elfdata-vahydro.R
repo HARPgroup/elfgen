@@ -39,12 +39,12 @@ elfdata_vahydro <- function (watershed.code,watershed.bundle,watershed.ftype,x.m
   }
 
   #reformat dataframe to conform to elfgen format
-  watershed.df <- data.frame("MAF" = EDAS.dataframe$qmean_annual,
+  watershed.df <- data.frame("x.metric" = EDAS.dataframe$x_value,
                              "NT.TOTAL.UNIQUE" = EDAS.dataframe$y_value,
                              "watershed.code" = watershed.code,
                              "hydrocode" = EDAS.dataframe$hydrocode,
                              "DA_SQMI" = EDAS.dataframe$drainage_area_sqmi,
-                             "x.metric" = EDAS.dataframe$x_value
+                             "MAF" = EDAS.dataframe$qmean_annual
 
   )
 
