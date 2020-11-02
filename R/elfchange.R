@@ -15,11 +15,12 @@ elfchange <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
   table <- data.frame("xvalues" = its,
                       stringsAsFactors = FALSE)
 
-
+  print(paste("Processing Richness Change...", sep=""))
   #i <- 1
   for (i in 1:length(pct_list)) {
     pct <- pct_list[i]
-    elfchg.percent <- richness_change(stats, pct, its)
+    invisible(capture.output(elfchg.percent <- richness_change(stats, pct, its)))
+    elfchg.percent <- -elfchg.percent #UPDATED TO FACILITATE richness_change() RETURNING NEGATIVE VALUE
 
     table_i = data.frame(elfchg.percent)
     names(table_i) <- c(paste("pct_chg_", pct_list[i], sep = ""))

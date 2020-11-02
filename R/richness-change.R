@@ -11,6 +11,7 @@ richness_change <- function(stats, pctchg, xval = FALSE) {
   pctchg <- pctchg * 0.01
 
   richness.loss <- m * (log(1 / (1 - pctchg)))
+  richness.loss <- -richness.loss #ENSURE A NEGATIVE VALUE IS RETURNED FOR RICHNESS LOSS
 
   #print(xval)
   if (missing(xval) == FALSE){
