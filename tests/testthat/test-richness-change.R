@@ -15,6 +15,6 @@ test.watershed.df <- data.frame(
 )
 
  test_that("Function returns a ggplot object", {
-    expect_equal(richness_change(test.watershed.df, "pctchg" = 10),0.2465436)
+    expect_equal(richness_change(test.watershed.df, "pctchg" = 10),-0.2465436)
  })
 
