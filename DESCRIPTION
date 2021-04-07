@@ -15,7 +15,7 @@ Imports:
 	testit,
 	scales,
 	sqldf
-License: GPL-2
+License: MIT + file LICENSE
 URL: https://github.com/HARPgroup/elfgen
 LazyData: true
 RoxygenNote: 7.1.0
