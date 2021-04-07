@@ -8,6 +8,7 @@ Authors@R:
 		   email = "joseph.d.kleiner@gmail.com",
 		   comment = c(ORCID = "0000-0003-4837-7678")
 	)
+Maintainer: Joseph Kleiner <joseph.d.kleiner@gmail.com>
 Description: 
 	elfgen is a framework for generating Ecological Limit Function (ELF) models.
 Imports: 
