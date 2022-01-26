@@ -1,6 +1,6 @@
 Package: elfgen
 Title: R Package for Ecological Limit Function Generation and Analysis
-Version: 2.1.0
+Version: 2.2.0
 Authors@R: 
 	person(given = "Joseph", 
 		   family = "Kleiner", 
@@ -10,7 +10,7 @@ Authors@R:
 	)
 Maintainer: Joseph Kleiner <joseph.d.kleiner@gmail.com>
 Description: 
-	elfgen is a framework for generating Ecological Limit Function (ELF) models.
+	A framework for generating Ecological Limit Function (ELF) models.
 Imports: 
 	utils,
 	RJSONIO,
@@ -23,7 +23,6 @@ Imports:
 	sqldf
 License: MIT + file LICENSE
 URL: https://github.com/HARPgroup/elfgen
-LazyData: true
 RoxygenNote: 7.1.0
 Suggests: 
     testthat (>= 2.1.0)
