@@ -2,20 +2,35 @@
 % Please edit documentation in R/richness-change.R
 \name{richness_change}
 \alias{richness_change}
-\title{Calculate Net change in Richness From A Percent Reduction In Flow}
+\title{Calculate change in richness resulting from a percent reduction in flow}
 \usage{
 richness_change(stats, pctchg, xval = FALSE)
 }
 \arguments{
-\item{stats}{a dataframe of ELF model statistics}
+\item{stats}{A dataframe of ELF statistics}
 
-\item{pctchg}{decrease in flow as a percent}
+\item{pctchg}{Decrease in flow as a percent (e.g. 10 equals 10 percent reduction in flow).}
 
-\item{xval}{x-value for assessing percent change in richness}
+\item{xval}{x-axis value for assessing percent change in richness. When supplied, the function will calculate percent change in richness at a specific stream size (e.g. 50 equals a stream size with mean annual flow of 50 cfs).}
 }
 \value{
-richness.change
+Richness change value is returned
 }
 \description{
-function for calculating change in richness from streamflow reduction
+Calculates absolute or percent richness change from streamflow reduction
+}
+\examples{
+# Calculate absolute richness change
+watershed.df <- elfdata('0208020101')
+breakpt <- 500
+elf <- elfgen(
+   "watershed.df" = watershed.df,
+   "quantile" = 0.70,
+   "breakpt" = breakpt,
+   "xlabel" = "Mean Annual Flow (ft3/s)",
+   "ylabel" = "Fish Species Richness"
+   )
+richness_change(elf$stats, "pctchg" = 10)
+# Calculate percent richness change at a specific stream size
+richness_change(elf$stats, "pctchg" = 10, "xval" = 50)
 }

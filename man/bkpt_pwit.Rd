@@ -2,22 +2,26 @@
 % Please edit documentation in R/bkpt-pwit.R
 \name{bkpt_pwit}
 \alias{bkpt_pwit}
-\title{Generic ELF generation}
+\title{Identify breakpoint location with PWIT}
 \usage{
 bkpt_pwit(watershed.df, quantile, blo, bhi)
 }
 \arguments{
-\item{watershed.df}{a dataframe of sites with ecological and hydrologic data}
+\item{watershed.df}{A dataframe of sites with ecological and hydrologic data}
 
-\item{quantile}{a specified value for the quantile of interest - 0.95 equals the 95th percentile}
+\item{quantile}{Specified value for the quantile of interest - 0.95 refers to the 95th percentile}
 
-\item{blo}{a "bound low" value, or the lower bound of the piecewise range}
+\item{blo}{A "bound low" value, or the lower bound of the piecewise range}
 
-\item{bhi}{a "bound high" value, or the upper bound of the piecewise range}
+\item{bhi}{A "bound high" value, or the upper bound of the piecewise range}
 }
 \value{
-breakpt
+Breakpoint value is returned
 }
 \description{
-PIECEWISE ITERATIVE method function
+This applies the Piecewise Iterative elfgen method. This approach uses an iterative algorithm to identify shifts in the relation between maximum richness and stream size. A user specifies a "quantile" for isolating an upper subset of the data. A user also identifies a bounding range between two x-values ("blo" = "bound low", "bhi" = "bound high") in which the upper subest of data is believed to contain a breakpoint. (Note: Small datasets may not contain a breakpoint)
+}
+\examples{
+watershed.df <- elfdata('0208020101')
+breakpt <- bkpt_pwit(watershed.df,0.80,100,500)
 }

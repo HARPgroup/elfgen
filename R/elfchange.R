@@ -1,32 +1,42 @@
-#' Calculate Net change in Richness From A Percent Reduction In Flow
-#' @description function for calculating change in richness from streamflow reduction
-#' @param stats a dataframe of ELF model statistics
-#' @param yaxis_thresh y-axis threshold used for plotting maximum y-axis limit
-#' @param xlabel used to overwrite default x-axis label
-#' @param ylabel used to overwrite default y-axis label
-#' @return richness.change
+#' Plot percent richness change for various percent flow reductions
+#' @description Calculates and plots percent richness change resulting from streamflow reductions
+#' @param stats A dataframe of ELF statistics
+#' @param yaxis_thresh Value used for specifying y-axis max limit
+#' @param xlabel Used to overwrite default x-axis label
+#' @param ylabel Used to overwrite default y-axis label
+#' @return Plot of percent decreases in richness from flow reductions
 #' @import scales
+#' @import ggplot2
 #' @export elfchange
+#' @examples
+#' # Generate plot of percent richness change for various percent flow reductions
+#' watershed.df <- elfdata('0208020101')
+#' breakpt <- 500
+#' elf <- elfgen(
+#'    "watershed.df" = watershed.df,
+#'    "quantile" = 0.70,
+#'    "breakpt" = breakpt,
+#'    "xlabel" = "Mean Annual Flow (ft3/s)",
+#'    "ylabel" = "Fish Species Richness"
+#'    )
+#' elfchange(elf$stats, "yaxis_thresh" = 25)
 elfchange <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
   its <- seq(1, 500, 0.01)
-  #its <- c(100, 200, 300, 400, 500)
   pct_list <- c(5, 10, 20, 30, 40, 50)
 
   table <- data.frame("xvalues" = its,
                       stringsAsFactors = FALSE)
 
-  print(paste("Processing Richness Change...", sep=""))
-  #i <- 1
+  #message(paste("Processing Richness Change...",sep = ''))
   for (i in 1:length(pct_list)) {
     pct <- pct_list[i]
-    invisible(capture.output(elfchg.percent <- richness_change(stats, pct, its)))
-    elfchg.percent <- -elfchg.percent #UPDATED TO FACILITATE richness_change() RETURNING NEGATIVE VALUE
+    elfchg.percent <- richness_change(stats, pct, its)
+    elfchg.percent <- -elfchg.percent
 
     table_i = data.frame(elfchg.percent)
     names(table_i) <- c(paste("pct_chg_", pct_list[i], sep = ""))
     table <- cbind(table, table_i)
   }
-
 
   # default ymax if none provided
   if (missing(yaxis_thresh)) {
@@ -43,24 +53,23 @@ elfchange <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
   xaxis_title <- paste("\n",xaxis_title,sep="")
   yaxis_title <- paste("Percent Decrease in","\n",yaxis_title,"\n",sep="")
 
-  print("Generating Plot Image...")
-
-  xvalues <- NULL # Fixes NOTE: no visible binding for global variable
-  pct_chg_50 <- NULL # Fixes NOTE: no visible binding for global variable
-  pct_chg_40 <- NULL # Fixes NOTE: no visible binding for global variable
-  pct_chg_30 <- NULL # Fixes NOTE: no visible binding for global variable
-  pct_chg_20 <- NULL # Fixes NOTE: no visible binding for global variable
-  pct_chg_10 <- NULL # Fixes NOTE: no visible binding for global variable
-  pct_chg_5 <- NULL # Fixes NOTE: no visible binding for global variable
+  #message(paste("Generating Plot Image...",sep = ''))
+  xvalues <- NULL
+  pct_chg_50 <- NULL
+  pct_chg_40 <- NULL
+  pct_chg_30 <- NULL
+  pct_chg_20 <- NULL
+  pct_chg_10 <- NULL
+  pct_chg_5 <- NULL
 
   result <- ggplot(table , aes(x=xvalues, y=pct_chg_50)) +
 
-    geom_line(data = table , aes(x=xvalues,y=pct_chg_50,color = "black")) +
-    geom_line(data = table , aes(x=xvalues,y=pct_chg_40,color = "blue")) +
-    geom_line(data = table , aes(x=xvalues,y=pct_chg_30,color = "green"))+
-    geom_line(data = table , aes(x=xvalues,y=pct_chg_20,color = "red"))+
-    geom_line(data = table , aes(x=xvalues,y=pct_chg_10,color = "violet"))+
-    geom_line(data = table , aes(x=xvalues,y=pct_chg_5,color = "wheat"))+
+    geom_line(data = table , aes(x=xvalues,y=pct_chg_50,color = "black"), na.rm=TRUE) +
+    geom_line(data = table , aes(x=xvalues,y=pct_chg_40,color = "blue"), na.rm=TRUE) +
+    geom_line(data = table , aes(x=xvalues,y=pct_chg_30,color = "green"), na.rm=TRUE)+
+    geom_line(data = table , aes(x=xvalues,y=pct_chg_20,color = "red"), na.rm=TRUE)+
+    geom_line(data = table , aes(x=xvalues,y=pct_chg_10,color = "violet"), na.rm=TRUE)+
+    geom_line(data = table , aes(x=xvalues,y=pct_chg_5,color = "wheat"), na.rm=TRUE)+
 
     scale_color_manual(
       "Flow Reduction",

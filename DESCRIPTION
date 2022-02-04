@@ -1,6 +1,6 @@
 Package: elfgen
-Title: Ecological Limit Function Generation and Analysis
-Version: 2.2.1
+Title: Ecological Limit Function Model Generation, Analysis, and Visualization using 'ggplot2' and Statistical Methods
+Version: 2.2.2
 Authors@R: 
 	person(given = "Joseph", 
 		   family = "Kleiner", 
@@ -10,7 +10,7 @@ Authors@R:
 	)
 Maintainer: Joseph Kleiner <joseph.d.kleiner@gmail.com>
 Description:
-	A toolset for generating Ecological Limit Function (ELF) models, based on the "elfgen" framework. ELFs describe the relation between aquatic species richness (fish or benthic macroinvertebrates) and stream size characteristics (streamflow or drainage area). Journal publications are available outlining framework methodology (Kleiner et al. (2020) <doi:10.1111/1752-1688.12876>) and application (Rapp et al. (2020) <doi:10.1111/1752-1688.12877>).
+	A toolset for generating Ecological Limit Function (ELF) models and evaluating potential species loss resulting from flow change, based on the "elfgen" framework. ELFs describe the relation between aquatic species richness (fish or benthic macroinvertebrates) and stream size characteristics (streamflow or drainage area). Journal publications are available outlining framework methodology (Kleiner et al. (2020) <doi:10.1111/1752-1688.12876>) and application (Rapp et al. (2020) <doi:10.1111/1752-1688.12877>).
 Imports: 
 	utils,
 	RJSONIO,

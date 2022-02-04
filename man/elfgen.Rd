@@ -2,7 +2,7 @@
 % Please edit documentation in R/elfgen.R
 \name{elfgen}
 \alias{elfgen}
-\title{Generic ELF generation}
+\title{Generate Ecological Limit Function (ELF)}
 \usage{
 elfgen(
   watershed.df,
@@ -14,21 +14,32 @@ elfgen(
 )
 }
 \arguments{
-\item{watershed.df}{a dataframe of sites with ecological and hydrologic data}
+\item{watershed.df}{A dataframe of sites with ecological and hydrologic data}
 
-\item{quantile}{a specified value for the quantile of interest - 0.95 equals the 95th percentile}
+\item{quantile}{A specified value for the quantile of interest - 0.95 equals the 95th percentile}
 
-\item{breakpt}{a breakpoint - either user-defined or derived using elfgen breakpoint functions}
+\item{breakpt}{A breakpoint - either user-supplied fixed value or derived using elfgen breakpoint functions bkpt_pwit() or bkpt_ymax}
 
-\item{yaxis_thresh}{y-axis threshold used for plotting maximum y-axis limit}
+\item{yaxis_thresh}{Value used for specifying y-axis max limit}
 
-\item{xlabel}{used to overwrite default x-axis label}
+\item{xlabel}{Used to overwrite default x-axis label}
 
-\item{ylabel}{used to overwrite default y-axis label}
+\item{ylabel}{Used to overwrite default y-axis label}
 }
 \value{
-object containing plot image and dataframe of ELF statistics
+Object containing plot image and dataframe of ELF statistics
 }
 \description{
-Generic plotting function
+Generate ELF models by supplying a dataframe of richness and stream size data (streamflow or drainage area), a quantile for evaluating the ecological limit, and a breakpoint threshold.
+}
+\examples{
+watershed.df <- elfdata('0208020101')
+breakpt <- 500
+elf <- elfgen(
+   "watershed.df" = watershed.df,
+   "quantile" = 0.70,
+   "breakpt" = breakpt,
+   "xlabel" = "Mean Annual Flow (ft3/s)",
+   "ylabel" = "Fish Species Richness"
+   )
 }

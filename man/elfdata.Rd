@@ -7,15 +7,22 @@
 elfdata(watershed.code, ichthy.localpath = tempdir())
 }
 \arguments{
-\item{watershed.code}{a hydrologic unit code, either HUC6, HUC8, HUC10, or HUC12}
+\item{watershed.code}{Hydrologic unit code, either HUC6, HUC8, HUC10, or HUC12 (e.g. HUC10 code '0208020101').}
 
-\item{ichthy.localpath}{local path for storing downloaded ichthy data. Default to temp directory}
+\item{ichthy.localpath}{Local file path for storing downloaded ichthy data. Defaults to a temp directory.}
 }
 \value{
-the watershed.df dataframe containing nhdplus MAF and NT Total values
+A dataframe of nhdplus segments containing species richness data (NT Total values) and mean annual flow (MAF) data.
 }
 \description{
 Given a HUC code, provides a dataframe of
 all contained nhdplus segments and their individual NT Total
 and Mean Annual Flow MAF values
+}
+\examples{
+# Retrieve dataset of interest
+# You may enter either a 6, 8, 10, or 12-digit HUC code.
+# By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by
+# supplying a local path of interest using the input parameter 'ichthy.localpath'
+watershed.df <- elfdata('02080201')
 }

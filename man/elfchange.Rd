@@ -2,22 +2,35 @@
 % Please edit documentation in R/elfchange.R
 \name{elfchange}
 \alias{elfchange}
-\title{Calculate Net change in Richness From A Percent Reduction In Flow}
+\title{Plot percent richness change for various percent flow reductions}
 \usage{
 elfchange(stats, yaxis_thresh, xlabel = FALSE, ylabel = FALSE)
 }
 \arguments{
-\item{stats}{a dataframe of ELF model statistics}
+\item{stats}{A dataframe of ELF statistics}
 
-\item{yaxis_thresh}{y-axis threshold used for plotting maximum y-axis limit}
+\item{yaxis_thresh}{Value used for specifying y-axis max limit}
 
-\item{xlabel}{used to overwrite default x-axis label}
+\item{xlabel}{Used to overwrite default x-axis label}
 
-\item{ylabel}{used to overwrite default y-axis label}
+\item{ylabel}{Used to overwrite default y-axis label}
 }
 \value{
-richness.change
+Plot of percent decreases in richness from flow reductions
 }
 \description{
-function for calculating change in richness from streamflow reduction
+Calculates and plots percent richness change resulting from streamflow reductions
+}
+\examples{
+# Generate plot of percent richness change for various percent flow reductions
+watershed.df <- elfdata('0208020101')
+breakpt <- 500
+elf <- elfgen(
+   "watershed.df" = watershed.df,
+   "quantile" = 0.70,
+   "breakpt" = breakpt,
+   "xlabel" = "Mean Annual Flow (ft3/s)",
+   "ylabel" = "Fish Species Richness"
+   )
+elfchange(elf$stats, "yaxis_thresh" = 25)
 }
