@@ -2,20 +2,32 @@
 % Please edit documentation in R/clean-vahydro.R
 \name{clean_vahydro}
 \alias{clean_vahydro}
-\title{Supply dataframe of ecological and hydrologic data from DEQ VAHydro database}
+\title{Clean dataset of ecological and hydrologic data}
 \usage{
-clean_vahydro(watershed.df, station_agg = "max")
+clean_vahydro(watershed.df)
 }
 \arguments{
-\item{watershed.df}{a dataframe of DEQ VAHydro EDAS sites with ecological and hydrologic data}
-
-\item{station_agg}{option to aggregate to the maximum richness value at each flow value}
+\item{watershed.df}{A dataframe of sites with ecological and hydrologic data}
 }
 \value{
-the watershed.df dataframe
+A cleaned dataframe of sites with ecological and hydrologic data
 }
 \description{
-Given a dataframe of ecological and hydrologic data from VAHydro,
-removes all stations where the ratio of DA:Q is greater than 1000, also option to aggregate to the
-maximum richness value at each flow value
+Given a dataframe of flow metric and richness metric data
+(Typically retrieved from the DEQ VAHydro database), removes all sites where the
+ratio of Drainage Area:Mean Annual Flow is greater than 1000, also aggregates to the
+maximum richness value at each x-metric value
+}
+\examples{
+# Retrieve dataset of interest
+watershed.df <- data.frame(
+    MAF = c(100, 200, 300, 400, 526, 600, 700, 800, 400, 900, 1000, 100, 100),
+    NT.TOTAL.UNIQUE = c(10, 20, 30, 40, 50, 40, 30 , 20, 50, 10, 10,99999,87),
+    watershed.code = "test_testcode",
+    hydrocode = c("t1","t2","t3","t4","t5","t6","t7","t8","t9","t10","t11","t12","t13"),
+    DA_SQMI = c(110, 220000, 280, 360, 530, 604, 712, 698, 40000, 905, 1087, 98, 87),
+    x.metric = c(100, 200, 300, 400, 526, 600, 700, 800, 400, 900, 1000, 100, 100)
+    )
+# Clean the dataset
+clean_vahydro(watershed.df)
 }

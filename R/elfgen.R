@@ -1,16 +1,26 @@
-#' Generic ELF generation
+#' Generate Ecological Limit Function (ELF) model
 #' @description Generic plotting function
-#' @param watershed.df a dataframe of sites with ecological and hydrologic data
-#' @param quantile a specified value for the quantile of interest - 0.95 equals the 95th percentile
-#' @param breakpt a breakpoint - either user-defined or derived using elfgen breakpoint functions
-#' @param yaxis_thresh y-axis threshold used for plotting maximum y-axis limit
-#' @param xlabel used to overwrite default x-axis label
-#' @param ylabel used to overwrite default y-axis label
-#' @return object containing plot image and dataframe of ELF statistics
+#' @param watershed.df A dataframe of sites with ecological and hydrologic data
+#' @param quantile A specified value for the quantile of interest - 0.95 equals the 95th percentile
+#' @param breakpt A breakpoint - either user-supplied fixed value or derived using elfgen breakpoint functions bkpt_pwit() or bkpt_ymax
+#' @param yaxis_thresh Value used for specifying y-axis max limit
+#' @param xlabel Used to overwrite default x-axis label
+#' @param ylabel Used to overwrite default y-axis label
+#' @return Object containing plot image and dataframe of ELF statistics
 #' @import ggplot2
 #' @import quantreg
 #' @import testit
 #' @export elfgen
+#' @examples
+#' watershed.df <- elfdata('0208020101')
+#' breakpt <- 500
+#' elf <- elfgen(
+#'    "watershed.df" = watershed.df,
+#'    "quantile" = 0.70,
+#'    "breakpt" = breakpt,
+#'    "xlabel" = "Mean Annual Flow (ft3/s)",
+#'    "ylabel" = "Fish Species Richness"
+#'    )
 elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
 
    # DEFAULT breakpt IF NONE SUPPLIED
@@ -27,7 +37,6 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
 
    full_dataset <- watershed.df
    data <- watershed.df[!(watershed.df$x_var > breakpt),]
-
 
    #Prevents: Error in rq.fit.br(x, y, tau = tau, ...) : Singular design matrix (and others)
    if(length(data[,1]) <= 2) {
@@ -88,25 +97,23 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
    if (ylabel != FALSE) {biometric_title <- ylabel}
    xaxis_title <- paste(flow_title,"\n","\n","m: ",ruslope,"    b: ",ruint,"    r^2: ",rurs,"    adj r^2: ",rursadj,"    p: ",rup,"\n","    Upper ",((1 - quantile)*100),"% n: ",rucount,"    Data Subset n: ",subset_n,"    Full Dataset n: ",length(full_dataset$y_var),sep="");
    yaxis_title <- paste(biometric_title);
-   EDAS_upper_legend <- paste("Data Subset (Upper ",((1 - quantile)*100),"%)",sep="");
-   Reg_upper_legend <- paste("Regression (Upper ",((1 - quantile)*100),"%)",sep="");
-   Quantile_Legend <- paste(quantile," Quantile (Data Subset)",sep="");
-   EDAS_lower_legend <- paste("Data Subset (Lower ",(100-((1 - quantile)*100)),"%)",sep="");
+   data_upper_legend <- paste("Data Subset (Upper ",((1 - quantile)*100),"%)",sep="");
+   reg_upper_legend <- paste("Regression (Upper ",((1 - quantile)*100),"%)",sep="");
+   quantile_legend <- paste(quantile," Quantile (Data Subset)",sep="");
+   data_lower_legend <- paste("Data Subset (Lower ",(100-((1 - quantile)*100)),"%)",sep="");
 
    x_var <- NULL # Fixes NOTE: no visible binding for global variable
    y_var <- NULL # Fixes NOTE: no visible binding for global variable
 
    result <- ggplot(full_dataset, aes(x=x_var,y=y_var)) +
 
-      geom_point(data = full_dataset,aes(x=x_var,y=y_var, color="aliceblue")) +
-      geom_point(data = data,aes(x=x_var,y=y_var, colour="blue")) +
-      stat_smooth(method = "lm",fullrange=FALSE,level = .95, data = upper.quant, aes(x=x_var,y=y_var,color = "red")) +
-      geom_point(data = upper.quant, aes(x=x_var,y=y_var,color = "black")) +
-      geom_quantile(data = data, quantiles= quantile,show.legend = TRUE,aes(x=x_var,y=y_var, color="red")) +
-     # geom_smooth(data = data, method="lm",formula=y ~ x,show.legend = TRUE, aes(x=x_var,y=y_var, color="yellow"),se=FALSE) +
-      geom_smooth(data = upper.quant, formula = y ~ x, method = "lm", show.legend = TRUE, aes(x=x_var,y=y_var,color = "green"),se=FALSE) +
+      geom_point(data = full_dataset,aes(x=x_var,y=y_var, color="aliceblue"), na.rm=TRUE) +
+      geom_point(data = data,aes(x=x_var,y=y_var, colour="blue"), na.rm=TRUE) +
+      stat_smooth(formula = y ~ x, method = "lm",fullrange=FALSE,level = .95, data = upper.quant, aes(x=x_var,y=y_var,color = "red"), na.rm=TRUE) +
+      geom_point(data = upper.quant, aes(x=x_var,y=y_var,color = "black"), na.rm=TRUE) +
+      geom_quantile(data = data, formula = y ~ x, quantiles= quantile,show.legend = TRUE,aes(x=x_var,y=y_var, color="red"), na.rm=TRUE) +
+      geom_smooth(data = upper.quant, formula = y ~ x, method = "lm", show.legend = TRUE, aes(x=x_var,y=y_var,color = "green"),se=FALSE, na.rm=TRUE) +
 
-      ylim(0,yaxis_thresh) +
       ggtitle(plot_title) +
 
       theme(
@@ -117,35 +124,30 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
 
       labs(x = xaxis_title, y = yaxis_title) +
 
-      scale_x_log10(
-         limits = c(0.001, 15000),
-         breaks = c(0.001, 0.01, 0.1, 1.0, 10, 100, 1000, 10000),
-         labels = c("0.001", "0.01", "0.1", "1.0", "10", "100", "1,000", "10,000")
+      scale_x_continuous(trans='log10',
+                         limits = c(0.001, 15000),
+                         breaks = c(0.001, 0.01, 0.1, 1.0, 10, 100, 1000, 10000),
+                         labels = c("0.001", "0.01", "0.1", "1.0", "10", "100", "1,000", "10,000")
       ) +
+      scale_y_continuous(limits=c(0,yaxis_thresh))+
 
       annotation_logticks(sides = "b")+
       theme(legend.key = element_rect(fill = 'white')) +
 
       scale_color_manual(
          "Legend",
-         #values=c("gray66","forestgreen","blue","orange","black","red"),
-         #labels=c("Full Dataset",EDAS_upper_legend,EDAS_lower_legend,Reg_upper_legend,Quantile_Legend,"Regression (Data Subset)")
          values=c("gray66","forestgreen","blue","orange","black"),
-         labels=c("Full Dataset",EDAS_upper_legend,EDAS_lower_legend,Reg_upper_legend,Quantile_Legend)
+         labels=c("Full Dataset",data_upper_legend,data_lower_legend,reg_upper_legend,quantile_legend)
          ) +
 
       guides(colour = guide_legend(
          override.aes = list(
-            # size = c(1, 1, 1, 1, 1, 1),
-            # linetype = c(0, 0, 0, 1, 1, 1),
-            # shape = c(16, 16, 16, NA, NA, NA)
             size = c(1, 1, 1, 1, 1),
             linetype = c(0, 0, 0, 1, 1),
             shape = c(16, 16, 16, NA, NA)
          ),
          label.position = "right"
       ))
-
 
    objects <- list("plot" = result, "stats" = stats.df)
    return(objects)

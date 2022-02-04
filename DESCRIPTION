@@ -1,5 +1,5 @@
 Package: elfgen
-Title: Ecological Limit Function Generation and Analysis
+Title: Ecological Limit Function Generation, Analysis, and Visualization using 'ggplot2'
 Version: 2.2.1
 Authors@R: 
 	person(given = "Joseph", 

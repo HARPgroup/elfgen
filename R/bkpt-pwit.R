@@ -1,13 +1,16 @@
-#' Generic ELF generation
-#' @description PIECEWISE ITERATIVE method function
-#' @param watershed.df a dataframe of sites with ecological and hydrologic data
-#' @param quantile a specified value for the quantile of interest - 0.95 equals the 95th percentile
-#' @param blo a "bound low" value, or the lower bound of the piecewise range
-#' @param bhi a "bound high" value, or the upper bound of the piecewise range
-#' @return breakpt
+#' Identify breakpoint location with PWIT
+#' @description This applies the Piecewise Iterative elfgen method. This approach uses an iterative algorithm to identify shifts in the relation between maximum richness and stream size. A user specifies a "quantile" for isolating an upper subset of the data. A user also identifies a bounding range between two x-values ("blo" = "bound low", "bhi" = "bound high") in which the upper subest of data is believed to contain a breakpoint. (Note: Small datasets may not contain a breakpoint)
+#' @param watershed.df A dataframe of sites with ecological and hydrologic data
+#' @param quantile Specified value for the quantile of interest - 0.95 refers to the 95th percentile
+#' @param blo A "bound low" value, or the lower bound of the piecewise range
+#' @param bhi A "bound high" value, or the upper bound of the piecewise range
+#' @return Breakpoint value is returned
 #' @import quantreg
 #' @import stats
 #' @export bkpt_pwit
+#' @examples
+#' watershed.df <- elfdata('0208020101')
+#' breakpt <- bkpt_pwit(watershed.df,0.80,100,500)
 bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
 
   watershed.df.raw <- watershed.df
@@ -37,7 +40,6 @@ bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
   #set initial guess range
   breaks <- x[which(x >= blo & x <= bhi)]
   as.numeric(breaks)
-  #print(breaks)
 
   #This is necessary in case no breaks are found
   if(length(breaks) != 0) {
@@ -46,7 +48,6 @@ bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
       breakpt <- breaks
     }else{
 
-      #mse <- numeric(length(breaks))
       mse <- as.numeric(length(breaks))
 
       for(n in 1:length(breaks)){
@@ -60,7 +61,7 @@ bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
       breakpt <- breakpt[1]
     } #end of breaks == 1 loop
 
-    print(paste("Breakpoint identified at",breakpt,sep=" "))
+    #message(paste("breakpoint identified at ",breakpt,sep = ''))
 
   } else {
     breakpt <- "NONE IDENTIFIED"

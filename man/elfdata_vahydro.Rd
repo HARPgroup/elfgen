@@ -2,7 +2,7 @@
 % Please edit documentation in R/elfdata-vahydro.R
 \name{elfdata_vahydro}
 \alias{elfdata_vahydro}
-\title{Retrieve data from DEQ VAHydro database and format data for ELF generation}
+\title{Retrieve data from DEQ VAHydro database and format data for ELF generation. Contact Virginia DEQ Office of Water Supply to request access to the VAHydro database.}
 \usage{
 elfdata_vahydro(
   watershed.code,
@@ -16,26 +16,37 @@ elfdata_vahydro(
 )
 }
 \arguments{
-\item{watershed.code}{a hydrologic unit code, either HUC6, HUC8, HUC10, or HUC12}
+\item{watershed.code}{Hydrologic unit code, either HUC6, HUC8, HUC10, or HUC12 (e.g. HUC10 code '0208020101').}
 
 \item{watershed.bundle}{dH bundle of hydrologic unit}
 
 \item{watershed.ftype}{dH ftype of hydrologic unit}
 
-\item{x.metric}{x metric - streamflow or drainage area}
+\item{x.metric}{x-metric, i.e. streamflow or drainage area}
 
-\item{y.metric}{y metric - most commonly species richness}
+\item{y.metric}{y-metric, most commonly species richness}
 
-\item{y.sampres}{sample resolution of y.metric}
+\item{y.sampres}{Sample resolution of y.metric (e.g. 'species')}
 
-\item{datasite}{vahydro datasite URL}
+\item{datasite}{VAHydro database URL}
 
-\item{EDAS.localpath}{local path for storing downloaded EDAS data. Default to temp directory}
+\item{EDAS.localpath}{Local file path for storing downloaded EDAS data. Defaults to a temp directory.}
 }
 \value{
-the watershed.df dataframe containing streamflow and species richness data
+A dataframe of sites containing species richness data (NT Total values) and mean annual flow (MAF) data.
 }
 \description{
 Given a set of VAHydro input parameters, outputs a dataframe of
 flow metric and richness metric data for hydrologic unit supplied
+}
+\examples{
+# Retrieve dataset of interest
+watershed.df <- elfdata_vahydro(
+   'nhd_huc8_02080201',
+   'watershed',
+   'nhd_huc8',
+   'nhdp_drainage_sqmi',
+   'aqbio_nt_total',
+   'species'
+   )
 }

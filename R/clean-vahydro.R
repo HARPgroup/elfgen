@@ -1,14 +1,26 @@
-#' Supply dataframe of ecological and hydrologic data from DEQ VAHydro database
-#' @description Given a dataframe of ecological and hydrologic data from VAHydro,
-#' removes all stations where the ratio of DA:Q is greater than 1000, also option to aggregate to the
-#' maximum richness value at each flow value
-#' @param watershed.df a dataframe of DEQ VAHydro EDAS sites with ecological and hydrologic data
-#' @param station_agg option to aggregate to the maximum richness value at each flow value
-#' @return the watershed.df dataframe
+#' Clean dataset of ecological and hydrologic data
+#' @description Given a dataframe of flow metric and richness metric data
+#' (Typically retrieved from the DEQ VAHydro database), removes all sites where the
+#' ratio of Drainage Area:Mean Annual Flow is greater than 1000, also aggregates to the
+#' maximum richness value at each x-metric value
+#' @param watershed.df A dataframe of sites with ecological and hydrologic data
+#' @return A cleaned dataframe of sites with ecological and hydrologic data
 #' @import sqldf
 #' @export clean_vahydro
-clean_vahydro <- function (watershed.df,station_agg = "max") {
-  print(paste("LENGTH OF INPUT DATASET:  ",length(watershed.df[,1]), sep = ''))
+#' @examples
+#' # Retrieve dataset of interest
+#' watershed.df <- data.frame(
+#'     MAF = c(100, 200, 300, 400, 526, 600, 700, 800, 400, 900, 1000, 100, 100),
+#'     NT.TOTAL.UNIQUE = c(10, 20, 30, 40, 50, 40, 30 , 20, 50, 10, 10,99999,87),
+#'     watershed.code = "test_testcode",
+#'     hydrocode = c("t1","t2","t3","t4","t5","t6","t7","t8","t9","t10","t11","t12","t13"),
+#'     DA_SQMI = c(110, 220000, 280, 360, 530, 604, 712, 698, 40000, 905, 1087, 98, 87),
+#'     x.metric = c(100, 200, 300, 400, 526, 600, 700, 800, 400, 900, 1000, 100, 100)
+#'     )
+#' # Clean the dataset
+#' clean_vahydro(watershed.df)
+clean_vahydro <- function (watershed.df) {
+  message(paste("LENGTH OF INPUT DATASET:  ",length(watershed.df[,1]),sep = ''))
 
   #ADD COLUMN OF RATIO OF DRAINAGE AREA TO MEAN FLOW
   watershed.df["ratio"] <- (watershed.df$DA_SQMI)/(watershed.df$MAF)
@@ -26,7 +38,7 @@ clean_vahydro <- function (watershed.df,station_agg = "max") {
                                  GROUP BY "x.metric"'
                               ,sep='')
   watershed.df <- sqldf(watershed.df.query)
-  print(paste("LENGTH OF OUTPUT DATASET: ",length(watershed.df[,1]), sep = ''))
+  message(paste("LENGTH OF OUTPUT DATASET: ",length(watershed.df[,1]),sep = ''))
 
   return(watershed.df)
 } #close function

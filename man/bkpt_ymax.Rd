@@ -2,16 +2,20 @@
 % Please edit documentation in R/bkpt-ymax.R
 \name{bkpt_ymax}
 \alias{bkpt_ymax}
-\title{Generic ELF generation}
+\title{Identify breakpoint location with Ymax}
 \usage{
 bkpt_ymax(watershed.df)
 }
 \arguments{
-\item{watershed.df}{a dataframe of sites with ecological and hydrologic data}
+\item{watershed.df}{A dataframe of sites with ecological and hydrologic data}
 }
 \value{
-breakpt
+Breakpoint value is returned
 }
 \description{
-YMAX method function
+This applies the Ymax elfgen method. This approach treats the maximum observed species richness value as the breakpoint. This function begins by locating the point with the highest y-value in the full dataset, then utilizing the associated x-value as the breakpoint.
+}
+\examples{
+watershed.df <- elfdata('0208020101')
+breakpt <- bkpt_ymax(watershed.df)
 }
