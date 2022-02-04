@@ -2,7 +2,7 @@
 % Please edit documentation in R/elfgen.R
 \name{elfgen}
 \alias{elfgen}
-\title{Generate Ecological Limit Function (ELF) model}
+\title{Generate Ecological Limit Function (ELF)}
 \usage{
 elfgen(
   watershed.df,
@@ -30,7 +30,7 @@ elfgen(
 Object containing plot image and dataframe of ELF statistics
 }
 \description{
-Generic plotting function
+Generate ELF models by supplying a dataframe of richness and stream size data (streamflow or drainage area), a quantile for evaluating the ecological limit, and a breakpoint threshold.
 }
 \examples{
 watershed.df <- elfdata('0208020101')

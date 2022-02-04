@@ -1,5 +1,5 @@
-#' Generate Ecological Limit Function (ELF) model
-#' @description Generic plotting function
+#' Generate Ecological Limit Function (ELF)
+#' @description Generate ELF models by supplying a dataframe of richness and stream size data (streamflow or drainage area), a quantile for evaluating the ecological limit, and a breakpoint threshold.
 #' @param watershed.df A dataframe of sites with ecological and hydrologic data
 #' @param quantile A specified value for the quantile of interest - 0.95 equals the 95th percentile
 #' @param breakpt A breakpoint - either user-supplied fixed value or derived using elfgen breakpoint functions bkpt_pwit() or bkpt_ymax

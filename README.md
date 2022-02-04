@@ -5,7 +5,13 @@
 
 # Overview
  
-elfgen is an instream flow framework for rapid generation and optimization of flow-ecology relations. The elfgen framework centers on the generation of Ecological Limit Function models (ELFs) describing the relation between maximum species richness and stream size characteristic (streamflow or drainage area). Supporting manuscript is currently under development.
+elfgen is an instream flow framework for rapid generation and optimization of flow-ecology relations. The elfgen framework centers on the generation of Ecological Limit Function models (ELFs) describing the relation between maximum species richness and stream size characteristic (streamflow or drainage area). The elfgen framework was developed (By DEQ in cooperation with USGS and Virginia Tech) in response to a need for better environmental flow metrics for assesment of potential impacts of water use. For the first time this new framework may allow quantification of potential species loss resulting from flow change, and may offer an improved understanding of aquatic life risk variability due to geographic location, stream size and local scale.
+
+Supporting manuscripts have been published in the Journal of the American Water Resources Association (JAWRA):
+- elfgen: A New Instream Flow Framework for Rapid Generation and Optimization of Flow–Ecology Relations.
+   - Kleiner et al. (2020): https://onlinelibrary.wiley.com/doi/full/10.1111/1752-1688.12876
+- Application of a New Species-Richness Based Flow Ecology Framework for Assessing Flow Reduction Effects on Aquatic Communities
+   - Rapp et al. (2020): https://onlinelibrary.wiley.com/doi/full/10.1111/1752-1688.12877
 
 # Installation
 
