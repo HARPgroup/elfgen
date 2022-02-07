@@ -40,6 +40,7 @@ Given a set of VAHydro input parameters, outputs a dataframe of
 flow metric and richness metric data for hydrologic unit supplied
 }
 \examples{
+\donttest{
 # Retrieve dataset of interest
 watershed.df <- elfdata_vahydro(
    'nhd_huc8_02080201',
@@ -49,4 +50,6 @@ watershed.df <- elfdata_vahydro(
    'aqbio_nt_total',
    'species'
    )
+elfdata_vahydro(watershed.df)
+}
 }

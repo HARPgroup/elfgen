@@ -9,8 +9,10 @@
 #' @import stats
 #' @export bkpt_pwit
 #' @examples
-#' watershed.df <- elfdata('0208020101')
-#' breakpt <- bkpt_pwit(watershed.df,0.80,100,500)
+#' \donttest{
+#' watershed.df <- elfdata('02080201')
+#' breakpt <- bkpt_pwit(watershed.df,0.95,200,500)
+#' }
 bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
 
   watershed.df.raw <- watershed.df
