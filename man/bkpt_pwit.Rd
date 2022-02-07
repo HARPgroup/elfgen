@@ -22,6 +22,8 @@ Breakpoint value is returned
 This applies the Piecewise Iterative elfgen method. This approach uses an iterative algorithm to identify shifts in the relation between maximum richness and stream size. A user specifies a "quantile" for isolating an upper subset of the data. A user also identifies a bounding range between two x-values ("blo" = "bound low", "bhi" = "bound high") in which the upper subest of data is believed to contain a breakpoint. (Note: Small datasets may not contain a breakpoint)
 }
 \examples{
-watershed.df <- elfdata('0208020101')
-breakpt <- bkpt_pwit(watershed.df,0.80,100,500)
+\donttest{
+watershed.df <- elfdata('02080201')
+breakpt <- bkpt_pwit(watershed.df,0.95,200,500)
+}
 }

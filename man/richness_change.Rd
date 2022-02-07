@@ -20,12 +20,13 @@ Richness change value is returned
 Calculates absolute or percent richness change from streamflow reduction
 }
 \examples{
+\donttest{
 # Calculate absolute richness change
-watershed.df <- elfdata('0208020101')
+watershed.df <- elfdata('02080201')
 breakpt <- 500
 elf <- elfgen(
    "watershed.df" = watershed.df,
-   "quantile" = 0.70,
+   "quantile" = 0.95,
    "breakpt" = breakpt,
    "xlabel" = "Mean Annual Flow (ft3/s)",
    "ylabel" = "Fish Species Richness"
@@ -33,4 +34,5 @@ elf <- elfgen(
 richness_change(elf$stats, "pctchg" = 10)
 # Calculate percent richness change at a specific stream size
 richness_change(elf$stats, "pctchg" = 10, "xval" = 50)
+}
 }

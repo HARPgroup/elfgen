@@ -19,6 +19,7 @@ ratio of Drainage Area:Mean Annual Flow is greater than 1000, also aggregates to
 maximum richness value at each x-metric value
 }
 \examples{
+\donttest{
 # Retrieve dataset of interest
 watershed.df <- data.frame(
     MAF = c(100, 200, 300, 400, 526, 600, 700, 800, 400, 900, 1000, 100, 100),
@@ -30,4 +31,5 @@ watershed.df <- data.frame(
     )
 # Clean the dataset
 clean_vahydro(watershed.df)
+}
 }

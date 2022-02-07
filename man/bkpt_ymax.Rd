@@ -16,6 +16,8 @@ Breakpoint value is returned
 This applies the Ymax elfgen method. This approach treats the maximum observed species richness value as the breakpoint. This function begins by locating the point with the highest y-value in the full dataset, then utilizing the associated x-value as the breakpoint.
 }
 \examples{
-watershed.df <- elfdata('0208020101')
+\donttest{
+watershed.df <- elfdata('02080201')
 breakpt <- bkpt_ymax(watershed.df)
+}
 }

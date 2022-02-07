@@ -24,11 +24,11 @@ Calculates and plots percent richness change resulting from streamflow reduction
 \examples{
 \donttest{
 # Generate plot of percent richness change for various percent flow reductions
-watershed.df <- elfdata('0208020101')
+watershed.df <- elfdata('02080201')
 breakpt <- 500
 elf <- elfgen(
    "watershed.df" = watershed.df,
-   "quantile" = 0.70,
+   "quantile" = 0.95,
    "breakpt" = breakpt,
    "xlabel" = "Mean Annual Flow (ft3/s)",
    "ylabel" = "Fish Species Richness"
