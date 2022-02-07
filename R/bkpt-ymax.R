@@ -4,8 +4,10 @@
 #' @return Breakpoint value is returned
 #' @export bkpt_ymax
 #' @examples
-#' watershed.df <- elfdata('0208020101')
+#' \donttest{
+#' watershed.df <- elfdata('02080201')
 #' breakpt <- bkpt_ymax(watershed.df)
+#' }
 bkpt_ymax <- function(watershed.df) {
 
   watershed.df.raw <- watershed.df

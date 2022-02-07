@@ -22,6 +22,7 @@ Plot of percent decreases in richness from flow reductions
 Calculates and plots percent richness change resulting from streamflow reductions
 }
 \examples{
+\donttest{
 # Generate plot of percent richness change for various percent flow reductions
 watershed.df <- elfdata('0208020101')
 breakpt <- 500
@@ -33,4 +34,5 @@ elf <- elfgen(
    "ylabel" = "Fish Species Richness"
    )
 elfchange(elf$stats, "yaxis_thresh" = 25)
+}
 }

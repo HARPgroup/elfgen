@@ -49,4 +49,5 @@ watershed.df <- elfdata_vahydro(
    'aqbio_nt_total',
    'species'
    )
+elfdata_vahydro(watershed.df)
 }

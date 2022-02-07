@@ -12,15 +12,17 @@
 #' @import testit
 #' @export elfgen
 #' @examples
-#' watershed.df <- elfdata('0208020101')
+#' \donttest{
+#' watershed.df <- elfdata('02080201')
 #' breakpt <- 500
 #' elf <- elfgen(
 #'    "watershed.df" = watershed.df,
-#'    "quantile" = 0.70,
+#'    "quantile" = 0.95,
 #'    "breakpt" = breakpt,
 #'    "xlabel" = "Mean Annual Flow (ft3/s)",
 #'    "ylabel" = "Fish Species Richness"
 #'    )
+#' }
 elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
 
    # DEFAULT breakpt IF NONE SUPPLIED
