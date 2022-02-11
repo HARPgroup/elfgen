@@ -1,7 +1,10 @@
 # elfgen <img src="man/figures/logo.png" align="right" width="120" />
 
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/elfgen)](https://cran.r-project.org/package=elfgen)
 [![Travis Build Status](https://travis-ci.org/HARPgroup/elfgen.svg?branch=master)](https://travis-ci.org/HARPgroup/elfgen)
 [![codecov](https://codecov.io/gh/HARPgroup/elfgen/branch/master/graph/badge.svg?token=K9sGaBh54U)](https://app.codecov.io/gh/HARPgroup/elfgen)
+<!-- badges: end -->
 
 # Overview
  
