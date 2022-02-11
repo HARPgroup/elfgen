@@ -16,7 +16,10 @@ Supporting manuscripts have been published in the Journal of the American Water 
 # Installation
 
 ``` r
-# Install development version from Github:
+# Install the current released version from CRAN:
+install.packages("elfgen")
+
+# Or install the development version from Github:
 # install.packages("devtools")
 devtools::install_github("HARPgroup/elfgen")
 ```
