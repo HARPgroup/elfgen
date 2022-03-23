@@ -8,6 +8,8 @@
 #' @import utils
 #' @import RJSONIO
 #' @import stringr
+#' @importFrom curl has_internet handle_reset
+#' @importFrom httr http_error
 #' @export elfdata
 #' @examples
 #' \donttest{
@@ -100,7 +102,17 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
     COMID <- watershed.df[j,]$COMID_NHDv2
     COMID.URL <- paste('https://ofmpub.epa.gov/waters10/nhdplus.jsonv25?ppermanentidentifier=',COMID,'&pFilenameOverride=AUTO',sep="")
-    json_file <- fromJSON(COMID.URL)
+
+    #handle if epa resource is not available or has changed
+    if (!curl::has_internet()) {
+      message("INTERNET CONNECTION BROKEN")
+      return(NULL)
+    } else if (httr::http_error(COMID.URL)) {
+      message("DATA SOURCE BROKEN")
+      return(NULL)
+    } else {
+      json_file <- fromJSON(COMID.URL)
+    }
 
     COMID.MAF <- json_file$`output`$header$attributes[[4]]$value #MAF in cfs
 
