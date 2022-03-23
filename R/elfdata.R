@@ -21,7 +21,7 @@
 #' }
 elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
-  if (class(watershed.code) == 'data.frame') {
+  if (inherits(watershed.code,"data.frame") == TRUE) {
     ichthy.dataframe <- watershed.code
     watershed.code <- '02080106'
   } else {
@@ -41,7 +41,20 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
       #using direct sciencebase file link
       destfile <- paste(ichthy.localpath,ichthy_filename,sep="\\")
-      download.file(ichthy_item, destfile = destfile, method = "libcurl")
+
+      #handle if sciencebase resource is not available or has changed
+      tryCatch({
+        download.file(ichthy_item, destfile = destfile, method = "libcurl")},
+        error = function(cond){
+          # message(paste('IchthyMaps Resource Not Available:', cond))
+          message('IchthyMaps Resource Not Available')
+          return(NULL)
+        },
+        warning = function(cond){
+          # message(paste('IchthyMaps Resource Not Available:', cond))
+          message('IchthyMaps Resource Not Available')
+          return(NULL)
+      })
 
     } else {
       message(paste("ICHTHY DATASET PREVIOUSLY DOWNLOADED",sep = ''))
@@ -104,15 +117,18 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     COMID.URL <- paste('https://ofmpub.epa.gov/waters10/nhdplus.jsonv25?ppermanentidentifier=',COMID,'&pFilenameOverride=AUTO',sep="")
 
     #handle if epa resource is not available or has changed
-    if (!curl::has_internet()) {
-      message("INTERNET CONNECTION BROKEN")
-      return(NULL)
-    } else if (httr::http_error(COMID.URL)) {
-      message("DATA SOURCE BROKEN")
-      return(NULL)
-    } else {
-      json_file <- fromJSON(COMID.URL)
-    }
+    json_file <-tryCatch({
+      fromJSON(COMID.URL)},
+      error = function(cond){
+        # message(paste('NHD Resource Not Available:', cond))
+        message('NHD Resource Not Available')
+        return(NULL)
+      },
+      warning = function(cond){
+        # message(paste('NHD Resource Not Available:', cond))
+        message('NHD Resource Not Available')
+        return(NULL)
+      })
 
     COMID.MAF <- json_file$`output`$header$attributes[[4]]$value #MAF in cfs
 
