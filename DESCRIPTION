@@ -1,6 +1,6 @@
 Package: elfgen
 Title: Ecological Limit Function Model Generation, Analysis, and Visualization using 'ggplot2' and Statistical Methods
-Version: 2.2.3
+Version: 2.2.4
 Authors@R: 
 	person(given = "Joseph", 
 		   family = "Kleiner", 
@@ -20,7 +20,9 @@ Imports:
 	ggplot2,
 	testit,
 	scales,
-	sqldf
+	sqldf,
+	curl,
+	httr
 License: MIT + file LICENSE
 URL: https://github.com/HARPgroup/elfgen
 RoxygenNote: 7.1.2
