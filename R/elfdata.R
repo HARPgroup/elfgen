@@ -21,7 +21,7 @@
 #' }
 elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
-  if (class(watershed.code) == 'data.frame') {
+  if (inherits(watershed.code,"data.frame") == TRUE) {
     ichthy.dataframe <- watershed.code
     watershed.code <- '02080106'
   } else {
