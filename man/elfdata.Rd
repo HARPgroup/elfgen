@@ -20,6 +20,8 @@ all contained nhdplus segments and their individual NT Total
 and Mean Annual Flow MAF values
 }
 \examples{
+
+## We don't run this example by R CMD check, because it takes >10s
 \donttest{
 # Retrieve dataset of interest
 # You may enter either a 6, 8, 10, or 12-digit HUC code.

@@ -66,7 +66,7 @@ bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
     #message(paste("breakpoint identified at ",breakpt,sep = ''))
 
   } else {
-    breakpt <- "NONE IDENTIFIED"
+    breakpt <- "none identified"
     stop(paste("No breakpoint identified using this set of inputs for ", watershed.df$watershed[1],
                "\n  ... Try using a smaller quantile or a wider bounding range",
                "\n  ... If still unsuccessful, a larger dataset may be required",sep=''))
