@@ -42,7 +42,7 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
       message(paste("Downloading ichthy dataset:", sep = ''))
 
       #using direct sciencebase file link
-      destfile <- file.path(gsub("\\", "/", ichthy.localpath, fixed=TRUE),ichthy_filename)
+      destfile <- file.path(gsub("\\", "/", ichthy.localpath, fixed=TRUE),ichthy_filename,fsep="/")
 
       #handle if sciencebase resource is not available or has changed
       tryCatch({
