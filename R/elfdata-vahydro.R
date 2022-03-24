@@ -27,7 +27,7 @@
 elfdata_vahydro <- function (watershed.code,watershed.bundle,watershed.ftype,x.metric,y.metric,y.sampres,datasite,EDAS.localpath = tempdir()) {
 
   if (missing(datasite)) {
-    return("CONTACT PACKAGE MAINTAINER TO REQUEST ACCESS TO DEQ DATABASE")
+    return("Contact package maintainer to request access to DEQ database")
   } else {
 
   EDAS_item <- paste(
@@ -39,15 +39,15 @@ elfdata_vahydro <- function (watershed.code,watershed.bundle,watershed.ftype,x.m
 
   #file downloaded into local directory, as long as file exists it will not be re-downloaded
   if (file.exists(paste(EDAS.localpath, EDAS_filename, sep = '/')) == FALSE) {
-    message(paste("DOWNLOADING EDAS DATASET FROM DEQ VAHYDRO",sep = ''))
+    message(paste("Downloading EDAS dataset from DEQ VAHydro",sep = ''))
 
     destfile <- paste(EDAS.localpath,EDAS_filename,sep="\\")
     download.file(EDAS_item, destfile = destfile, method = "libcurl")
 
   } else {
-    message(paste("EDAS DATASET PREVIOUSLY DOWNLOADED",sep = ''))
+    message(paste("EDAS dataset previously downloaded",sep = ''))
   }
-  message(paste("DATASET DOWNLOAD LOCATION: ",EDAS.localpath,sep = ''))
+  message(paste("Dataset download location: ",EDAS.localpath,sep = ''))
 
   #read csv from local directory
   EDAS.dataframe <- read.csv(file=paste(EDAS.localpath,EDAS_filename,sep="\\"), header=TRUE, sep=",")

@@ -22,7 +22,7 @@
 #' clean_vahydro(watershed.df)
 #' }
 clean_vahydro <- function (watershed.df) {
-  message(paste("LENGTH OF INPUT DATASET:  ",length(watershed.df[,1]),sep = ''))
+  message(paste("Length of input dataset:  ",length(watershed.df[,1]),sep = ''))
 
   #ADD COLUMN OF RATIO OF DRAINAGE AREA TO MEAN FLOW
   watershed.df["ratio"] <- (watershed.df$DA_SQMI)/(watershed.df$MAF)
@@ -40,7 +40,7 @@ clean_vahydro <- function (watershed.df) {
                                  GROUP BY "x.metric"'
                               ,sep='')
   watershed.df <- sqldf(watershed.df.query)
-  message(paste("LENGTH OF OUTPUT DATASET: ",length(watershed.df[,1]),sep = ''))
+  message(paste("Length of output dataset: ",length(watershed.df[,1]),sep = ''))
 
   return(watershed.df)
 } #close function

@@ -3,7 +3,7 @@ library(elfgen)
 
 test_that("Checking length of input watershed.code",
           {
-            expect_error(elfdata("02080"), "Invalid Length of Hydrologic Unit Code")
+            expect_error(elfdata("02080"), "Invalid length of hydrologic unit code")
           })
 
 ##test_that("Checking for valid watershed.code",

@@ -12,6 +12,8 @@
 #' @importFrom httr http_error
 #' @export elfdata
 #' @examples
+#'
+#' ## We don't run this example by R CMD check, because it takes >10s
 #' \donttest{
 #' # Retrieve dataset of interest
 #' # You may enter either a 6, 8, 10, or 12-digit HUC code.
@@ -28,7 +30,7 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
   HUCRES.df <- data.frame(HUCRES = c(12, 10, 8, 6))
   if (length(which(HUCRES.df$HUCRES == nchar(watershed.code))) < 1) {
-    stop("Invalid Length of Hydrologic Unit Code")
+    stop("Invalid length of hydrologic unit code")
   }
 
     #using direct sciencebase file link
@@ -37,29 +39,29 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
     #file downloaded into local directory, as long as file exists it will not be re-downloaded
     if (file.exists(paste(ichthy.localpath, ichthy_filename, sep = '/')) == FALSE) {
-      message(paste("DOWNLOADING ICHTHY DATASET:", sep = ''))
+      message(paste("Downloading ichthy dataset:", sep = ''))
 
       #using direct sciencebase file link
-      destfile <- paste(ichthy.localpath,ichthy_filename,sep="\\")
+      destfile <- file.path(ichthy.localpath,ichthy_filename)
 
       #handle if sciencebase resource is not available or has changed
       tryCatch({
         download.file(ichthy_item, destfile = destfile, method = "libcurl")},
         error = function(cond){
           # message(paste('IchthyMaps Resource Not Available:', cond))
-          message('IchthyMaps Resource Not Available')
+          message('Ichthymaps resource not available')
           return(NULL)
         },
         warning = function(cond){
           # message(paste('IchthyMaps Resource Not Available:', cond))
-          message('IchthyMaps Resource Not Available')
+          message('Ichthymaps resource not available')
           return(NULL)
       })
 
     } else {
-      message(paste("ICHTHY DATASET PREVIOUSLY DOWNLOADED",sep = ''))
+      message(paste("Ichthy dataset previously downloaded",sep = ''))
     }
-    message(paste("DATASET DOWNLOAD LOCATION: ",ichthy.localpath,sep = ''))
+    # message(paste("Dataset download location: ",ichthy.localpath,sep = ''))
 
     #read csv from local directory
     ichthy.dataframe <- read.csv(file=paste(ichthy.localpath,ichthy_filename,sep="\\"), header=TRUE, sep=",")
@@ -79,7 +81,7 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
   if (nchar(watershed.code) == 6) {watershed.rows <- ichthy.dataframe[which(ichthy.dataframe$HUC6 == watershed.code),] }
 
    if (length(watershed.rows[,1]) == 0) {
-     stop("NO ICHTYMAP DATA FOR HYDROLOGIC UNIT CODE")
+     stop("No ichtymap data for hydrologic unit code")
    }
 
   #initialize watershed.df dataframe
@@ -90,9 +92,10 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
   #Loop through all COMIDs, summing the number of unique taxa present
   # to generate an NT Total value for each nhdplus segment
-  message(paste("PROCESSING NHD FEATURES:",sep = ''))
+  message(paste("Processing NHD features:",sep = ''))
+  pbr <- txtProgressBar(min = 0, max = length(watershed.rows$COMID_NHDv2), initial = 0)
   for (i in 1:length(watershed.rows$COMID_NHDv2)) {
-    message(paste(i," OF ",length(watershed.rows$COMID_NHDv2),sep = ''))
+    # message(paste(i," OF ",length(watershed.rows$COMID_NHDv2),sep = ''))
 
     COMID <- watershed.rows[i,]$COMID
     COMID.rows <- watershed.rows[which(watershed.rows$COMID_NHDv2 == COMID),] #single comid
@@ -104,14 +107,16 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     watershed.df.i <- data.frame(watershed.code,COMID_NHDv2 = COMID,NT.TOTAL.UNIQUE)
     watershed.df <- rbind(watershed.df,watershed.df.i)
 
+    if(interactive()) setTxtProgressBar(pbr, i)
   }
   watershed.df <- unique(watershed.df[, 1:3]) #remove duplicates (so each comid appears once)
-  message(paste(length(watershed.df$COMID_NHDv2)," NHD FEATURES FOUND CONTAINING RICHNESS DATA:",sep = ''))
+  message(paste("\n",length(watershed.df$COMID_NHDv2)," NHD features found containing richness data",sep = ''))
 
   #Loop through each COMID retrieving MAF value
-  message(paste("PROCESSING NHD FEATURE MEAN ANNUAL FLOW:",sep = ''))
+  message(paste("Processing NHD feature mean annual flow:",sep = ''))
+  pbm <- txtProgressBar(min = 0, max = length(watershed.df$COMID_NHDv2), initial = 0)
   for (j in 1:length(watershed.df$COMID_NHDv2)) {
-    message(paste(j," OF ",length(watershed.df$COMID_NHDv2),sep = ''))
+    # message(paste(j," OF ",length(watershed.df$COMID_NHDv2),sep = ''))
 
     COMID <- watershed.df[j,]$COMID_NHDv2
     COMID.URL <- paste('https://ofmpub.epa.gov/waters10/nhdplus.jsonv25?ppermanentidentifier=',COMID,'&pFilenameOverride=AUTO',sep="")
@@ -121,12 +126,12 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
       fromJSON(COMID.URL)},
       error = function(cond){
         # message(paste('NHD Resource Not Available:', cond))
-        message('NHD Resource Not Available')
+        message('NHD resource not available')
         return(NULL)
       },
       warning = function(cond){
         # message(paste('NHD Resource Not Available:', cond))
-        message('NHD Resource Not Available')
+        message('NHD resource not available')
         return(NULL)
       })
 
@@ -136,6 +141,7 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     if(is.null(COMID.MAF)==TRUE){next}
 
     watershed.df[j,"MAF"] <- COMID.MAF
+    if(interactive()) setTxtProgressBar(pbm, j)
   }
 
   #reformat dataframe to conform to elfgen format
