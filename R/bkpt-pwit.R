@@ -10,8 +10,10 @@
 #' @export bkpt_pwit
 #' @examples
 #' \donttest{
+#' # We don't run this example by R CMD check, because it takes >10s
+#'
 #' watershed.df <- elfdata('02080201')
-#' breakpt <- bkpt_pwit(watershed.df,0.95,200,500)
+#' bkpt_pwit(watershed.df,0.95,200,500)
 #' }
 bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
 

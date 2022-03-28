@@ -20,13 +20,14 @@ all contained nhdplus segments and their individual NT Total
 and Mean Annual Flow MAF values
 }
 \examples{
-
-## We don't run this example by R CMD check, because it takes >10s
 \donttest{
+# We don't run this example by R CMD check, because it takes >10s
+
 # Retrieve dataset of interest
 # You may enter either a 6, 8, 10, or 12-digit HUC code.
 # By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by
 # supplying a local path of interest using the input parameter 'ichthy.localpath'
 watershed.df <- elfdata('02080201')
+head(watershed.df)
 }
 }

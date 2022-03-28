@@ -7,7 +7,8 @@
 #' @export richness_change
 #' @examples
 #' \donttest{
-#' # Calculate absolute richness change
+#' # We don't run this example by R CMD check, because it takes >10s
+#'
 #' watershed.df <- elfdata('02080201')
 #' breakpt <- 500
 #' elf <- elfgen(
@@ -17,6 +18,7 @@
 #'    "xlabel" = "Mean Annual Flow (ft3/s)",
 #'    "ylabel" = "Fish Species Richness"
 #'    )
+#' # Calculate absolute richness change
 #' richness_change(elf$stats, "pctchg" = 10)
 #' # Calculate percent richness change at a specific stream size
 #' richness_change(elf$stats, "pctchg" = 10, "xval" = 50)
