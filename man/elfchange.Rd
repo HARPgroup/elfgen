@@ -23,6 +23,8 @@ Calculates and plots percent richness change resulting from streamflow reduction
 }
 \examples{
 \donttest{
+# We don't run this example by R CMD check, because it takes >10s
+
 # Generate plot of percent richness change for various percent flow reductions
 watershed.df <- elfdata('02080201')
 breakpt <- 500

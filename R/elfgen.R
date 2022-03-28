@@ -13,9 +13,11 @@
 #' @export elfgen
 #' @examples
 #' \donttest{
+#' # We don't run this example by R CMD check, because it takes >10s
+#'
 #' watershed.df <- elfdata('02080201')
 #' breakpt <- 500
-#' elf <- elfgen(
+#' elfgen(
 #'    "watershed.df" = watershed.df,
 #'    "quantile" = 0.95,
 #'    "breakpt" = breakpt,

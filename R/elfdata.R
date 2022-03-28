@@ -8,18 +8,17 @@
 #' @import utils
 #' @import RJSONIO
 #' @import stringr
-#' @importFrom curl has_internet handle_reset
-#' @importFrom httr http_error
 #' @export elfdata
 #' @examples
-#'
-#' ## We don't run this example by R CMD check, because it takes >10s
 #' \donttest{
+#' # We don't run this example by R CMD check, because it takes >10s
+#'
 #' # Retrieve dataset of interest
 #' # You may enter either a 6, 8, 10, or 12-digit HUC code.
 #' # By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by
 #' # supplying a local path of interest using the input parameter 'ichthy.localpath'
 #' watershed.df <- elfdata('02080201')
+#' head(watershed.df)
 #' }
 elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
 
@@ -36,13 +35,11 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     #using direct sciencebase file link
     ichthy_item <- "https://www.sciencebase.gov/catalog/file/get/5446a5a1e4b0f888a81b816d?f=__disk__25%2Fed%2F4a%2F25ed4a840a109d160d081bf144a66f615cb765cd"
     ichthy_filename <- "IchthyMaps_v1_20150520.csv"
+    destfile <- file.path(gsub("\\", "/", ichthy.localpath, fixed=TRUE),ichthy_filename,fsep="/")
 
     #file downloaded into local directory, as long as file exists it will not be re-downloaded
-    if (file.exists(paste(ichthy.localpath, ichthy_filename, sep = '/')) == FALSE) {
+    if (file.exists(destfile) == FALSE) {
       message(paste("Downloading ichthy dataset:", sep = ''))
-
-      #using direct sciencebase file link
-      destfile <- file.path(ichthy.localpath,ichthy_filename)
 
       #handle if sciencebase resource is not available or has changed
       tryCatch({
@@ -64,8 +61,7 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     # message(paste("Dataset download location: ",ichthy.localpath,sep = ''))
 
     #read csv from local directory
-    ichthy.dataframe <- read.csv(file=paste(ichthy.localpath,ichthy_filename,sep="\\"), header=TRUE, sep=",")
-
+    ichthy.dataframe <- read.csv(file=destfile, header=TRUE, sep=",")
   }
 
   #pad HUC12 column to ensure leading "0", generate columns for HUC10, HUC8, HUC6

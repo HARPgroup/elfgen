@@ -9,6 +9,8 @@
 #' @export clean_vahydro
 #' @examples
 #' \donttest{
+#' # We don't run this example by R CMD check, because it takes >10s
+#'
 #' # Retrieve dataset of interest
 #' watershed.df <- data.frame(
 #'     MAF = c(100, 200, 300, 400, 526, 600, 700, 800, 400, 900, 1000, 100, 100),
