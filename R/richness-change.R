@@ -9,7 +9,7 @@
 #' \donttest{
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
-#' watershed.df <- elfdata('02080201')
+#' watershed.df <- elfdata('0208020104')
 #' breakpt <- 500
 #' elf <- elfgen(
 #'    "watershed.df" = watershed.df,

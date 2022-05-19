@@ -18,7 +18,7 @@
 #' # You may enter either a 6, 8, 10, or 12-digit HUC code.
 #' # By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by
 #' # supplying a local path of interest using the input parameter 'ichthy.localpath'
-#' watershed.df <- elfdata('02080201')
+#' watershed.df <- elfdata('0208020104')
 #' head(watershed.df)
 #' }
 elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {

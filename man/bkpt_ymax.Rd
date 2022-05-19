@@ -19,7 +19,7 @@ This applies the Ymax elfgen method. This approach treats the maximum observed s
 \donttest{
 # We don't run this example by R CMD check, because it takes >10s
 
-watershed.df <- elfdata('02080201')
+watershed.df <- elfdata('0208020104')
 bkpt_ymax(watershed.df)
 }
 }

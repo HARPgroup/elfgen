@@ -17,8 +17,8 @@
 #' \donttest{
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
-#' watershed.df <- elfdata('02080201')
-#' bkpt_pwit(watershed.df,0.95,200,500)
+#' watershed.df <- elfdata('0208020104')
+#' bkpt_pwit(watershed.df,0.85,100,300)
 #' }
 bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
 
