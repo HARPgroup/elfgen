@@ -51,8 +51,11 @@ library(elfgen)
 
 # Retrieve dataset of interest
 # You may enter either a 6, 8, 10, or 12-digit HUC code
-# *Note: By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by 
-# supplying a local path of interest using the input parameter "ichthy.localpath" 
+# *Notes: 
+#    By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by 
+#      supplying a local path of interest using the input parameter "ichthy.localpath"
+#    6-digit HUCs like the following example may take a few minutes to process with elfdata() due to the
+#      large number of contained IchthyMaps historical stream fish distribution data
 watershed.df <- elfdata('02080201')
 ```
 
