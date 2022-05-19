@@ -61,7 +61,13 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     # message(paste("Dataset download location: ",ichthy.localpath,sep = ''))
 
     #read csv from local directory
-    ichthy.dataframe <- read.csv(file=destfile, header=TRUE, sep=",")
+    # ichthy.dataframe <- read.csv(file=destfile, header=TRUE, sep=",")
+    if ((file.size(destfile) == 0L) == TRUE) {
+      stop('Ichthymaps resource not available')
+    } else {
+      ichthy.dataframe <- read.csv(file=destfile, header=TRUE, sep=",")
+    }
+
   }
 
   #pad HUC12 column to ensure leading "0", generate columns for HUC10, HUC8, HUC6
