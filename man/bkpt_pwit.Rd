@@ -23,8 +23,8 @@ This applies the Piecewise Iterative elfgen method. This approach uses an iterat
 }
 \details{
 See:
- Lemoine, N. 2012. “R for Ecologists: Putting Together a Piecewise Regression.” https://www.r-bloggers.com/r-for-ecologists-putting-together-a-piecewise-regression/
- The R Book, Second Edition. Michael J. Crawley. © 2013 John Wiley & Sons, Ltd. Published 2013 by John Wiley & Sons, Ltd.
+ Lemoine, N. 2012. "R for Ecologists: Putting Together a Piecewise Regression." https://www.r-bloggers.com/r-for-ecologists-putting-together-a-piecewise-regression/
+ The R Book, Second Edition. Michael J. Crawley. 2013 John Wiley & Sons, Ltd. Published 2013 by John Wiley & Sons, Ltd.
 }
 \examples{
 \donttest{

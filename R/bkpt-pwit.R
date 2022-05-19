@@ -1,8 +1,8 @@
 #' Identify breakpoint location with PWIT
 #'
 #' See:
-#'  Lemoine, N. 2012. “R for Ecologists: Putting Together a Piecewise Regression.” https://www.r-bloggers.com/r-for-ecologists-putting-together-a-piecewise-regression/
-#'  The R Book, Second Edition. Michael J. Crawley. © 2013 John Wiley & Sons, Ltd. Published 2013 by John Wiley & Sons, Ltd.
+#'  Lemoine, N. 2012. "R for Ecologists: Putting Together a Piecewise Regression." https://www.r-bloggers.com/r-for-ecologists-putting-together-a-piecewise-regression/
+#'  The R Book, Second Edition. Michael J. Crawley. 2013 John Wiley & Sons, Ltd. Published 2013 by John Wiley & Sons, Ltd.
 #'
 #' @description This applies the Piecewise Iterative elfgen method. This approach uses an iterative algorithm to identify shifts in the relation between maximum richness and stream size. A user specifies a "quantile" for isolating an upper subset of the data. A user also identifies a bounding range between two x-values ("blo" = "bound low", "bhi" = "bound high") in which the upper subest of data is believed to contain a breakpoint. (Note: Small datasets may not contain a breakpoint)
 #' @param watershed.df A dataframe of sites with ecological and hydrologic data
