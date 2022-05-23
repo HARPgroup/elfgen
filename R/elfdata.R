@@ -6,8 +6,9 @@
 #' @param ichthy.localpath Local file path for storing downloaded ichthy data. Defaults to a temp directory.
 #' @return A dataframe of nhdplus segments containing species richness data (NT Total values) and mean annual flow (MAF) data.
 #' @import utils
-#' @import RJSONIO
 #' @import stringr
+#' @import sbtools
+#' @import nhdplusTools
 #' @export elfdata
 #' @examples
 #' \donttest{
@@ -17,7 +18,7 @@
 #' # You may enter either a 6, 8, 10, or 12-digit HUC code.
 #' # By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by
 #' # supplying a local path of interest using the input parameter 'ichthy.localpath'
-#' watershed.df <- elfdata('02080201')
+#' watershed.df <- elfdata('0208020104')
 #' head(watershed.df)
 #' }
 elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
@@ -32,36 +33,27 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
     stop("Invalid length of hydrologic unit code")
   }
 
-    #using direct sciencebase file link
-    ichthy_item <- "https://www.sciencebase.gov/catalog/file/get/5446a5a1e4b0f888a81b816d?f=__disk__25%2Fed%2F4a%2F25ed4a840a109d160d081bf144a66f615cb765cd"
+    #retrieve ichthymaps file from sciencebase
     ichthy_filename <- "IchthyMaps_v1_20150520.csv"
-    destfile <- file.path(gsub("\\", "/", ichthy.localpath, fixed=TRUE),ichthy_filename,fsep="/")
+	ichthy.localpath <- gsub("\\", "/", ichthy.localpath, fixed=TRUE)
+    destfile <- file.path(ichthy.localpath,ichthy_filename,fsep="/")
 
     #file downloaded into local directory, as long as file exists it will not be re-downloaded
     if (file.exists(destfile) == FALSE) {
       message(paste("Downloading ichthy dataset:", sep = ''))
-
-      #handle if sciencebase resource is not available or has changed
-      tryCatch({
-        download.file(ichthy_item, destfile = destfile, method = "libcurl")},
-        error = function(cond){
-          # message(paste('IchthyMaps Resource Not Available:', cond))
-          message('Ichthymaps resource not available')
-          return(NULL)
-        },
-        warning = function(cond){
-          # message(paste('IchthyMaps Resource Not Available:', cond))
-          message('Ichthymaps resource not available')
-          return(NULL)
-      })
-
+      invisible(sbtools::item_file_download(sb_id = '5446a5a1e4b0f888a81b816d', dest_dir = ichthy.localpath))
     } else {
       message(paste("Ichthy dataset previously downloaded",sep = ''))
     }
     # message(paste("Dataset download location: ",ichthy.localpath,sep = ''))
 
     #read csv from local directory
-    ichthy.dataframe <- read.csv(file=destfile, header=TRUE, sep=",")
+    if ((file.size(destfile) == 0L) == TRUE) {
+      stop('Ichthymaps resource not available')
+    } else {
+      ichthy.dataframe <- read.csv(file=destfile, header=TRUE, sep=",")
+    }
+
   }
 
   #pad HUC12 column to ensure leading "0", generate columns for HUC10, HUC8, HUC6
@@ -108,30 +100,13 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
   watershed.df <- unique(watershed.df[, 1:3]) #remove duplicates (so each comid appears once)
   message(paste("\n",length(watershed.df$COMID_NHDv2)," NHD features found containing richness data",sep = ''))
 
-  #Loop through each COMID retrieving MAF value
+  #Loop through each COMID retrieving MAF value (qe_ma is Mean annual flow from gage adjustment)
   message(paste("Processing NHD feature mean annual flow:",sep = ''))
   pbm <- txtProgressBar(min = 0, max = length(watershed.df$COMID_NHDv2), initial = 0)
   for (j in 1:length(watershed.df$COMID_NHDv2)) {
-    # message(paste(j," OF ",length(watershed.df$COMID_NHDv2),sep = ''))
-
     COMID <- watershed.df[j,]$COMID_NHDv2
-    COMID.URL <- paste('https://ofmpub.epa.gov/waters10/nhdplus.jsonv25?ppermanentidentifier=',COMID,'&pFilenameOverride=AUTO',sep="")
-
-    #handle if epa resource is not available or has changed
-    json_file <-tryCatch({
-      fromJSON(COMID.URL)},
-      error = function(cond){
-        # message(paste('NHD Resource Not Available:', cond))
-        message('NHD resource not available')
-        return(NULL)
-      },
-      warning = function(cond){
-        # message(paste('NHD Resource Not Available:', cond))
-        message('NHD resource not available')
-        return(NULL)
-      })
-
-    COMID.MAF <- json_file$`output`$header$attributes[[4]]$value #MAF in cfs
+    COMID.dat <- nhdplusTools::get_nhdplus(comid = COMID)
+    COMID.MAF <- COMID.dat$qe_ma
 
     #Skip COMID if MAF is NULL
     if(is.null(COMID.MAF)==TRUE){next}

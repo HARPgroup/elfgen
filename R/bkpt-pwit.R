@@ -1,4 +1,9 @@
 #' Identify breakpoint location with PWIT
+#'
+#' See:
+#'  Lemoine, N. 2012. "R for Ecologists: Putting Together a Piecewise Regression." https://www.r-bloggers.com/r-for-ecologists-putting-together-a-piecewise-regression/
+#'  The R Book, Second Edition. Michael J. Crawley. 2013 John Wiley & Sons, Ltd. Published 2013 by John Wiley & Sons, Ltd.
+#'
 #' @description This applies the Piecewise Iterative elfgen method. This approach uses an iterative algorithm to identify shifts in the relation between maximum richness and stream size. A user specifies a "quantile" for isolating an upper subset of the data. A user also identifies a bounding range between two x-values ("blo" = "bound low", "bhi" = "bound high") in which the upper subest of data is believed to contain a breakpoint. (Note: Small datasets may not contain a breakpoint)
 #' @param watershed.df A dataframe of sites with ecological and hydrologic data
 #' @param quantile Specified value for the quantile of interest - 0.95 refers to the 95th percentile
@@ -12,8 +17,8 @@
 #' \donttest{
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
-#' watershed.df <- elfdata('02080201')
-#' bkpt_pwit(watershed.df,0.95,200,500)
+#' watershed.df <- elfdata('0208020104')
+#' bkpt_pwit(watershed.df,0.85,100,300)
 #' }
 bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
 
@@ -55,8 +60,8 @@ bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
       mse <- as.numeric(length(breaks))
 
       for(n in 1:length(breaks)){
-        piecewise1 <- lm(y ~ log(x)*(x < breaks[n]) + log(x)*(x >= breaks[n]))
-        mse[n] <- summary(piecewise1)[6]
+        piecewise <- lm(y ~ log(x)*(x < breaks[n]) + log(x)*(x >= breaks[n]))
+        mse[n] <- summary(piecewise)[6]
       }
       mse <- as.numeric(mse)
       #remove any breaks that are NaN
