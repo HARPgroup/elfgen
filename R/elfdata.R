@@ -44,7 +44,7 @@ elfdata <- function (watershed.code,ichthy.localpath = tempdir()) {
       return("Internet resource not available, check internet connection and try again")
     }
 
-    #ping ScienceBase to see if it’s available
+    #ping ScienceBase to see if it is available
     if (sbtools::sb_ping() == FALSE) {
       return("Connection to ScienceBase can not be established, Check internet connection and try again")
     }
