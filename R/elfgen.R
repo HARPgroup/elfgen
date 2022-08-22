@@ -19,7 +19,7 @@
 #' breakpt <- 500
 #' elfgen(
 #'    "watershed.df" = watershed.df,
-#'    "quantile" = 0.95,
+#'    "quantile" = 0.80,
 #'    "breakpt" = breakpt,
 #'    "xlabel" = "Mean Annual Flow (ft3/s)",
 #'    "ylabel" = "Fish Species Richness"

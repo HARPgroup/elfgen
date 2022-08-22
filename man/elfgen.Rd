@@ -40,7 +40,7 @@ watershed.df <- elfdata(watershed.code = '0208020104', ichthy.localpath = tempdi
 breakpt <- 500
 elfgen(
    "watershed.df" = watershed.df,
-   "quantile" = 0.95,
+   "quantile" = 0.80,
    "breakpt" = breakpt,
    "xlabel" = "Mean Annual Flow (ft3/s)",
    "ylabel" = "Fish Species Richness"
