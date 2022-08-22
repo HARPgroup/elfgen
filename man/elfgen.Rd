@@ -36,11 +36,11 @@ Generate ELF models by supplying a dataframe of richness and stream size data (s
 \donttest{
 # We don't run this example by R CMD check, because it takes >10s
 
-watershed.df <- elfdata('0208020104')
+watershed.df <- elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir())
 breakpt <- 500
 elfgen(
    "watershed.df" = watershed.df,
-   "quantile" = 0.95,
+   "quantile" = 0.80,
    "breakpt" = breakpt,
    "xlabel" = "Mean Annual Flow (ft3/s)",
    "ylabel" = "Fish Species Richness"
