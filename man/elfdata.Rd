@@ -4,7 +4,7 @@
 \alias{elfdata}
 \title{Retrieve and format data for ELF generation}
 \usage{
-elfdata(watershed.code, ichthy.localpath = tempdir())
+elfdata(watershed.code, ichthy.localpath)
 }
 \arguments{
 \item{watershed.code}{Hydrologic unit code, either HUC6, HUC8, HUC10, or HUC12 (e.g. HUC10 code '0208020101').}
@@ -27,7 +27,7 @@ and Mean Annual Flow MAF values
 # You may enter either a 6, 8, 10, or 12-digit HUC code.
 # By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by
 # supplying a local path of interest using the input parameter 'ichthy.localpath'
-watershed.df <- elfdata('0208020104')
+watershed.df <- elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir())
 head(watershed.df)
 }
 }

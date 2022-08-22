@@ -7,7 +7,7 @@
 #' \donttest{
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
-#' watershed.df <- elfdata('0208020104')
+#' watershed.df <- elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir())
 #' bkpt_ymax(watershed.df)
 #' }
 bkpt_ymax <- function(watershed.df) {

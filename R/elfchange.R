@@ -13,7 +13,7 @@
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
 #' # Generate plot of percent richness change for various percent flow reductions
-#' watershed.df <- elfdata('0208020104')
+#' watershed.df <- elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir())
 #' breakpt <- 500
 #' elf <- elfgen(
 #'    "watershed.df" = watershed.df,
