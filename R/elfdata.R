@@ -2,7 +2,7 @@
 #' @description Given a HUC code, provides a dataframe of
 #' all contained nhdplus segments and their individual NT Total
 #' and Mean Annual Flow MAF values
-#' @param watershed.code Hydrologic unit code, either HUC6, HUC8, HUC10, or HUC12 (e.g. HUC10 code '0208020101').
+#' @param watershed_code Hydrologic unit code, either HUC6, HUC8, HUC10, or HUC12 (e.g. HUC10 code '0208020101').
 #' @param ichthy.localpath Local file path for storing downloaded ichthy data. Defaults to a temp directory.
 #' @return A dataframe of nhdplus segments containing species richness data (NT Total values) and mean annual flow (MAF) data.
 #' @import utils
@@ -19,18 +19,18 @@
 #' # You may enter either a 6, 8, 10, or 12-digit HUC code.
 #' # By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by
 #' # supplying a local path of interest using the input parameter 'ichthy.localpath'
-#' watershed.df <- elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir())
-#' head(watershed.df)
+#' watershed_df <- elfdata(watershed_code = '0208020104', ichthy.localpath = tempdir())
+#' head(watershed_df)
 #' }
 elfdata <- function (watershed.code,ichthy.localpath) {
-
-  if (inherits(watershed.code,"data.frame") == TRUE) {
-    ichthy.dataframe <- watershed.code
-    watershed.code <- '02080106'
+  watershed_code = watershed.code # rename to avoid janky dot notation
+  if (inherits(watershed_code,"data.frame") == TRUE) {
+    ichthy_dataframe <- watershed_code
+    watershed_code <- '02080106'
   } else {
 
     HUCRES.df <- data.frame(HUCRES = c(12, 10, 8, 6))
-    if (length(which(HUCRES.df$HUCRES == nchar(watershed.code))) < 1) {
+    if (length(which(HUCRES.df$HUCRES == nchar(watershed_code))) < 1) {
       stop("Invalid length of hydrologic unit code")
     }
 
@@ -62,29 +62,29 @@ elfdata <- function (watershed.code,ichthy.localpath) {
     if ((file.size(destfile) == 0L) == TRUE) {
       stop('Ichthymaps resource not available')
     } else {
-      ichthy.dataframe <- read.csv(file=destfile, header=TRUE, sep=",")
+      ichthy_dataframe <- read.csv(file=destfile, header=TRUE, sep=",")
     }
 
   }
 
   #pad HUC12 column to ensure leading "0", generate columns for HUC10, HUC8, HUC6
-  ichthy.dataframe$HUC12 <- as.character(str_pad(gsub(" ", "", format(ichthy.dataframe$HUC12, scientific=F), fixed = TRUE), 12, pad = "0"))
-  ichthy.dataframe$HUC10 <- substr(ichthy.dataframe$HUC12, start=1, stop=10)
-  ichthy.dataframe$HUC8 <- substr(ichthy.dataframe$HUC12, start=1, stop=8)
-  ichthy.dataframe$HUC6 <- substr(ichthy.dataframe$HUC12, start=1, stop=6)
+  ichthy_dataframe$HUC12 <- as.character(str_pad(gsub(" ", "", format(ichthy_dataframe$HUC12, scientific=F), fixed = TRUE), 12, pad = "0"))
+  ichthy_dataframe$HUC10 <- substr(ichthy_dataframe$HUC12, start=1, stop=10)
+  ichthy_dataframe$HUC8 <- substr(ichthy_dataframe$HUC12, start=1, stop=8)
+  ichthy_dataframe$HUC6 <- substr(ichthy_dataframe$HUC12, start=1, stop=6)
 
-  #determine resolution of watershed.code and take subset of rows for that HUC
-  if (nchar(watershed.code) == 12) {watershed.rows <- ichthy.dataframe[which(ichthy.dataframe$HUC12 == watershed.code),] }
-  if (nchar(watershed.code) == 10) {watershed.rows <- ichthy.dataframe[which(ichthy.dataframe$HUC10 == watershed.code),] }
-  if (nchar(watershed.code) == 8) {watershed.rows <- ichthy.dataframe[which(ichthy.dataframe$HUC8 == watershed.code),] }
-  if (nchar(watershed.code) == 6) {watershed.rows <- ichthy.dataframe[which(ichthy.dataframe$HUC6 == watershed.code),] }
+  #determine resolution of watershed_code and take subset of rows for that HUC
+  if (nchar(watershed_code) == 12) {watershed_rows <- ichthy_dataframe[which(ichthy_dataframe$HUC12 == watershed_code),] }
+  if (nchar(watershed_code) == 10) {watershed_rows <- ichthy_dataframe[which(ichthy_dataframe$HUC10 == watershed_code),] }
+  if (nchar(watershed_code) == 8) {watershed_rows <- ichthy_dataframe[which(ichthy_dataframe$HUC8 == watershed_code),] }
+  if (nchar(watershed_code) == 6) {watershed_rows <- ichthy_dataframe[which(ichthy_dataframe$HUC6 == watershed_code),] }
 
-   if (length(watershed.rows[,1]) == 0) {
+   if (length(watershed_rows[,1]) == 0) {
      stop("No ichtymap data for hydrologic unit code")
    }
 
-  #initialize watershed.df dataframe
-  watershed.df <- data.frame(WATERSHED=character(),
+  #initialize watershed_df dataframe
+  watershed_df <- data.frame(WATERSHED=character(),
                            COMID=character(),
                            NT_TOTAL=character(),
                            stringsAsFactors=FALSE)
@@ -92,49 +92,68 @@ elfdata <- function (watershed.code,ichthy.localpath) {
   #Loop through all COMIDs, summing the number of unique taxa present
   # to generate an NT Total value for each nhdplus segment
   message(paste("Processing NHD features:",sep = ''))
-  pbr <- txtProgressBar(min = 0, max = length(watershed.rows$COMID_NHDv2), initial = 0)
-  for (i in 1:length(watershed.rows$COMID_NHDv2)) {
-    # message(paste(i," OF ",length(watershed.rows$COMID_NHDv2),sep = ''))
-
-    COMID <- watershed.rows[i,]$COMID
-    COMID.rows <- watershed.rows[which(watershed.rows$COMID_NHDv2 == COMID),] #single comid
-
-    COMID.Taxa.All <- COMID.rows$Name_Taxa
-    NT.TOTAL.ALL <- length(COMID.Taxa.All)
-    NT.TOTAL.UNIQUE <- length(unique(COMID.Taxa.All))
-
-    watershed.df.i <- data.frame(watershed.code,COMID_NHDv2 = COMID,NT.TOTAL.UNIQUE)
-    watershed.df <- rbind(watershed.df,watershed.df.i)
-
-    if(interactive()) setTxtProgressBar(pbr, i)
-  }
-  watershed.df <- unique(watershed.df[, 1:3]) #remove duplicates (so each comid appears once)
-  message(paste("\n",length(watershed.df$COMID_NHDv2)," NHD features found containing richness data",sep = ''))
+  pbr <- txtProgressBar(min = 0, max = length(watershed_rows$COMID_NHDv2), initial = 0)
+  watershed_df = sqldf(
+    "
+    select COMID_NHDv2, 
+      count(DISTINCT Name_Taxa) as NT_TOTAL_UNIQUE
+    from watershed_rows 
+    group by COMID_NHDv2
+    "
+  )
+  watershed_df$watershed_code <- watershed_code
+  message(paste("\n",length(watershed_df$COMID_NHDv2)," NHD features found containing richness data",sep = ''))
 
   #Loop through each COMID retrieving MAF value (qe_ma is Mean annual flow from gage adjustment)
   message(paste("Processing NHD feature mean annual flow:",sep = ''))
-  pbm <- txtProgressBar(min = 0, max = length(watershed.df$COMID_NHDv2), initial = 0)
-  for (j in 1:length(watershed.df$COMID_NHDv2)) {
-    COMID <- watershed.df[j,]$COMID_NHDv2
+  pbm <- txtProgressBar(min = 0, max = length(watershed_df$COMID_NHDv2), initial = 0)
+  for (j in 1:length(watershed_df$COMID_NHDv2)) {
+    COMID <- watershed_df[j,]$COMID_NHDv2
     COMID.dat <- nhdplusTools::get_nhdplus(comid = COMID)
     COMID.MAF <- COMID.dat$qe_ma
 
     #Skip COMID if MAF is NULL
     if(is.null(COMID.MAF)==TRUE){next}
 
-    watershed.df[j,"MAF"] <- COMID.MAF
+    watershed_df[j,"MAF"] <- COMID.MAF
+    watershed_df$Q01[j] <- COMID.dat$qe_01
+    watershed_df$Q02[j] <- COMID.dat$qe_02
+    watershed_df$Q03[j] <- COMID.dat$qe_03
+    watershed_df$Q04[j] <- COMID.dat$qe_04
+    watershed_df$Q05[j] <- COMID.dat$qe_05
+    watershed_df$Q06[j] <- COMID.dat$qe_06
+    watershed_df$Q07[j] <- COMID.dat$qe_07
+    watershed_df$Q08[j] <- COMID.dat$qe_08
+    watershed_df$Q09[j] <- COMID.dat$qe_09
+    watershed_df$Q10[j] <- COMID.dat$qe_10
+    watershed_df$Q11[j] <- COMID.dat$qe_11
+    watershed_df$Q12[j] <- COMID.dat$qe_12
     if(interactive()) setTxtProgressBar(pbm, j)
   }
 
   #reformat dataframe to conform to elfgen format
-  watershed.df <- data.frame("MAF" = watershed.df$MAF,
-                             "NT.TOTAL.UNIQUE" = watershed.df$NT.TOTAL.UNIQUE,
-                             "watershed.code" = watershed.df$watershed.code,
-                             "COMID_NHDv2" = watershed.df$COMID_NHDv2
+  watershed_df <- data.frame("MAF" = watershed_df$MAF,
+                             "NT.TOTAL.UNIQUE" = watershed_df$NT_TOTAL_UNIQUE,
+                             "watershed_code" = watershed_df$watershed_code,
+                             "Q01" = watershed_df$Q01,
+                             "Q02" = watershed_df$Q02,
+                             "Q03" = watershed_df$Q03,
+                             "Q04" = watershed_df$Q04,
+                             "Q05" = watershed_df$Q05,
+                             "Q06" = watershed_df$Q06,
+                             "Q07" = watershed_df$Q07,
+                             "Q08" = watershed_df$Q08,
+                             "Q09" = watershed_df$Q09,
+                             "Q10" = watershed_df$Q10,
+                             "Q11" = watershed_df$Q11,
+                             "Q12" = watershed_df$Q12
 
   )
-
-  return(watershed.df)
+  names(watershed_df) <- c("MAF",
+                           "NT.TOTAL.UNIQUE", "watershed.code",
+                           "Q01", "Q02", "Q03", "Q04", "Q05", "Q06",
+                           "Q07", "Q08", "Q09", "Q10", "Q11", "Q12")
+  return(watershed_df)
 } #close function
 
 
