@@ -1,10 +1,17 @@
 #' Retrieve and format data for ELF generation
-#' @description Given a HUC code, provides a dataframe of
-#' all contained nhdplus segments and their individual NT Total
-#' and Mean Annual Flow MAF values
-#' @param watershed_code Hydrologic unit code, either HUC6, HUC8, HUC10, or HUC12 (e.g. HUC10 code '0208020101').
-#' @param ichthy.localpath Local file path for storing downloaded ichthy data. Defaults to a temp directory.
-#' @return A dataframe of nhdplus segments containing species richness data (NT Total values) and mean annual flow (MAF) data.
+#' @description Given a HUC code, provides a dataframe of all contained nhdplus
+#'   segments and their individual NT Total and Mean Annual Flow MAF values
+#' @param watershed.code Hydrologic unit code, either HUC6, HUC8, HUC10, or
+#'   HUC12 (e.g. HUC10 code '0208020101').
+#' @param ichthy.localpath Local file path for storing downloaded ichthy data.
+#'   Defaults to a temp directory.
+#' @param use_cache Should the function look for a file with the same name in
+#'   the file directory? This allows users to use the same Icthys dataset each
+#'   time rather than needing to download separately when running multiple
+#'   analyses
+#' @param update_cache Should the file be written out to use for future caching?
+#' @return A dataframe of nhdplus segments containing species richness data (NT
+#'   Total values) and mean annual flow (MAF) data.
 #' @import utils
 #' @import stringr
 #' @import curl
@@ -12,14 +19,15 @@
 #' @import nhdplusTools
 #' @export elfdata
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
 #' # Retrieve dataset of interest
 #' # You may enter either a 6, 8, 10, or 12-digit HUC code.
 #' # By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by
 #' # supplying a local path of interest using the input parameter 'ichthy.localpath'
-#' watershed_df <- elfdata(watershed_code = '0208020104', ichthy.localpath = tempdir())
+#' watershed_df <- elfdata(watershed.code = '0208020104',
+#'  ichthy.localpath = tempdir(), use_cache = FALSE)
 #' head(watershed_df)
 #' }
 elfdata <- function (watershed.code,ichthy.localpath,use_cache=TRUE, update_cache=FALSE) {
@@ -32,7 +40,7 @@ elfdata <- function (watershed.code,ichthy.localpath,use_cache=TRUE, update_cach
   } else {
     destfile <- file.path(ichthy.localpath,ichthy_filename,fsep="/")
   }
-  if (use_cache == TRUE) {
+  if (use_cache) {
     # this is for caching. We assume that destfile is now a full CSV with path
     # and if a cache has been done for the given watershed, it will be saved in the same
     # path as watershed.code + '.csv'
@@ -54,14 +62,14 @@ elfdata <- function (watershed.code,ichthy.localpath,use_cache=TRUE, update_cach
     if (length(which(HUCRES.df$HUCRES == nchar(watershed_code))) < 1) {
       stop("Invalid length of hydrologic unit code")
     }
-    
+
     #file downloaded into local directory, as long as file exists it will not be re-downloaded
     if (file.exists(destfile) == FALSE) {
       #test if you have internet connection
       if (curl::has_internet() == FALSE) {
         return("Internet resource not available, check internet connection and try again")
       }
-      
+
       #ping ScienceBase to see if it is available
       if (sbtools::sb_ping() == FALSE) {
         return("Connection to ScienceBase can not be established, Check internet connection and try again")
@@ -71,7 +79,7 @@ elfdata <- function (watershed.code,ichthy.localpath,use_cache=TRUE, update_cach
     } else {
       message(paste("Ichthy dataset previously downloaded",sep = ''))
     }
-    
+
     # message(paste("Dataset download location: ",ichthy.localpath,sep = ''))
 
     #read csv from local directory
@@ -111,9 +119,9 @@ elfdata <- function (watershed.code,ichthy.localpath,use_cache=TRUE, update_cach
   pbr <- txtProgressBar(min = 0, max = length(watershed_rows$COMID_NHDv2), initial = 0)
   watershed_df = sqldf(
     "
-    select COMID_NHDv2, 
+    select COMID_NHDv2,
       count(DISTINCT Name_Taxa) as NT_TOTAL_UNIQUE
-    from watershed_rows 
+    from watershed_rows
     group by COMID_NHDv2
     "
   )
@@ -169,7 +177,7 @@ elfdata <- function (watershed.code,ichthy.localpath,use_cache=TRUE, update_cach
                            "NT.TOTAL.UNIQUE", "watershed.code",
                            "Q01", "Q02", "Q03", "Q04", "Q05", "Q06",
                            "Q07", "Q08", "Q09", "Q10", "Q11", "Q12")
-  if (update_cache == TRUE) {
+  if (update_cache) {
     # this is for caching. We assume that destfile is now a full CSV with path
     # and if a cache has been done for the given watershed, it will be saved in the same
     # path as watershed.code + '.csv'

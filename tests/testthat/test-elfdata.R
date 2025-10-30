@@ -3,7 +3,9 @@ library(elfgen)
 
 test_that("Checking length of input watershed.code",
           {
-            expect_error(elfdata(watershed.code = "02080",ichthy.localpath = tempdir()), "Invalid length of hydrologic unit code")
+            expect_error(elfdata(watershed.code = "02080",
+                                 ichthy.localpath = tempdir(),
+                                 use_cache = FALSE), "Invalid length of hydrologic unit code")
           })
 
 ##test_that("Checking for valid watershed.code",
@@ -34,5 +36,9 @@ test.ichthy.dataframe <- data.frame(
 
 test_that("Function returns a dataframe",
           {
-            expect_equal(is.data.frame(elfdata(watershed.code = test.ichthy.dataframe,ichthy.localpath = tempdir())), TRUE)
+            expect_equal(
+              is.data.frame(
+                elfdata(watershed.code = test.ichthy.dataframe,
+                        ichthy.localpath = tempdir(), use_cache = FALSE
+                )), TRUE)
           })

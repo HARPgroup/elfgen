@@ -10,7 +10,9 @@ elfgen(
   breakpt,
   yaxis_thresh,
   xlabel = FALSE,
-  ylabel = FALSE
+  ylabel = FALSE,
+  plot_title = FALSE,
+  break_var = "x_var"
 )
 }
 \arguments{
@@ -25,6 +27,13 @@ elfgen(
 \item{xlabel}{Used to overwrite default x-axis label}
 
 \item{ylabel}{Used to overwrite default y-axis label}
+
+\item{plot_title}{A plot title used to title the ggplot. If left as the
+default (FALSE), the plot will be titled using the name of the HUC from
+nhdPlus}
+
+\item{break_var}{The name of the variable in watershed.df to be filtered for
+by the breakpt, defaults to the expected name "x_var"}
 }
 \value{
 Object containing plot image and dataframe of ELF statistics
@@ -33,10 +42,11 @@ Object containing plot image and dataframe of ELF statistics
 Generate ELF models by supplying a dataframe of richness and stream size data (streamflow or drainage area), a quantile for evaluating the ecological limit, and a breakpoint threshold.
 }
 \examples{
-\donttest{
+\dontrun{
 # We don't run this example by R CMD check, because it takes >10s
 
-watershed.df <- elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir())
+watershed.df <- elfdata(watershed.code = '0208020104',
+ ichthy.localpath = tempdir(), use_cache = FALSE)
 breakpt <- 500
 elfgen(
    "watershed.df" = watershed.df,
