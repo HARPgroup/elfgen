@@ -22,8 +22,29 @@
 #' watershed_df <- elfdata(watershed_code = '0208020104', ichthy.localpath = tempdir())
 #' head(watershed_df)
 #' }
-elfdata <- function (watershed.code,ichthy.localpath) {
+elfdata <- function (watershed.code,ichthy.localpath,use_cache=TRUE, update_cache=FALSE) {
   watershed_code = watershed.code # rename to avoid janky dot notation
+  # set up file names to retrieve ichthymaps file from sciencebase or use custom value
+  ichthy_filename <- "IchthyMaps_v1_20150520.csv"
+  ichthy.localpath <- gsub("\\", "/", ichthy.localpath, fixed=TRUE)
+  if (substr(ichthy.localpath,str_length(ichthy.localpath)-3,str_length(ichthy.localpath)) == ".csv") {
+    destfile = ichthy.localpath
+  } else {
+    destfile <- file.path(ichthy.localpath,ichthy_filename,fsep="/")
+  }
+  if (use_cache == TRUE) {
+    # this is for caching. We assume that destfile is now a full CSV with path
+    # and if a cache has been done for the given watershed, it will be saved in the same
+    # path as watershed.code + '.csv'
+    cachefile <- paste0(dirname(destfile), '/', watershed_code, '.csv.')
+    if (file.exists(cachefile)) {
+      message(paste("Reading watershed", watershed_code,"from cached", cachefile))
+      watershed_df = read.csv(file=cachefile, header=TRUE, sep=",")
+      return(watershed_df)
+    } else {
+      message(paste("Could not find cached", cachefile, "querying full Ichthy database"))
+    }
+  }
   if (inherits(watershed_code,"data.frame") == TRUE) {
     ichthy_dataframe <- watershed_code
     watershed_code <- '02080106'
@@ -33,15 +54,6 @@ elfdata <- function (watershed.code,ichthy.localpath) {
     if (length(which(HUCRES.df$HUCRES == nchar(watershed_code))) < 1) {
       stop("Invalid length of hydrologic unit code")
     }
-
-    #retrieve ichthymaps file from sciencebase
-    ichthy_filename <- "IchthyMaps_v1_20150520.csv"
-    ichthy.localpath <- gsub("\\", "/", ichthy.localpath, fixed=TRUE)
-    if (substr(ichthy.localpath,str_length(ichthy.localpath)-3,str_length(ichthy.localpath)) == ".csv") {
-      destfile = ichthy.localpath
-    } else {
-      destfile <- file.path(ichthy.localpath,ichthy_filename,fsep="/")
-    }    
     
     #file downloaded into local directory, as long as file exists it will not be re-downloaded
     if (file.exists(destfile) == FALSE) {
@@ -157,6 +169,13 @@ elfdata <- function (watershed.code,ichthy.localpath) {
                            "NT.TOTAL.UNIQUE", "watershed.code",
                            "Q01", "Q02", "Q03", "Q04", "Q05", "Q06",
                            "Q07", "Q08", "Q09", "Q10", "Q11", "Q12")
+  if (update_cache == TRUE) {
+    # this is for caching. We assume that destfile is now a full CSV with path
+    # and if a cache has been done for the given watershed, it will be saved in the same
+    # path as watershed.code + '.csv'
+    cachefile <- paste0(dirname(destfile), '/', watershed_code, '.csv.')
+    write.csv(watershed_df,cachefile,row.names = FALSE)
+  }
   return(watershed_df)
 } #close function
 

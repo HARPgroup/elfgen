@@ -32,7 +32,8 @@ elfgen <- function(
     yaxis_thresh,
     xlabel = FALSE,
     ylabel = FALSE,
-    plot_title = FALSE
+    plot_title = FALSE,
+    break_var = "x_var"
   ) {
 
    # DEFAULT breakpt IF NONE SUPPLIED
@@ -48,7 +49,7 @@ elfgen <- function(
    colnames(watershed.df)[3] <- "watershed"
 
    full_dataset <- watershed.df
-   data <- watershed.df[!(watershed.df$x_var > breakpt),]
+   data <- watershed.df[!(watershed.df[,break_var] > breakpt),]
 
    #Prevents: Error in rq.fit.br(x, y, tau = tau, ...) : Singular design matrix (and others)
    if(length(data[,1]) <= 2) {
