@@ -13,17 +13,17 @@ test.watershed.df <- data.frame(
   n_subset = 705,
   n_subset_upper = 35
 )
-result <- elfchange(test.watershed.df,
-                    "yaxis_thresh" = 25,
-                    "xlabel" = "test x label",
-                    "ylabel" = "test y label")
-message(class(result))
- test_that("Function returns a ggplot object", {
-    expect_equal(class(class),
-                 c("gg", "ggplot"))
 
+ test_that("Function returns a ggplot object", {
+   expect_contains(class(
+     elfchange(test.watershed.df,
+               "yaxis_thresh" = 25,
+               "xlabel" = "test x label",
+               "ylabel" = "test y label")
+   ),
+   y = c("gg", "ggplot"))
  })
- #
+ #https://positpackagemanager.deq.virginia.gov/cranSnapshot/latest
  # test_that("Function returns a ggplot object, uses default yaxis_thresh, xlabel, ylabel", {
  #   expect_equal(class(elfchange(test.watershed.df)),c("gg", "ggplot"))
  #
