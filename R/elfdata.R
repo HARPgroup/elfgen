@@ -37,25 +37,29 @@ elfdata <- function (watershed.code,ichthy.localpath) {
     #retrieve ichthymaps file from sciencebase
     ichthy_filename <- "IchthyMaps_v1_20150520.csv"
     ichthy.localpath <- gsub("\\", "/", ichthy.localpath, fixed=TRUE)
-    destfile <- file.path(ichthy.localpath,ichthy_filename,fsep="/")
-
-    #test if you have internet connection
-    if (curl::has_internet() == FALSE) {
-      return("Internet resource not available, check internet connection and try again")
-    }
-
-    #ping ScienceBase to see if it is available
-    if (sbtools::sb_ping() == FALSE) {
-      return("Connection to ScienceBase can not be established, Check internet connection and try again")
-    }
-
+    if (substr(ichthy.localpath,str_length(ichthy.localpath)-3,str_length(ichthy.localpath)) == ".csv") {
+      destfile = ichthy.localpath
+    } else {
+      destfile <- file.path(ichthy.localpath,ichthy_filename,fsep="/")
+    }    
+    
     #file downloaded into local directory, as long as file exists it will not be re-downloaded
     if (file.exists(destfile) == FALSE) {
+      #test if you have internet connection
+      if (curl::has_internet() == FALSE) {
+        return("Internet resource not available, check internet connection and try again")
+      }
+      
+      #ping ScienceBase to see if it is available
+      if (sbtools::sb_ping() == FALSE) {
+        return("Connection to ScienceBase can not be established, Check internet connection and try again")
+      }
       message(paste("Downloading ichthy dataset:", sep = ''))
       invisible(sbtools::item_file_download(sb_id = '5446a5a1e4b0f888a81b816d', dest_dir = ichthy.localpath))
     } else {
       message(paste("Ichthy dataset previously downloaded",sep = ''))
     }
+    
     # message(paste("Dataset download location: ",ichthy.localpath,sep = ''))
 
     #read csv from local directory

@@ -25,7 +25,15 @@
 #'    "ylabel" = "Fish Species Richness"
 #'    )
 #' }
-elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
+elfgen <- function(
+    watershed.df,
+    quantile,
+    breakpt,
+    yaxis_thresh,
+    xlabel = FALSE,
+    ylabel = FALSE,
+    plot_title = FALSE
+  ) {
 
    # DEFAULT breakpt IF NONE SUPPLIED
    if(missing(breakpt)) {
@@ -94,7 +102,11 @@ elfgen <- function(watershed.df,quantile,breakpt,yaxis_thresh,xlabel = FALSE,yla
    }
 
    #Plot titles
-   plot_title <- paste("Watershed: ",watershed.df$watershed[1],"\n",sep="");
+   if (is.logical(plot_title)) {
+     # Guess as outlet
+     outlet = watershed.df[watershed.df[,1] == max(watershed.df[,1]),][1,]
+     plot_title = paste("Watershed: ",as.character(outlet[3]),"\n",sep="")
+   }
    flow_title <- colnames(watershed.df.raw[1])
    biometric_title <- colnames(watershed.df.raw[2])
    if (xlabel != FALSE) {flow_title <- xlabel}
