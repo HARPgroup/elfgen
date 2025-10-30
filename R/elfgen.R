@@ -6,16 +6,22 @@
 #' @param yaxis_thresh Value used for specifying y-axis max limit
 #' @param xlabel Used to overwrite default x-axis label
 #' @param ylabel Used to overwrite default y-axis label
+#' @param plot_title A plot title used to title the ggplot. If left as the
+#'   default (FALSE), the plot will be titled using the name of the HUC from
+#'   nhdPlus
+#' @param break_var The name of the variable in watershed.df to be filtered for
+#'   by the breakpt, defaults to the expected name "x_var"
 #' @return Object containing plot image and dataframe of ELF statistics
 #' @import ggplot2
 #' @import quantreg
 #' @import testit
 #' @export elfgen
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
-#' watershed.df <- elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir())
+#' watershed.df <- elfdata(watershed.code = '0208020104',
+#'  ichthy.localpath = tempdir(), use_cache = FALSE)
 #' breakpt <- 500
 #' elfgen(
 #'    "watershed.df" = watershed.df,

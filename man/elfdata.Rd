@@ -4,30 +4,45 @@
 \alias{elfdata}
 \title{Retrieve and format data for ELF generation}
 \usage{
-elfdata(watershed.code, ichthy.localpath)
+elfdata(
+  watershed.code,
+  ichthy.localpath,
+  use_cache = TRUE,
+  update_cache = FALSE
+)
 }
 \arguments{
-\item{watershed.code}{Hydrologic unit code, either HUC6, HUC8, HUC10, or HUC12 (e.g. HUC10 code '0208020101').}
+\item{watershed.code}{Hydrologic unit code, either HUC6, HUC8, HUC10, or
+HUC12 (e.g. HUC10 code '0208020101').}
 
-\item{ichthy.localpath}{Local file path for storing downloaded ichthy data. Defaults to a temp directory.}
+\item{ichthy.localpath}{Local file path for storing downloaded ichthy data.
+Defaults to a temp directory.}
+
+\item{use_cache}{Should the function look for a file with the same name in
+the file directory? This allows users to use the same Icthys dataset each
+time rather than needing to download separately when running multiple
+analyses}
+
+\item{update_cache}{Should the file be written out to use for future caching?}
 }
 \value{
-A dataframe of nhdplus segments containing species richness data (NT Total values) and mean annual flow (MAF) data.
+A dataframe of nhdplus segments containing species richness data (NT
+  Total values) and mean annual flow (MAF) data.
 }
 \description{
-Given a HUC code, provides a dataframe of
-all contained nhdplus segments and their individual NT Total
-and Mean Annual Flow MAF values
+Given a HUC code, provides a dataframe of all contained nhdplus
+  segments and their individual NT Total and Mean Annual Flow MAF values
 }
 \examples{
-\donttest{
+\dontrun{
 # We don't run this example by R CMD check, because it takes >10s
 
 # Retrieve dataset of interest
 # You may enter either a 6, 8, 10, or 12-digit HUC code.
 # By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by
 # supplying a local path of interest using the input parameter 'ichthy.localpath'
-watershed.df <- elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir())
-head(watershed.df)
+watershed_df <- elfdata(watershed.code = '0208020104',
+ ichthy.localpath = tempdir(), use_cache = FALSE)
+head(watershed_df)
 }
 }

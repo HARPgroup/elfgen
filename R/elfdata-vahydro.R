@@ -12,7 +12,7 @@
 #' @return A dataframe of sites containing species richness data (NT Total values) and mean annual flow (MAF) data.
 #' @export elfdata_vahydro
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
 #' # Retrieve dataset of interest

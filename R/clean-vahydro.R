@@ -8,7 +8,7 @@
 #' @import sqldf
 #' @export clean_vahydro
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
 #' # Retrieve dataset of interest
