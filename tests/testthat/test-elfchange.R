@@ -13,12 +13,13 @@ test.watershed.df <- data.frame(
   n_subset = 705,
   n_subset_upper = 35
 )
-
+result <- elfchange(test.watershed.df,
+                    "yaxis_thresh" = 25,
+                    "xlabel" = "test x label",
+                    "ylabel" = "test y label")
+message(class(result))
  test_that("Function returns a ggplot object", {
-    expect_equal(class(elfchange(test.watershed.df,
-                                 "yaxis_thresh" = 25,
-                                 "xlabel" = "test x label",
-                                 "ylabel" = "test y label")),
+    expect_equal(class(class),
                  c("gg", "ggplot"))
 
  })
