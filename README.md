@@ -8,7 +8,7 @@
 
 # Overview
  
-elfgen is an instream flow framework for rapid generation and optimization of flow-ecology relations. The elfgen framework centers on the generation of Ecological Limit Function models (ELFs) describing the relation between maximum species richness and stream size characteristic (streamflow or drainage area). The elfgen framework was developed (By DEQ in cooperation with USGS and Virginia Tech) in response to a need for better environmental flow metrics for assesment of potential impacts of water use. For the first time this new framework may allow quantification of potential species loss resulting from flow change, and may offer an improved understanding of aquatic life risk variability due to geographic location, stream size and local scale.
+elfgen is an instream flow framework for rapid generation and optimization of flow-ecology relations. The elfgen framework centers on the generation of Ecological Limit Function models (ELFs) describing the relation between maximum species richness and stream size characteristic (streamflow or drainage area). The elfgen framework was developed (By DEQ in cooperation with USGS and Virginia Tech) in response to a need for better environmental flow metrics for assessment of potential impacts of water use. For the first time this new framework may allow quantification of potential species loss resulting from flow change, and may offer an improved understanding of aquatic life risk variability due to geographic location, stream size and local scale.
 
 Supporting manuscripts have been published in the Journal of the American Water Resources Association (JAWRA):
 - *elfgen: A New Instream Flow Framework for Rapid Generation and Optimization of Flow–Ecology Relations.*
@@ -31,7 +31,7 @@ devtools::install_github("HARPgroup/elfgen")
 An introductory example of how elfgen works is supplied below. You start 
 by either supplying a dataset with flow and richness data, or by supplying 
 a HUC code of interest. When supplying a HUC code: `elfdata()` will 
-retieve IchthyMaps data from USGS ScienceBase using the `sbtools` package and automatically derive fish species richness at the NHDPlusV2 segment scale. Mean annual flow data is then automatically retrieved for each NHDPlusV2 segment using the `nhdplusTools` package.
+retrieve IchthyMaps data from USGS ScienceBase using the `sbtools` package and automatically derive fish species richness at the NHDPlusV2 segment scale. Mean annual flow data is then automatically retrieved for each NHDPlusV2 segment using the `nhdplusTools` package.
 
 A breakpoint in the flow-ecology relation is determined using a fixed user-defined
 value, or identified using the functions `bkpt_pwit()` or `bkpt_ymax()`. The ELF
