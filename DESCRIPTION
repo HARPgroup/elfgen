@@ -12,12 +12,14 @@ Authors@R:
 	  person(given = "Robert",
              family = "Burgholzer",
              email = "robert.burgholzer@deq.virginia.gov",
-             role = "ctb"
+             role = "ctb",
+             comment = c(ORCID = "0000-0002-7290-4928")
     ),
     person(given = "Connor",
              family = "Brogan",
              email = "connor.brogan@deq.virginia.gov",
-             role = "cre"
+             role = "cre",
+             comment = c(ORCID = "0000-0001-9377-1805")
     )
   )
 Maintainer: Connor Brogan <connor.brogan@deq.virginia.gov>
