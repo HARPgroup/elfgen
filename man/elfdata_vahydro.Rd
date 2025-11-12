@@ -40,7 +40,7 @@ Given a set of VAHydro input parameters, outputs a dataframe of
 flow metric and richness metric data for hydrologic unit supplied
 }
 \examples{
-\dontrun{
+\donttest{
 # We don't run this example by R CMD check, because it takes >10s
 
 # Retrieve dataset of interest

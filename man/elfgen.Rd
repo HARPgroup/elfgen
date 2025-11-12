@@ -42,7 +42,7 @@ Object containing plot image and dataframe of ELF statistics
 Generate ELF models by supplying a dataframe of richness and stream size data (streamflow or drainage area), a quantile for evaluating the ecological limit, and a breakpoint threshold.
 }
 \examples{
-\dontrun{
+\donttest{
 # We don't run this example by R CMD check, because it takes >10s
 
 watershed.df <- elfdata(watershed.code = '0208020104',

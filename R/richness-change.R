@@ -6,7 +6,7 @@
 #' @return Richness change value is returned
 #' @export richness_change
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
 #' watershed.df <- elfdata(watershed.code = '0208020104',

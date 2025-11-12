@@ -34,7 +34,7 @@ Given a HUC code, provides a dataframe of all contained nhdplus
   segments and their individual NT Total and Mean Annual Flow MAF values
 }
 \examples{
-\dontrun{
+\donttest{
 # We don't run this example by R CMD check, because it takes >10s
 
 # Retrieve dataset of interest

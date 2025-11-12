@@ -22,7 +22,7 @@ Plot of percent decreases in richness from flow reductions
 Calculates and plots percent richness change resulting from streamflow reductions
 }
 \examples{
-\dontrun{
+\donttest{
 # We don't run this example by R CMD check, because it takes >10s
 
 # Generate plot of percent richness change for various percent flow reductions

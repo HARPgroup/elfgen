@@ -9,7 +9,7 @@
 #' @import ggplot2
 #' @export elfchange
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
 #' # Generate plot of percent richness change for various percent flow reductions

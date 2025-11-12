@@ -19,7 +19,7 @@
 #' @import nhdplusTools
 #' @export elfdata
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # We don't run this example by R CMD check, because it takes >10s
 #'
 #' # Retrieve dataset of interest

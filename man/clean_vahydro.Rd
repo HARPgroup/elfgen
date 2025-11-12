@@ -19,7 +19,7 @@ ratio of Drainage Area:Mean Annual Flow is greater than 1000, also aggregates to
 maximum richness value at each x-metric value
 }
 \examples{
-\dontrun{
+\donttest{
 # We don't run this example by R CMD check, because it takes >10s
 
 # Retrieve dataset of interest
