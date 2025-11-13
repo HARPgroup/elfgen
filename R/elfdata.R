@@ -6,7 +6,7 @@
 #' @param ichthy.localpath Local file path for storing downloaded ichthy data.
 #'   Defaults to a temp directory.
 #' @param use_cache Should the function look for a file with the same name in
-#'   the file directory? This allows users to use the same Icthys dataset each
+#'   the file directory? This allows users to use the same Icthy dataset each
 #'   time rather than needing to download separately when running multiple
 #'   analyses
 #' @param update_cache Should the file be written out to use for future caching?

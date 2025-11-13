@@ -19,7 +19,7 @@ HUC12 (e.g. HUC10 code '0208020101').}
 Defaults to a temp directory.}
 
 \item{use_cache}{Should the function look for a file with the same name in
-the file directory? This allows users to use the same Icthys dataset each
+the file directory? This allows users to use the same Icthy dataset each
 time rather than needing to download separately when running multiple
 analyses}
 
