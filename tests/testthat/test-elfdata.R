@@ -56,6 +56,8 @@ test_that(
       ){
         elfdata_test_df <- data.frame()
       }
+    }else if (is.character(elfdata_test_df)){
+      elfdata_test_df <- data.frame()
     }
 
 
