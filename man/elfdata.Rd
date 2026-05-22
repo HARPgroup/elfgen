@@ -41,8 +41,8 @@ Given a HUC code, provides a dataframe of all contained nhdplus
 # You may enter either a 6, 8, 10, or 12-digit HUC code.
 # By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by
 # supplying a local path of interest using the input parameter 'ichthy.localpath'
-watershed_df <- elfdata(watershed.code = '0208020104',
- ichthy.localpath = tempdir(), use_cache = FALSE)
-head(watershed_df)
+watershed_df <- tryCatch({elfdata(watershed.code = '0208020104',
+ ichthy.localpath = tempdir(), use_cache = FALSE)}, warning = function(w){print(w)},
+ error = function(e){"internet resource error"})
 }
 }

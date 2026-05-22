@@ -12,9 +12,6 @@
 #' @return A dataframe of sites containing species richness data (NT Total values) and mean annual flow (MAF) data.
 #' @export elfdata_vahydro
 #' @examples
-#' \donttest{
-#' # We don't run this example by R CMD check, because it takes >10s
-#'
 #' # Retrieve dataset of interest
 #' watershed.df <- elfdata_vahydro(
 #'    'nhd_huc8_02080201',
@@ -25,7 +22,6 @@
 #'    'species'
 #'    )
 #' elfdata_vahydro(watershed.df)
-#' }
 elfdata_vahydro <- function (watershed.code,watershed.bundle,watershed.ftype,x.metric,y.metric,y.sampres,datasite,EDAS.localpath = tempdir()) {
 
   if (missing(datasite)) {

@@ -14,13 +14,8 @@
 #' @import stats
 #' @export bkpt_pwit
 #' @examples
-#' \donttest{
-#' # We don't run this example by R CMD check, because it takes >10s
-#'
-#' watershed.df <- elfdata(watershed.code = '0208020104',
-#'  ichthy.localpath = tempdir(), use_cache = FALSE)
+#' #elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir(), use_cache = FALSE)
 #' bkpt_pwit(watershed.df,0.85,100,300)
-#' }
 bkpt_pwit <- function(watershed.df,quantile,blo,bhi) {
 
   watershed.df.raw <- watershed.df

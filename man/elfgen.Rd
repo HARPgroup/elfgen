@@ -42,11 +42,7 @@ Object containing plot image and dataframe of ELF statistics
 Generate ELF models by supplying a dataframe of richness and stream size data (streamflow or drainage area), a quantile for evaluating the ecological limit, and a breakpoint threshold.
 }
 \examples{
-\donttest{
-# We don't run this example by R CMD check, because it takes >10s
-
-watershed.df <- elfdata(watershed.code = '0208020104',
- ichthy.localpath = tempdir(), use_cache = FALSE)
+#elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir(), use_cache = FALSE)
 breakpt <- 500
 elfgen(
    "watershed.df" = watershed.df,
@@ -55,5 +51,4 @@ elfgen(
    "xlabel" = "Mean Annual Flow (ft3/s)",
    "ylabel" = "Fish Species Richness"
    )
-}
 }

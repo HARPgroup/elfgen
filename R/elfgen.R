@@ -17,11 +17,7 @@
 #' @import testit
 #' @export elfgen
 #' @examples
-#' \donttest{
-#' # We don't run this example by R CMD check, because it takes >10s
-#'
-#' watershed.df <- elfdata(watershed.code = '0208020104',
-#'  ichthy.localpath = tempdir(), use_cache = FALSE)
+#' #elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir(), use_cache = FALSE)
 #' breakpt <- 500
 #' elfgen(
 #'    "watershed.df" = watershed.df,
@@ -30,7 +26,6 @@
 #'    "xlabel" = "Mean Annual Flow (ft3/s)",
 #'    "ylabel" = "Fish Species Richness"
 #'    )
-#' }
 elfgen <- function(
     watershed.df,
     quantile,

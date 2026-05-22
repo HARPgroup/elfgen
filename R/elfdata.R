@@ -26,9 +26,9 @@
 #' # You may enter either a 6, 8, 10, or 12-digit HUC code.
 #' # By default the ichthy dataset is downloaded to a temp directory, however this may be overridden by
 #' # supplying a local path of interest using the input parameter 'ichthy.localpath'
-#' watershed_df <- elfdata(watershed.code = '0208020104',
-#'  ichthy.localpath = tempdir(), use_cache = FALSE)
-#' head(watershed_df)
+#' watershed_df <- tryCatch({elfdata(watershed.code = '0208020104',
+#'  ichthy.localpath = tempdir(), use_cache = FALSE)}, warning = function(w){print(w)},
+#'  error = function(e){"internet resource error"})
 #' }
 elfdata <- function (watershed.code,ichthy.localpath,use_cache=TRUE, update_cache=FALSE) {
   watershed_code = watershed.code # rename to avoid janky dot notation
@@ -103,15 +103,15 @@ elfdata <- function (watershed.code,ichthy.localpath,use_cache=TRUE, update_cach
   if (nchar(watershed_code) == 8) {watershed_rows <- ichthy_dataframe[which(ichthy_dataframe$HUC8 == watershed_code),] }
   if (nchar(watershed_code) == 6) {watershed_rows <- ichthy_dataframe[which(ichthy_dataframe$HUC6 == watershed_code),] }
 
-   if (length(watershed_rows[,1]) == 0) {
-     stop("No ichtymap data for hydrologic unit code")
-   }
+  if (length(watershed_rows[,1]) == 0) {
+    stop("No ichtymap data for hydrologic unit code")
+  }
 
   #initialize watershed_df dataframe
   watershed_df <- data.frame(WATERSHED=character(),
-                           COMID=character(),
-                           NT_TOTAL=character(),
-                           stringsAsFactors=FALSE)
+                             COMID=character(),
+                             NT_TOTAL=character(),
+                             stringsAsFactors=FALSE)
 
   #Loop through all COMIDs, summing the number of unique taxa present
   # to generate an NT Total value for each nhdplus segment

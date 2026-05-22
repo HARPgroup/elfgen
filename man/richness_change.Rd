@@ -20,11 +20,7 @@ Richness change value is returned
 Calculates absolute or percent richness change from streamflow reduction
 }
 \examples{
-\donttest{
-# We don't run this example by R CMD check, because it takes >10s
-
-watershed.df <- elfdata(watershed.code = '0208020104',
- ichthy.localpath = tempdir(), use_cache = FALSE)
+#elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir(), use_cache = FALSE)
 breakpt <- 500
 elf <- elfgen(
    "watershed.df" = watershed.df,
@@ -37,5 +33,4 @@ elf <- elfgen(
 richness_change(elf$stats, "pctchg" = 10)
 # Calculate percent richness change at a specific stream size
 richness_change(elf$stats, "pctchg" = 10, "xval" = 50)
-}
 }

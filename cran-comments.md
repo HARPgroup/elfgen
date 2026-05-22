@@ -2,4 +2,5 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release of the archived elfgen package with the new maintainer noted. Ensured examples that take more than 10 seconds to run were tagged with donttest instead of dontrun.
+* Updated testing code of elfdata() both in example and test code to allow graceful failing if internet resources create issues on data downloads
+* Added default data for examples to draw from to limit the need to rely on donttest{}. Maintained donttest{} in elfdata.R as the example can take over a minute to run.

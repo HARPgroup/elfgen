@@ -9,12 +9,7 @@
 #' @import ggplot2
 #' @export elfchange
 #' @examples
-#' \donttest{
-#' # We don't run this example by R CMD check, because it takes >10s
-#'
-#' # Generate plot of percent richness change for various percent flow reductions
-#' watershed.df <- elfdata(watershed.code = '0208020104',
-#'  ichthy.localpath = tempdir(), use_cache = FALSE)
+#' #elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir(), use_cache = FALSE)
 #' breakpt <- 500
 #' elf <- elfgen(
 #'    "watershed.df" = watershed.df,
@@ -24,7 +19,6 @@
 #'    "ylabel" = "Fish Species Richness"
 #'    )
 #' elfchange(elf$stats, "yaxis_thresh" = 25)
-#' }
 elfchange <- function(stats,yaxis_thresh,xlabel = FALSE,ylabel = FALSE) {
   its <- seq(1, 500, 0.01)
   pct_list <- c(5, 10, 20, 30, 40, 50)

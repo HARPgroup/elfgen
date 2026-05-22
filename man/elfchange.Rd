@@ -22,12 +22,7 @@ Plot of percent decreases in richness from flow reductions
 Calculates and plots percent richness change resulting from streamflow reductions
 }
 \examples{
-\donttest{
-# We don't run this example by R CMD check, because it takes >10s
-
-# Generate plot of percent richness change for various percent flow reductions
-watershed.df <- elfdata(watershed.code = '0208020104',
- ichthy.localpath = tempdir(), use_cache = FALSE)
+#elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir(), use_cache = FALSE)
 breakpt <- 500
 elf <- elfgen(
    "watershed.df" = watershed.df,
@@ -37,5 +32,4 @@ elf <- elfgen(
    "ylabel" = "Fish Species Richness"
    )
 elfchange(elf$stats, "yaxis_thresh" = 25)
-}
 }

@@ -4,13 +4,8 @@
 #' @return Breakpoint value is returned
 #' @export bkpt_ymax
 #' @examples
-#' \donttest{
-#' # We don't run this example by R CMD check, because it takes >10s
-#'
-#' watershed.df <- elfdata(watershed.code = '0208020104',
-#'  ichthy.localpath = tempdir(), use_cache = FALSE)
+#' #elfdata(watershed.code = '0208020104', ichthy.localpath = tempdir(), use_cache = FALSE)
 #' bkpt_ymax(watershed.df)
-#' }
 bkpt_ymax <- function(watershed.df) {
 
   watershed.df.raw <- watershed.df
