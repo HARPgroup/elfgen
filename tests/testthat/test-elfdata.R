@@ -54,13 +54,12 @@ test_that(
         "Internet resource not available, check internet connection and try again",
         "Connection to ScienceBase can not be established, Check internet connection and try again")
       ){
-        elfdata_test_df <- data.frame()
+        expect_equal(is.character(elfdata_test_df), TRUE)
       }
     }else if (is.character(elfdata_test_df)){
-      elfdata_test_df <- data.frame()
+      expect_equal(is.character(elfdata_test_df), TRUE)
+    }else{
+      expect_equal(ncol(elfdata_test_df), 15)
     }
-
-
-    expect_equal(is.data.frame(elfdata_test_df), TRUE)
   }
 )
