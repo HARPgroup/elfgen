@@ -42,19 +42,17 @@ test_that(
         elfdata(watershed.code = test.ichthy.dataframe,
                 ichthy.localpath = tempdir(), use_cache = FALSE)
       },
-      error = function(e){
-        if(any(e$message %in% c("Invalid length of hydrologic unit code",
-                        "Ichthymaps resource not available",
-                        "No ichtymap data for hydrologic unit code"))){
-          return("internet error")
-        }
-      }
+      error = function(e){e}
     )
 
     if(!inherits(elfdata_test_df, "data.frame") && is.character(elfdata_test_df)){
-      if(elfdata_test_df %in% c("internet error",
-                                "Internet resource not available, check internet connection and try again",
-                                "Connection to ScienceBase can not be established, Check internet connection and try again")
+      if(elfdata_test_df %in% c(
+        "Invalid length of hydrologic unit code",
+        "Ichthymaps resource not available",
+        "No ichtymap data for hydrologic unit code",
+        "internet error",
+        "Internet resource not available, check internet connection and try again",
+        "Connection to ScienceBase can not be established, Check internet connection and try again")
       ){
         elfdata_test_df <- data.frame()
       }

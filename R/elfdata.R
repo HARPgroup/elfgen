@@ -67,12 +67,12 @@ elfdata <- function (watershed.code,ichthy.localpath,use_cache=TRUE, update_cach
     if (file.exists(destfile) == FALSE) {
       #test if you have internet connection
       if (curl::has_internet() == FALSE) {
-        return("Internet resource not available, check internet connection and try again")
+        stop("Internet resource not available, check internet connection and try again")
       }
 
       #ping ScienceBase to see if it is available
       if (sbtools::sb_ping() == FALSE) {
-        return("Connection to ScienceBase can not be established, Check internet connection and try again")
+        stop("Connection to ScienceBase can not be established, Check internet connection and try again")
       }
       message(paste("Downloading ichthy dataset:", sep = ''))
       invisible(sbtools::item_file_download(sb_id = '5446a5a1e4b0f888a81b816d', dest_dir = ichthy.localpath))
