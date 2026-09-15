@@ -8,16 +8,6 @@ test_that("Checking length of input watershed.code",
                                  use_cache = FALSE), "Invalid length of hydrologic unit code")
           })
 
-##test_that("Checking for valid watershed.code",
-##          {
-##            expect_error(elfdata("999999999999"), "No IchthyMap Data for Hydrologic Unit Code")
-##          })
-
-  # test_that("Function returns a dataframe", {
-  #   expect_equal(is.data.frame(elfdata("020700080403")), TRUE)
-  # })
-
-
 test.ichthy.dataframe <- data.frame(
   ID = c(132114,462514,370400,113072,113252),
   Source = c('Fish_Virginia','Fish_United States','Fish_United States','Fish_Virginia','Fish_Virginia'),
