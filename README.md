@@ -31,7 +31,7 @@ devtools::install_github("HARPgroup/elfgen")
 An introductory example of how elfgen works is supplied below. You start 
 by either supplying a dataset with flow and richness data, or by supplying 
 a HUC code of interest. When supplying a HUC code: `elfdata()` will 
-retrieve IchthyMaps data from USGS ScienceBase using the `sbtools` package and automatically derive fish species richness at the NHDPlusV2 segment scale. Mean annual flow data is then automatically retrieved for each NHDPlusV2 segment using the `nhdplusTools` package.
+retrieve IchthyMaps data from USGS ScienceBase using the `sbtools` package and automatically derive fish species richness at the NHDPlusV2 segment scale. Mean annual flow data is then automatically retrieved for each NHDPlusV2 segment using the `hydrogeofetch` package.
 
 A breakpoint in the flow-ecology relation is determined using a fixed user-defined
 value, or identified using the functions `bkpt_pwit()` or `bkpt_ymax()`. The ELF

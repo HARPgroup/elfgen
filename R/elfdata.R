@@ -16,7 +16,7 @@
 #' @import stringr
 #' @import curl
 #' @import sbtools
-#' @import nhdplusTools
+#' @import hydrogeofetch
 #' @export elfdata
 #' @examples
 #' \donttest{
@@ -133,7 +133,7 @@ elfdata <- function (watershed.code,ichthy.localpath,use_cache=TRUE, update_cach
   pbm <- txtProgressBar(min = 0, max = length(watershed_df$COMID_NHDv2), initial = 0)
   for (j in 1:length(watershed_df$COMID_NHDv2)) {
     COMID <- watershed_df[j,]$COMID_NHDv2
-    COMID.dat <- nhdplusTools::get_nhdplus(comid = COMID)
+    COMID.dat <- hydrogeofetch::get_nhdplus(comid = COMID)
     COMID.MAF <- COMID.dat$qe_ma
 
     #Skip COMID if MAF is NULL
