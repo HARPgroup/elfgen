@@ -1,3 +1,6 @@
+# elfgen 2.3.6
+* Moved to use `hydrogeofetch` instead of `nhdPlusTools` after https://github.com/HARPgroup/elfgen/pull/82
+
 # elfgen 2.3.5
 * Added example data to make examples easier to run
 

@@ -1,6 +1,6 @@
 Package: elfgen
 Title: Ecological Limit Function Model Generation and Analysis Toolkit
-Version: 2.3.5
+Version: 2.3.6
 Authors@R: 
 	c(
 	  person(given = "Joseph", 
