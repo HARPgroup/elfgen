@@ -39,10 +39,10 @@ Imports:
 	hydrogeofetch
 License: MIT + file LICENSE
 URL: https://github.com/HARPgroup/elfgen
-RoxygenNote: 7.3.2
 Suggests: 
     testthat (>= 2.1.0)
 Depends: 
     R (>= 3.5)
 LazyData: true
 Encoding: UTF-8
+Config/roxygen2/version: 8.0.0
