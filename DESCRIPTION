@@ -46,3 +46,4 @@ Depends:
 LazyData: true
 Encoding: UTF-8
 Config/roxygen2/version: 8.0.0
+BugReports: https://github.com/HARPgroup/elfgen/issues
